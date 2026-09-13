@@ -31,3 +31,6 @@ verification/sources/*
 verification/sources/iieg-oct2021/*
 !verification/sources/iieg-oct2021/delitos_colonia_paginaweb_oct21.csv
 HALLAZGOS_GRUPO_CHOFERES.md
+entrega/*
+!entrega/Detector-ofertas-0.3.3.apk
+!entrega/Detector-ofertas-0.3.3.sha256.txt

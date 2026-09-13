@@ -6,6 +6,8 @@ App Android disponible al público, con descarga gratuita y código consultable 
 
 El score compara ofertas con tus ajustes; no es una probabilidad de delito ni garantiza ingresos. Los costos iniciales son ejemplos. El catálogo histórico no cubre todas las colonias ni evalúa la ruta completa. La landing está en [landing/](landing/README.md). Las donaciones son voluntarias y únicas mediante un enlace de Stripe; no condicionan la descarga.
 
+[Publicación y mantenimiento](PUBLICACION.md).
+
 **APK:** [Detector-ofertas-0.3.3.apk](entrega/Detector-ofertas-0.3.3.apk). Instala sobre la anterior sin desinstalar. [Lectura durante el efecto azul](VERSION_0.3.3.md). [UberXL y Exclusivo](VERSION_0.3.2.md). [Correcciones de importes, Exclusivo y Priority](VERSION_0.3.1.md). [Defaults y reglas](VERSION_0.3.0.md).
 
 0.3.0 leyó $77.06 como $7706 en una captura real y permitió un cálculo incorrecto de miles de pesos. 0.3.1 exige centavos legibles, reintenta campos numéricos ampliados y descarta incoherencias; si no puede validar, deja gris. Registros anteriores se conservan sin revalidación automática. Actualiza antes de continuar las pruebas.
