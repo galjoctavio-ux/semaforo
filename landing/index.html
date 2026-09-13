@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102822" />
+    <title>Semáforo de TESIVIL · Evalúa tus ofertas de viaje</title>
+    <meta
+      name="description"
+      content="Una app Android que lee ofertas visibles de Uber Driver y compara rentabilidad, recogida, zonas y pasajero con tus reglas. Beta pública gratuita con código público."
+    />
+    <link rel="canonical" href="https://semaforo.uber.tesivil.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_MX" />
+    <meta
+      property="og:title"
+      content="Semáforo · Más claridad antes de aceptar"
+    />
+    <meta
+      property="og:description"
+      content="Evalúa tus ofertas con costos y metas propios. Android 14+, descarga gratuita y código público."
+    />
+    <meta property="og:url" content="https://semaforo.uber.tesivil.com/" />
+    <meta
+      property="og:image"
+      content="https://semaforo.uber.tesivil.com/social.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#contenido">Saltar al contenido</a>
+    <header class="header wrap">
+      <a class="brand" href="/" aria-label="Semáforo de TESIVIL, inicio"
+        ><span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i></span
+        ><span>semáforo<span class="brand-by">por TESIVIL</span></span></a
+      >
+      <nav aria-label="Navegación principal">
+        <a href="#funciones">Qué hace</a><a href="#instalar">Cómo empezar</a
+        ><a
+          class="nav-code"
+          href="https://github.com/galjoctavio-ux/semaforo"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub <span aria-hidden="true">↗</span></a
+        >
+      </nav>
+      <a
+        class="button button-small button-dark"
+        href="/descargas/Detector-ofertas-0.3.3.apk"
+        download
+        >Descargar APK <span aria-hidden="true">↓</span></a
+      >
+    </header>
+    <main id="contenido">
+      <section class="hero wrap">
+        <div class="hero-copy">
+          <p class="eyebrow">
+            <span class="live-dot" aria-hidden="true"></span> BETA PÚBLICA ·
+            ANDROID · ZMG
+          </p>
+          <h1>Unos segundos.<br />Una decisión<br /><span>más clara.</span></h1>
+          <p class="hero-description">
+            El precio del viaje no cuenta toda la historia. Semáforo pone tus
+            costos, tu tiempo y tus reglas en una ventana sobre Uber Driver para
+            ayudarte a decidir.
+          </p>
+          <div class="hero-actions">
+            <a
+              class="button button-green"
+              href="/descargas/Detector-ofertas-0.3.3.apk"
+              download
+              >Descargar gratis
+              <svg aria-hidden="true" viewBox="0 0 24 24">
+                <path d="M12 3v12m-5-5 5 5 5-5M5 16v4h14v-4" /></svg></a
+            ><a class="text-link" href="#funciones"
+              >Conoce la app <span aria-hidden="true">↘</span></a
+            >
+          </div>
+          <p class="download-meta">
+            Versión 0.3.3 · Android 14 o posterior · 50.4 MB<br />Sin registro.
+            La donación es opcional.
+          </p>
+        </div>
+        <div class="hero-visual">
+          <div class="visual-orbit" aria-hidden="true"></div>
+          <div
+            class="phone"
+            aria-label="Ejemplo ilustrativo de evaluación de una oferta"
+          >
+            <div class="phone-top">
+              <span>19:21</span
+              ><span class="phone-camera" aria-hidden="true"></span
+              ><span aria-hidden="true">▰</span>
+            </div>
+            <div class="map" aria-hidden="true">
+              <svg viewBox="0 0 340 320">
+                <path
+                  class="street"
+                  d="M-10 82 355 245M-20 175 320 32M60 0 200 330M245-5 120 335M-5 255 345 145M0 35 340 125"
+                />
+                <path class="route" d="m63 80 55 30 58 123 87-38 20 65" />
+                <circle cx="63" cy="80" r="10" />
+                <circle cx="283" cy="260" r="10" /></svg
+              ><span class="map-label">Guadalajara</span>
+            </div>
+            <div class="offer-preview">
+              <p class="preview-kicker">OFERTA VISIBLE · UBERX</p>
+              <strong class="preview-fare">$216.09</strong>
+              <div class="preview-passenger">
+                <span>★ 4.85</span><span>22 visibles</span>
+              </div>
+              <div class="preview-legs">
+                <p>
+                  <span class="leg-dot" aria-hidden="true"></span
+                  ><span>Recogida <b>10 min · 3.1 km</b></span>
+                </p>
+                <p>
+                  <span class="leg-dot square" aria-hidden="true"></span
+                  ><span>Viaje <b>47 min · 18.4 km</b></span>
+                </p>
+              </div>
+              <div class="preview-button">La decisión sigue siendo tuya</div>
+            </div>
+            <p class="phone-caption">
+              Ejemplo ilustrativo con costos configurados
+            </p>
+          </div>
+          <div class="score-preview">
+            <div class="score-heading">
+              <span
+                ><span class="amber-dot" aria-hidden="true"></span> ÁMBAR</span
+              ><span>64<span class="score-max">/100</span></span>
+            </div>
+            <p class="score-income">$160.79<span>/h estimados</span></p>
+            <p class="score-detail">$160.79 disponibles · $7.48/km</p>
+            <div class="score-divider"></div>
+            <p class="score-reason">Zona sin verificar</p>
+            <p class="score-footnote">Incluye 3 min de espera configurada</p>
+          </div>
+        </div>
+      </section>
+      <div class="trust-strip">
+        <div class="wrap trust-items">
+          <span
+            ><svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="m12 3 8 3v6c0 5-8 9-8 9S4 17 4 12V6Z" />
+              <path d="m8 12 3 3 5-6" /></svg
+            >Lectura local, sin enviar pantallas</span
+          ><span
+            ><svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="m8 5-6 7 6 7m8-14 6 7-6 7m-3-16-2 18" /></svg
+            >Código público y consultable</span
+          ><span
+            ><svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M4 7h16M4 17h16" />
+              <circle cx="9" cy="7" r="3" />
+              <circle cx="15" cy="17" r="3" /></svg
+            >Costos y objetivos editables</span
+          >
+        </div>
+      </div>
+      <section class="section wrap" id="funciones">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LO QUE IMPORTA AL VOLANTE</p>
+            <h2>Mira más allá<br />del precio grande.</h2>
+          </div>
+          <p>
+            Una evaluación explicable de cada oferta legible. Puedes revisar el
+            desglose y ajustar los criterios a tu forma de trabajar.
+          </p>
+        </div>
+        <div class="features">
+          <article class="feature">
+            <span class="feature-number">01 / RENTABILIDAD</span>
+            <h3>Lo disponible por hora y km</h3>
+            <p>
+              Estima lo que queda después de energía, mantenimiento, llantas,
+              desgaste, costos fijos y extras. Incluye recogida y tiempos
+              adicionales que configures.
+            </p>
+            <span class="feature-tag">Importe bruto → margen estimado</span>
+          </article>
+          <article class="feature">
+            <span class="feature-number">02 / RECOGIDA</span>
+            <h3>Llegar también cuesta</h3>
+            <p>
+              Considera los minutos y kilómetros hasta el pasajero. Una oferta
+              atractiva puede perder puntos si la recogida consume demasiado
+              tiempo.
+            </p>
+            <span class="feature-tag">Tiempo y distancia totales</span>
+          </article>
+          <article class="feature">
+            <span class="feature-number">03 / TU VEHÍCULO</span>
+            <h3>Tu carro, tus números</h3>
+            <p>
+              Configura gasolina, eléctrico o híbrido enchufable, rendimiento,
+              autonomía eléctrica disponible y costos. Todos los valores
+              iniciales se pueden editar.
+            </p>
+            <span class="feature-tag">Metas y pesos del score propios</span>
+          </article>
+          <article class="feature">
+            <span class="feature-number">04 / ZONAS</span>
+            <h3>Antecedentes, con contexto</h3>
+            <p>
+              Base inicial de 90 reglas para la Zona Metropolitana de
+              Guadalajara. Consulta fuentes y periodos; agrega, elimina o cambia
+              nivel, horario y aplicación a recogida o destino.
+            </p>
+            <span class="feature-tag"
+              >Antecedentes históricos y reglas propias</span
+            >
+          </article>
+          <article class="feature">
+            <span class="feature-number">05 / PASAJERO</span>
+            <h3>Filtros que tú defines</h3>
+            <p>
+              Considera la calificación y el contador visibles. Puedes ajustar o
+              desactivar el rojo por pasajero marcado como nuevo, contador bajo
+              o calificación bajo tu mínimo.
+            </p>
+            <span class="feature-tag">Datos ausentes no equivalen a cero</span>
+          </article>
+          <article class="feature">
+            <span class="feature-number">06 / CONTROL</span>
+            <h3>Tú aceptas. Tú detienes.</h3>
+            <p>
+              Ventana movible, simulador, desglose e historial local de hasta
+              200 evaluaciones. Lee ofertas visibles de UberX, UberXL y
+              Priority, incluidas tarjetas Exclusivo compatibles.
+            </p>
+            <span class="feature-tag"
+              >Sin aceptar ni rechazar automáticamente</span
+            >
+          </article>
+        </div>
+      </section>
+      <section class="signals-section">
+        <div class="wrap signals-inner">
+          <div>
+            <p class="eyebrow">UNA SEÑAL. UN MOTIVO.</p>
+            <h2>El color tiene<br />una explicación.</h2>
+            <p>
+              El score combina tus objetivos y filtros. Un bloqueo configurado
+              puede imponer rojo aunque el importe sea atractivo.
+            </p>
+          </div>
+          <div class="signals">
+            <div>
+              <span class="signal-dot green" aria-hidden="true"></span>
+              <p>
+                <strong>Verde</strong
+                ><span>Cumple tus metas y criterios para verde.</span>
+              </p>
+            </div>
+            <div>
+              <span class="signal-dot amber" aria-hidden="true"></span>
+              <p>
+                <strong>Ámbar</strong
+                ><span
+                  >Resultado intermedio o información de zona sin
+                  verificar.</span
+                >
+              </p>
+            </div>
+            <div>
+              <span class="signal-dot red" aria-hidden="true"></span>
+              <p>
+                <strong>Rojo</strong
+                ><span>Queda bajo tus mínimos o activa un bloqueo.</span>
+              </p>
+            </div>
+            <div>
+              <span class="signal-dot gray" aria-hidden="true"></span>
+              <p>
+                <strong>Gris</strong
+                ><span>Lectura incompleta, ambigua o sin oferta válida.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section wrap install-section" id="instalar">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">BETA PÚBLICA 0.3.3</p>
+            <h2>Empieza con<br />tus propios datos.</h2>
+          </div>
+          <p>
+            Disponible al público para Android 14 o posterior mediante APK. La
+            beta se distribuye desde esta página y GitHub.
+          </p>
+        </div>
+        <ol class="steps">
+          <li>
+            <span>01</span>
+            <h3>Descarga e instala</h3>
+            <p>
+              Abre el APK y autoriza la instalación desde el navegador o gestor
+              que utilices. Si ya tienes la app, actualiza sin desinstalar para
+              conservar tus ajustes.
+            </p>
+          </li>
+          <li>
+            <span>02</span>
+            <h3>Revisa tus valores</h3>
+            <p>
+              Ajusta vehículo, costos, metas, pasajero y zonas. Los valores
+              iniciales son ejemplos; no sustituyen tus gastos y rendimientos
+              reales.
+            </p>
+          </li>
+          <li>
+            <span>03</span>
+            <h3>Autoriza la lectura</h3>
+            <p>
+              Permite mostrar sobre otras apps. Selecciona «Pantalla completa
+              (minimizado)» y autoriza la captura de pantalla de esa sesión en
+              Android.
+            </p>
+          </li>
+          <li>
+            <span>04</span>
+            <h3>Prueba estacionado</h3>
+            <p>
+              Comprueba las cifras con una captura o una oferta visible. Mueve
+              la ventana para dejar libre la tarjeta. Finaliza con «Detener».
+            </p>
+          </li>
+        </ol>
+        <div class="download-panel">
+          <div>
+            <strong>Semáforo · Detector de ofertas</strong>
+            <p>0.3.3 · 50.4 MB · Publicada el 12 de septiembre de 2026</p>
+          </div>
+          <a
+            class="button button-dark"
+            href="/descargas/Detector-ofertas-0.3.3.apk"
+            download
+            >Descargar APK <span aria-hidden="true">↓</span></a
+          >
+        </div>
+        <details class="checksum">
+          <summary>Verificar archivo y consultar esta versión</summary>
+          <p>SHA-256 del APK:</p>
+          <code
+            >b00b4273f3cd85338da9a9b537e6578f6c8ac2fa9f886af66db2b4c061ea03d8</code
+          >
+          <p>
+            <a href="/descargas/Detector-ofertas-0.3.3.sha256.txt"
+              >Descargar huella SHA-256</a
+            >
+            ·
+            <a
+              href="https://github.com/galjoctavio-ux/semaforo/releases/tag/v0.3.3"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Notas y descarga en GitHub ↗</a
+            >
+          </p>
+        </details>
+      </section>
+      <section class="open-section wrap" id="proyecto">
+        <div class="open-copy">
+          <p class="eyebrow">TRANSPARENCIA DESDE EL PRINCIPIO</p>
+          <h2>Puedes probarla.<br />Y puedes revisarla.</h2>
+          <p>
+            La app está disponible al público, con el código Android, esta
+            página, las fórmulas del score y las fuentes del catálogo en un
+            repositorio público. Puedes consultar cómo se calcula cada
+            recomendación y reportar fallos.
+          </p>
+          <a
+            class="text-link"
+            href="https://github.com/galjoctavio-ux/semaforo"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Explorar el proyecto en GitHub
+            <span aria-hidden="true">↗</span></a
+          >
+        </div>
+        <aside class="donation">
+          <span class="donation-icon" aria-hidden="true">♡</span>
+          <p class="eyebrow">APOYA EL DESARROLLO</p>
+          <h3>Si te resulta útil,<br />ayúdanos a mejorarla.</h3>
+          <p>
+            Tu aportación es voluntaria. Elige el importe en pesos mexicanos en
+            la página de Stripe.
+          </p>
+          <a
+            class="button button-green"
+            href="https://buy.stripe.com/28E14o0cKcddef975EfIs00"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Donar con Stripe <span aria-hidden="true">↗</span></a
+          >
+          <p class="donation-meta">
+            Aportación única · Sin suscripción<br />La descarga es gratuita,
+            dones o no.
+          </p>
+        </aside>
+      </section>
+      <section class="section wrap faq-section">
+        <div>
+          <p class="eyebrow">ANTES DE EMPEZAR</p>
+          <h2>Preguntas claras.<br />Respuestas también.</h2>
+        </div>
+        <div class="faq">
+          <details>
+            <summary>¿Es una app oficial de Uber?</summary>
+            <p>
+              No. Es un proyecto independiente de TESIVIL, sin afiliación ni
+              respaldo de Uber. Uber y sus nombres de productos pertenecen a sus
+              respectivos titulares. La app no se enlaza con tu cuenta: lee las
+              ofertas que están visibles en la pantalla que autorizas.
+            </p>
+          </details>
+          <details>
+            <summary>¿Funciona al minimizarla?</summary>
+            <p>
+              Sí, durante una sesión activa de «Pantalla completa (minimizado)»,
+              con servicio y ventana flotante. La oferta debe estar visible. Si
+              bloqueas el teléfono, Android termina la captura o el sistema
+              cierra el servicio, debes iniciar otra sesión.
+            </p>
+          </details>
+          <details>
+            <summary>¿Envía mis pantallas o datos a una IA?</summary>
+            <p>
+              La APK 0.3.3 incluye el reconocimiento de texto y realiza el
+              cálculo localmente. No tiene permiso de Internet ni envía capturas
+              a GPT. La captura completa procesa otras pantallas visibles
+              mientras está activa. Puedes detenerla y exportar un diagnóstico
+              voluntariamente.
+              <a href="/privacidad.html">Consulta privacidad y permisos</a>.
+            </p>
+          </details>
+          <details>
+            <summary>¿El verde garantiza ganancia o seguridad?</summary>
+            <p>
+              No. Es una estimación de la oferta según tus datos y reglas. No
+              acredita el pago final ni predice delitos. El catálogo utiliza
+              antecedentes históricos y un reporte comunitario separado; no
+              cubre toda la ZMG ni analiza la ruta completa. Una zona sin
+              verificar no significa que sea segura.
+            </p>
+          </details>
+          <details>
+            <summary>¿Qué significa el contador del pasajero?</summary>
+            <p>
+              Es el número visible junto a su calificación. Su significado
+              exacto en esta interfaz de México sigue pendiente de confirmar. El
+              rojo inicial por contador menor a cinco es una preferencia
+              editable, no una prueba de peligrosidad.
+            </p>
+          </details>
+          <details>
+            <summary>¿Qué limitaciones tiene la beta?</summary>
+            <p>
+              Puede fallar con animaciones, cambios de diseño o texto poco
+              legible. El tiempo completo de respuesta aún no se ha medido de
+              forma sistemática en distintos teléfonos. Los formatos en horas,
+              múltiples destinos y categorías distintas de UberX, UberXL y
+              Priority siguen pendientes. Una lectura no validada queda gris.
+            </p>
+          </details>
+          <details>
+            <summary>¿Cómo reporto un problema?</summary>
+            <p>
+              <a
+                href="https://github.com/galjoctavio-ux/semaforo/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Abre un reporte en GitHub</a
+              >
+              con tu modelo de teléfono, Android, versión de la app y el mensaje
+              observado. Los reportes son públicos: revisa cualquier diagnóstico
+              y evita adjuntar nombres, direcciones personales o capturas con
+              información privada.
+            </p>
+          </details>
+        </div>
+      </section>
+      <section class="final-cta">
+        <div class="wrap">
+          <div>
+            <p class="eyebrow">HECHA PARA DECIDIR CON MÁS INFORMACIÓN</p>
+            <h2>Tu tiempo cuenta.<br />Tus costos también.</h2>
+          </div>
+          <a
+            class="button button-green"
+            href="/descargas/Detector-ofertas-0.3.3.apk"
+            download
+            >Probar Semáforo gratis <span aria-hidden="true">↓</span></a
+          >
+        </div>
+      </section>
+    </main>
+    <footer class="wrap footer">
+      <a class="brand" href="/" aria-label="Semáforo, inicio"
+        ><span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i></span
+        ><span>semáforo<span class="brand-by">por TESIVIL</span></span></a
+      >
+      <p>
+        Proyecto independiente · Beta pública<br />No afiliado a Uber.
+        Estimaciones, no garantías.
+      </p>
+      <div>
+        <a href="/privacidad.html">Privacidad</a
+        ><a
+          href="https://github.com/galjoctavio-ux/semaforo"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub ↗</a
+        ><a
+          href="https://buy.stripe.com/28E14o0cKcddef975EfIs00"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Donar ↗</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>

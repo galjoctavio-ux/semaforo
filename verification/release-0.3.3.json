@@ -1,0 +1,57 @@
+{
+  "version": "0.3.3",
+  "version_code": 7,
+  "package": "mx.tesivil.detector",
+  "deliverable": "entrega\\Detector-ofertas-0.3.3.apk",
+  "bytes": 50421532,
+  "sha256": "b00b4273f3cd85338da9a9b537e6578f6c8ac2fa9f886af66db2b4c061ea03d8",
+  "certificate_sha256": "0876d6d2d8230ab279806e24c3072fae05740e7a3e7bc6c922efa7b90c798986",
+  "unit_tests": {
+    "tests": 89,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "android_tests_passed": 48,
+  "lint_errors": 0,
+  "lint_warnings": 17,
+  "user_photos_or_test_fixtures_embedded": false,
+  "catalog_unchanged_from_032": true,
+  "signed_update_032_to_033_preserved_fuel_28_and_90_rules": true,
+  "installed_apk_matches_delivery": true,
+  "release_imported_blue_exclusive": true,
+  "live_projection_with_both_activities_minimized": [
+    {
+      "fare_cents": 8017,
+      "service_label": "UberX · Exclusivo",
+      "pickup_km": 1.4,
+      "trip_km": 6.8,
+      "ocr_ms": 882,
+      "decision_ms": 260
+    },
+    {
+      "fare_cents": 6549,
+      "service_label": "Priority",
+      "pickup_km": 0.9,
+      "trip_km": 4.8,
+      "ocr_ms": 641,
+      "decision_ms": 255
+    }
+  ],
+  "primary_ocr_keeps_original_colors": true,
+  "bounded_full_contrast_retries": 1,
+  "frame_max_age_ms": 1400,
+  "required_confirming_observations": 2,
+  "priority_surcharge_added_again": false,
+  "category_score_bonus": 0,
+  "test_device": "Own isolated Android 16 emulator; not the vivo",
+  "native_fixture_display": "896x1920; card character size approximates the supplied phone screenshots",
+  "limitations": [
+    "Full live-animation trial on actual vivo pending",
+    "OCR duration is not complete detection latency",
+    "Expanded-card 1080x1920 fixture produced late discarded attempts",
+    "Screenshots do not cover every animation phase",
+    "Uber offer is not a confirmed payout",
+    "Offer identity remains heuristic"
+  ]
+}

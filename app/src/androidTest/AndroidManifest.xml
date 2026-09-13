@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <application>
+        <!-- Test-only surface. This activity and the sample image are absent from the delivery APK. -->
+        <activity android:name="mx.tesivil.detector.fixture.SampleOfferActivity"
+            android:label="Muestra OCR de prueba" android:exported="true"
+            android:launchMode="singleTask" android:theme="@android:style/Theme.Material.Light.NoActionBar" />
+        <service android:name="mx.tesivil.detector.fixture.FloatingOfferService" android:exported="true" />
+    </application>
+</manifest>

@@ -1,0 +1,47 @@
+plugins { id 'com.android.application' }
+
+def localSigning = new Properties()
+def signingFile = rootProject.file('.signing/signing.properties')
+if (signingFile.exists()) signingFile.withInputStream { localSigning.load(it) }
+
+android {
+    namespace 'mx.tesivil.detector'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'mx.tesivil.detector'
+        minSdk 34
+        targetSdk 36
+        versionCode 7
+        versionName '0.3.3'
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+    signingConfigs {
+        privateTest {
+            if (signingFile.exists()) {
+                storeFile rootProject.file('.signing/detector.jks')
+                storePassword localSigning['password']
+                keyAlias 'detector'
+                keyPassword localSigning['password']
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.privateTest
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    testOptions { unitTests.returnDefaultValues = true }
+    lint { abortOnError true }
+}
+
+dependencies {
+    implementation 'com.google.mlkit:text-recognition:16.0.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test:runner:1.6.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+}

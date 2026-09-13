@@ -1,0 +1,642 @@
+{
+  "schema": 1,
+  "version": "0.3.0",
+  "consultedOn": "2026-09-12",
+  "entries": [
+    {
+      "id": "zmg-supp-7317d10f31dc6f3a",
+      "neighborhood": "La Calma",
+      "municipality": "Zapopan",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Gobierno Municipal de Zapopan",
+          "title": "Operativo Policía Cercana",
+          "period": "Publicación sin fecha visible; no se asume actual",
+          "finding": "Colonia nombrada en el refuerzo de vigilancia dirigido a lugares con mayor incidencia. Sin conteo por colonia ni tasa de riesgo.",
+          "url": "https://www.zapopan.gob.mx/v3/noticias/comisaria-de-zapopan-refuerza-la-vigilancia-con-operativo-policia-cercana"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-8a8a50ff890196cb",
+      "neighborhood": "Arboledas",
+      "municipality": "Zapopan",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Gobierno Municipal de Zapopan",
+          "title": "Operativo Policía Cercana",
+          "period": "Publicación sin fecha visible; no se asume actual",
+          "finding": "Colonia nombrada en el refuerzo de vigilancia dirigido a lugares con mayor incidencia. Sin conteo por colonia ni tasa de riesgo.",
+          "url": "https://www.zapopan.gob.mx/v3/noticias/comisaria-de-zapopan-refuerza-la-vigilancia-con-operativo-policia-cercana"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-de2cd33b9ce9dde5",
+      "neighborhood": "Las Águilas",
+      "municipality": "Zapopan",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Gobierno Municipal de Zapopan",
+          "title": "Operativo Policía Cercana",
+          "period": "Publicación sin fecha visible; no se asume actual",
+          "finding": "Colonia nombrada en el refuerzo de vigilancia dirigido a lugares con mayor incidencia. Sin conteo por colonia ni tasa de riesgo.",
+          "url": "https://www.zapopan.gob.mx/v3/noticias/comisaria-de-zapopan-refuerza-la-vigilancia-con-operativo-policia-cercana"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-5b7c8526722dd2e4",
+      "neighborhood": "Santa Margarita",
+      "municipality": "Zapopan",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Gobierno Municipal de Zapopan",
+          "title": "Operativo Policía Cercana",
+          "period": "Publicación sin fecha visible; no se asume actual",
+          "finding": "Colonia nombrada en el refuerzo de vigilancia dirigido a lugares con mayor incidencia. Sin conteo por colonia ni tasa de riesgo.",
+          "url": "https://www.zapopan.gob.mx/v3/noticias/comisaria-de-zapopan-refuerza-la-vigilancia-con-operativo-policia-cercana"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-81ef2e6619da4eb9",
+      "neighborhood": "La Tuzanía",
+      "municipality": "Zapopan",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Gobierno Municipal de Zapopan",
+          "title": "Operativo Policía Cercana",
+          "period": "Publicación sin fecha visible; no se asume actual",
+          "finding": "Colonia nombrada en el refuerzo de vigilancia dirigido a lugares con mayor incidencia. Sin conteo por colonia ni tasa de riesgo.",
+          "url": "https://www.zapopan.gob.mx/v3/noticias/comisaria-de-zapopan-refuerza-la-vigilancia-con-operativo-policia-cercana"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-841d6a5766d8a9d2",
+      "neighborhood": "Arcos de Zapopan",
+      "municipality": "Zapopan",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Gobierno Municipal de Zapopan",
+          "title": "Operativo Policía Cercana",
+          "period": "Publicación sin fecha visible; no se asume actual",
+          "finding": "Colonia nombrada en el refuerzo de vigilancia dirigido a lugares con mayor incidencia. Sin conteo por colonia ni tasa de riesgo.",
+          "url": "https://www.zapopan.gob.mx/v3/noticias/comisaria-de-zapopan-refuerza-la-vigilancia-con-operativo-policia-cercana"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-f56402610c516ba8",
+      "neighborhood": "Lomas de Zapopan",
+      "municipality": "Zapopan",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Gobierno Municipal de Zapopan",
+          "title": "Operativo Policía Cercana",
+          "period": "Publicación sin fecha visible; no se asume actual",
+          "finding": "Colonia nombrada en el refuerzo de vigilancia dirigido a lugares con mayor incidencia. Sin conteo por colonia ni tasa de riesgo.",
+          "url": "https://www.zapopan.gob.mx/v3/noticias/comisaria-de-zapopan-refuerza-la-vigilancia-con-operativo-policia-cercana"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-203140ff5abc8cd3",
+      "neighborhood": "Colinas del Rey",
+      "municipality": "Zapopan",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Gobierno Municipal de Zapopan",
+          "title": "Operativo Policía Cercana",
+          "period": "Publicación sin fecha visible; no se asume actual",
+          "finding": "Colonia nombrada en el refuerzo de vigilancia dirigido a lugares con mayor incidencia. Sin conteo por colonia ni tasa de riesgo.",
+          "url": "https://www.zapopan.gob.mx/v3/noticias/comisaria-de-zapopan-refuerza-la-vigilancia-con-operativo-policia-cercana"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-0f9af16e3bd2bd0e",
+      "neighborhood": "Tabachines",
+      "municipality": "Zapopan",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Gobierno Municipal de Zapopan",
+          "title": "Operativo Policía Cercana",
+          "period": "Publicación sin fecha visible; no se asume actual",
+          "finding": "Colonia nombrada en el refuerzo de vigilancia dirigido a lugares con mayor incidencia. Sin conteo por colonia ni tasa de riesgo.",
+          "url": "https://www.zapopan.gob.mx/v3/noticias/comisaria-de-zapopan-refuerza-la-vigilancia-con-operativo-policia-cercana"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-750cde94115f99d6",
+      "neighborhood": "San Agustín",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "66 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-c8da2d14eefc52a7",
+      "neighborhood": "Santa Cruz de las Flores",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "39 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-575587c386346364",
+      "neighborhood": "Hacienda Santa Fe",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "37 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-cb33e059746d5e73",
+      "neighborhood": "San Sebastián el Grande",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "33 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-0f9e45e79236d58d",
+      "neighborhood": "La Tijera",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "29 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-b92586120912f6cb",
+      "neighborhood": "Nueva Galicia",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "28 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-466946bb7bdd1b79",
+      "neighborhood": "El Zapote",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "25 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-4b6617140b3142fd",
+      "neighborhood": "Lomas del Sur",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "25 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-065568c7b288f7a1",
+      "neighborhood": "Chulavista",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "23 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-0d07bf166c7d1f44",
+      "neighborhood": "Tulipanes",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "19 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-414ff089e43a7b29",
+      "neighborhood": "Santa Cruz del Valle",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "18 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-b00e85d83ef9f648",
+      "neighborhood": "El Refugio",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "17 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-9cd60f628ea4d80b",
+      "neighborhood": "Los Cántaros",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "15 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-bae2a545992f75d7",
+      "neighborhood": "Real del Valle",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "14 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-73a5e23035e6f0fb",
+      "neighborhood": "Lomas de San Agustín",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "13 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-f13fff8883dd5283",
+      "neighborhood": "Paseo de los Agaves",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "13 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-01c43f62a9b04056",
+      "neighborhood": "Real del Sol",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "13 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-741874a6ee47768a",
+      "neighborhood": "Bosques de Santa Anita",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "12 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-5ab81df1d7f1cba8",
+      "neighborhood": "Colinas del Roble",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "12 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-a11ec276b0e0e1a1",
+      "neighborhood": "Villa California",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "12 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-2dc35ed7767485d8",
+      "neighborhood": "Los Eucaliptos",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "11 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-2e511b6bd2d00eb7",
+      "neighborhood": "Villa Fontana Aqua",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "11 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-c4a8e34d3431921f",
+      "neighborhood": "El Palomar",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "10 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-e0f4220f316823f4",
+      "neighborhood": "Paseos del Valle",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco / C4",
+          "title": "Disminuye C4 delitos en Tlajomulco",
+          "period": "2020-01-01 a 2021-02-14; publicado 2021-02-23",
+          "finding": "10 incidencias de robo de vehículos particulares en el listado municipal. Cantidad absoluta de ese periodo; no sumar con IIEG 2021.",
+          "url": "https://www.tlajomulco.gob.mx/node/8068"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-3e45bc3284eaa0a3",
+      "neighborhood": "Quintas del Valle",
+      "municipality": "Tlajomulco de Zúñiga",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tlajomulco",
+          "title": "Intervienen colonias como parte del Plan de Seguridad",
+          "period": "Publicado 2024-10-27",
+          "finding": "Colonia nombrada en intervención del plan que prioriza áreas con mayor incidencia. No aporta una tasa de riesgo para choferes.",
+          "url": "https://www.tlajomulco.gob.mx/comunicacion-institucional/intervienen-colonias-de-tlajo-como-parte-del-plan-de-seguridad"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-a39a5a47ffbd220b",
+      "neighborhood": "Jalisco",
+      "municipality": "Tonalá",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tonalá",
+          "title": "Programa Municipal de Prevención 2022–2024 · PDF página 48, EI-2",
+          "period": "Tabla: fuente municipal 2021; programa 2022–2024",
+          "finding": "Una de las dos colonias que la tabla identifica con mayor incidencia delictiva. Loma Dorada se nombra sin sección; no se extrapolan los conteos de secciones A/B.",
+          "url": "https://tonala.gob.mx/portal/wp-content/uploads/2025/10/Prevencion-de-la-violencia-TNL-22-24.pdf#page=48"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-db617f907c89295e",
+      "neighborhood": "Loma Dorada",
+      "municipality": "Tonalá",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Ayuntamiento de Tonalá",
+          "title": "Programa Municipal de Prevención 2022–2024 · PDF página 48, EI-2",
+          "period": "Tabla: fuente municipal 2021; programa 2022–2024",
+          "finding": "Una de las dos colonias que la tabla identifica con mayor incidencia delictiva. Loma Dorada se nombra sin sección; no se extrapolan los conteos de secciones A/B.",
+          "url": "https://tonala.gob.mx/portal/wp-content/uploads/2025/10/Prevencion-de-la-violencia-TNL-22-24.pdf#page=48"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-38dbf00a5dc7d7cb",
+      "neighborhood": "Zona Centro",
+      "municipality": "San Pedro Tlaquepaque",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Comisaría de Tlaquepaque",
+          "title": "Plan Integral 2015–2018 · PDF página 7 (impresa 6), sección 3.5",
+          "period": "Plan 2015–2018; tabla sin periodo propio explícito",
+          "finding": "13% en atención de servicios de la tabla de colonias con mayor incidencia. Es distribución de servicios, no probabilidad de asalto. Nombre de fuente: Zona Centro.",
+          "url": "https://transparencia.tlaquepaque.gob.mx/wp-content/uploads/2016/01/transparencia_pablo.pdf#page=7"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-eb1d693ac31b1761",
+      "neighborhood": "Revolución",
+      "municipality": "San Pedro Tlaquepaque",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Comisaría de Tlaquepaque",
+          "title": "Plan Integral 2015–2018 · PDF página 7 (impresa 6), sección 3.5",
+          "period": "Plan 2015–2018; tabla sin periodo propio explícito",
+          "finding": "11% en atención de servicios de la tabla de colonias con mayor incidencia. Es distribución de servicios, no probabilidad de asalto. Nombre de fuente: Fraccionamiento Revolución.",
+          "url": "https://transparencia.tlaquepaque.gob.mx/wp-content/uploads/2016/01/transparencia_pablo.pdf#page=7"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-906fe985b3f998ad",
+      "neighborhood": "Santa María Tequepexpan",
+      "municipality": "San Pedro Tlaquepaque",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Comisaría de Tlaquepaque",
+          "title": "Plan Integral 2015–2018 · PDF página 7 (impresa 6), sección 3.5",
+          "period": "Plan 2015–2018; tabla sin periodo propio explícito",
+          "finding": "10.7% en atención de servicios de la tabla de colonias con mayor incidencia. Es distribución de servicios, no probabilidad de asalto. Nombre de fuente: Santa María Tequepexpan.",
+          "url": "https://transparencia.tlaquepaque.gob.mx/wp-content/uploads/2016/01/transparencia_pablo.pdf#page=7"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-4cf7a80b24312509",
+      "neighborhood": "San Pedrito",
+      "municipality": "San Pedro Tlaquepaque",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Comisaría de Tlaquepaque",
+          "title": "Plan Integral 2015–2018 · PDF página 7 (impresa 6), sección 3.5",
+          "period": "Plan 2015–2018; tabla sin periodo propio explícito",
+          "finding": "10.6% en atención de servicios de la tabla de colonias con mayor incidencia. Es distribución de servicios, no probabilidad de asalto. Nombre de fuente: San Pedrito.",
+          "url": "https://transparencia.tlaquepaque.gob.mx/wp-content/uploads/2016/01/transparencia_pablo.pdf#page=7"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-5165a5fe0d528121",
+      "neighborhood": "San Martín de las Flores",
+      "municipality": "San Pedro Tlaquepaque",
+      "references": [
+        {
+          "kind": "FUENTE OFICIAL",
+          "publisher": "Comisaría de Tlaquepaque",
+          "title": "Plan Integral 2015–2018 · PDF página 7 (impresa 6), sección 3.5",
+          "period": "Plan 2015–2018; tabla sin periodo propio explícito",
+          "finding": "6% en atención de servicios de la tabla de colonias con mayor incidencia. Es distribución de servicios, no probabilidad de asalto. Nombre de fuente: San Martín de las Flores.",
+          "url": "https://transparencia.tlaquepaque.gob.mx/wp-content/uploads/2016/01/transparencia_pablo.pdf#page=7"
+        }
+      ]
+    },
+    {
+      "id": "zmg-supp-c407e563ffdc555a",
+      "neighborhood": "Portillo López",
+      "municipality": "San Pedro Tlaquepaque",
+      "references": [
+        {
+          "kind": "REPORTE COMUNITARIO SIN CORROBORAR",
+          "publisher": "Reporte público enlazado desde el grupo de choferes Guadalajara",
+          "title": "Relato de asalto y robo de vehículo",
+          "period": "Fecha de publicación no legible; comentarios fechados 2026-07-29; consultado 2026-09-12",
+          "finding": "Relato de un asalto durante la espera de viaje en esta colonia, por la noche. Sin corroboración oficial. Un incidente no estima la frecuencia del delito. Mantener como precaución editable.",
+          "url": "https://www.facebook.com/KJLUAR/posts/pfbid02A9iqxovSUBdrKYg3NetGsnnHYmoZQneniZdFYuHKbr1wsJGewEpg8HBx8GoKaggCl"
+        }
+      ]
+    }
+  ],
+  "exclusions": [
+    "Cabecera Municipal: ubicación imprecisa",
+    "Otros: no es colonia",
+    "Pobreza, salud mental y consumo de sustancias por sí solos: no determinan riesgo al conducir"
+  ]
+}

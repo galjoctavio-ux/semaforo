@@ -1,0 +1,989 @@
+{
+  "catalogId": "zmg-iieg-2021-v1",
+  "publisher": "Fiscalía del Estado de Jalisco / IIEG",
+  "sourceUrl": "https://iieg.gob.mx/ns/wp-content/uploads/2021/11/oct2021.zip",
+  "sourcePage": "https://iieg.gob.mx/ns/?page_id=22174",
+  "sourceSha256": "81a5e1f0a43093ad57bcf22d2631bf1bce07d1d0498797fc18d731ac3b9391bd",
+  "periodStart": "2021-01-01",
+  "periodEnd": "2021-10-31",
+  "accessedOn": "2026-09-12",
+  "selection": "Hasta 10 colonias por municipio con al menos 5 registros sumados de robo a persona y a vehículos particulares en enero–octubre de 2021. Orden por cantidad descendente y nombre para desempates. Selección de la app, no clasificación oficial de peligrosidad.",
+  "coverage": {
+    "Guadalajara": 10,
+    "Zapopan": 10,
+    "San Pedro Tlaquepaque": 10,
+    "Tonalá": 10,
+    "Tlajomulco de Zúñiga": 10,
+    "El Salto": 10,
+    "Juanacatlán": 1,
+    "Ixtlahuacán de los Membrillos": 2,
+    "Zapotlanejo": 1
+  },
+  "entries": [
+    {
+      "id": "iieg-2021-6a6892ec2089",
+      "neighborhood": "Centro",
+      "municipality": "Guadalajara",
+      "sourceNeighborhood": "CENTRO",
+      "municipalityCode": 39,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 321,
+      "vehicleRobberies": 30,
+      "total": 351,
+      "municipalityRank": 1,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-57d3075da78e",
+      "neighborhood": "Santa Teresita",
+      "municipality": "Guadalajara",
+      "sourceNeighborhood": "SANTA TERESITA",
+      "municipalityCode": 39,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 50,
+      "vehicleRobberies": 120,
+      "total": 170,
+      "municipalityRank": 2,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-fdf86bc902c4",
+      "neighborhood": "Americana",
+      "municipality": "Guadalajara",
+      "sourceNeighborhood": "AMERICANA",
+      "municipalityCode": 39,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 64,
+      "vehicleRobberies": 67,
+      "total": 131,
+      "municipalityRank": 3,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-726df34e4000",
+      "neighborhood": "Moderna",
+      "municipality": "Guadalajara",
+      "sourceNeighborhood": "MODERNA",
+      "municipalityCode": 39,
+      "localities": [
+        "Instantaneo",
+        "N.D."
+      ],
+      "personRobberies": 53,
+      "vehicleRobberies": 67,
+      "total": 120,
+      "municipalityRank": 4,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-3a483946bfce",
+      "neighborhood": "Capilla De Jesus",
+      "municipality": "Guadalajara",
+      "sourceNeighborhood": "CAPILLA DE JESUS",
+      "municipalityCode": 39,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 40,
+      "vehicleRobberies": 71,
+      "total": 111,
+      "municipalityRank": 5,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-58e7bd8ef573",
+      "neighborhood": "Oblatos",
+      "municipality": "Guadalajara",
+      "sourceNeighborhood": "OBLATOS",
+      "municipalityCode": 39,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 60,
+      "vehicleRobberies": 51,
+      "total": 111,
+      "municipalityRank": 6,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-d1b1551ecf1d",
+      "neighborhood": "Lafayette",
+      "municipality": "Guadalajara",
+      "sourceNeighborhood": "LAFAYETTE",
+      "municipalityCode": 39,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 67,
+      "vehicleRobberies": 43,
+      "total": 110,
+      "municipalityRank": 7,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-b581652dafd5",
+      "neighborhood": "Prados Providencia",
+      "municipality": "Guadalajara",
+      "sourceNeighborhood": "PRADOS PROVIDENCIA",
+      "municipalityCode": 39,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 10,
+      "vehicleRobberies": 84,
+      "total": 94,
+      "municipalityRank": 8,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-c99296bc427a",
+      "neighborhood": "Santuario",
+      "municipality": "Guadalajara",
+      "sourceNeighborhood": "SANTUARIO",
+      "municipalityCode": 39,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 44,
+      "vehicleRobberies": 50,
+      "total": 94,
+      "municipalityRank": 9,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-b70fa9b9df77",
+      "neighborhood": "Ladron De Guevara",
+      "municipality": "Guadalajara",
+      "sourceNeighborhood": "LADRON DE GUEVARA",
+      "municipalityCode": 39,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 25,
+      "vehicleRobberies": 51,
+      "total": 76,
+      "municipalityRank": 10,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-010a6ffccc86",
+      "neighborhood": "Arboledas",
+      "municipality": "Zapopan",
+      "sourceNeighborhood": "ARBOLEDAS",
+      "municipalityCode": 120,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 17,
+      "vehicleRobberies": 49,
+      "total": 66,
+      "municipalityRank": 1,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-7e9410b927fb",
+      "neighborhood": "Constitucion",
+      "municipality": "Zapopan",
+      "sourceNeighborhood": "CONSTITUCION",
+      "municipalityCode": 120,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 22,
+      "vehicleRobberies": 41,
+      "total": 63,
+      "municipalityRank": 2,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-8c6203a096f5",
+      "neighborhood": "Ciudad Del Sol",
+      "municipality": "Zapopan",
+      "sourceNeighborhood": "CIUDAD DEL SOL",
+      "municipalityCode": 120,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 39,
+      "vehicleRobberies": 21,
+      "total": 60,
+      "municipalityRank": 3,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-64a07e615627",
+      "neighborhood": "Paseos Del Sol",
+      "municipality": "Zapopan",
+      "sourceNeighborhood": "PASEOS DEL SOL",
+      "municipalityCode": 120,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 12,
+      "vehicleRobberies": 48,
+      "total": 60,
+      "municipalityRank": 4,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-78dced9342f5",
+      "neighborhood": "Arcos De Zapopan",
+      "municipality": "Zapopan",
+      "sourceNeighborhood": "ARCOS DE ZAPOPAN",
+      "municipalityCode": 120,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 28,
+      "vehicleRobberies": 28,
+      "total": 56,
+      "municipalityRank": 5,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-e29426f976e3",
+      "neighborhood": "La Calma",
+      "municipality": "Zapopan",
+      "sourceNeighborhood": "LA CALMA",
+      "municipalityCode": 120,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 12,
+      "vehicleRobberies": 42,
+      "total": 54,
+      "municipalityRank": 6,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-7118e36c8e78",
+      "neighborhood": "Santa Margarita",
+      "municipality": "Zapopan",
+      "sourceNeighborhood": "SANTA MARGARITA",
+      "municipalityCode": 120,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 27,
+      "vehicleRobberies": 27,
+      "total": 54,
+      "municipalityRank": 7,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-20e5b4aea4b4",
+      "neighborhood": "Las Aguilas",
+      "municipality": "Zapopan",
+      "sourceNeighborhood": "LAS AGUILAS",
+      "municipalityCode": 120,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 12,
+      "vehicleRobberies": 33,
+      "total": 45,
+      "municipalityRank": 8,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-61dcfe0bd5c1",
+      "neighborhood": "Jardines De San Ignacio",
+      "municipality": "Zapopan",
+      "sourceNeighborhood": "JARDS. DE SAN IGNACIO",
+      "municipalityCode": 120,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 11,
+      "vehicleRobberies": 30,
+      "total": 41,
+      "municipalityRank": 9,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-aa3e3c1b6cb2",
+      "neighborhood": "Ciudad Granja",
+      "municipality": "Zapopan",
+      "sourceNeighborhood": "CIUDAD GRANJA",
+      "municipalityCode": 120,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 19,
+      "vehicleRobberies": 19,
+      "total": 38,
+      "municipalityRank": 10,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-ce5e25eea19c",
+      "neighborhood": "Santa Maria Tequepexpan",
+      "municipality": "San Pedro Tlaquepaque",
+      "sourceNeighborhood": "SANTA MARIA TEQUEPEXPAN",
+      "municipalityCode": 98,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 49,
+      "vehicleRobberies": 26,
+      "total": 75,
+      "municipalityRank": 1,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-bbfead60880b",
+      "neighborhood": "Revolucion",
+      "municipality": "San Pedro Tlaquepaque",
+      "sourceNeighborhood": "FRACC. REVOLUCION",
+      "municipalityCode": 98,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 19,
+      "vehicleRobberies": 34,
+      "total": 53,
+      "municipalityRank": 2,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-91b256fc746f",
+      "neighborhood": "San Pedrito",
+      "municipality": "San Pedro Tlaquepaque",
+      "sourceNeighborhood": "SAN PEDRITO",
+      "municipalityCode": 98,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 24,
+      "vehicleRobberies": 20,
+      "total": 44,
+      "municipalityRank": 3,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-acc23c1cfd17",
+      "neighborhood": "Artesanos",
+      "municipality": "San Pedro Tlaquepaque",
+      "sourceNeighborhood": "ARTESANOS",
+      "municipalityCode": 98,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 24,
+      "vehicleRobberies": 17,
+      "total": 41,
+      "municipalityRank": 4,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-36083a4162db",
+      "neighborhood": "La Duraznera",
+      "municipality": "San Pedro Tlaquepaque",
+      "sourceNeighborhood": "LA DURAZNERA",
+      "municipalityCode": 98,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 17,
+      "vehicleRobberies": 17,
+      "total": 34,
+      "municipalityRank": 5,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-2dc7d851e42b",
+      "neighborhood": "Toluquilla",
+      "municipality": "San Pedro Tlaquepaque",
+      "sourceNeighborhood": "TOLUQUILLA",
+      "municipalityCode": 98,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 11,
+      "vehicleRobberies": 23,
+      "total": 34,
+      "municipalityRank": 6,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-0a4dfdfa7593",
+      "neighborhood": "El Sauz",
+      "municipality": "San Pedro Tlaquepaque",
+      "sourceNeighborhood": "EL SAUZ",
+      "municipalityCode": 98,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 15,
+      "vehicleRobberies": 17,
+      "total": 32,
+      "municipalityRank": 7,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-9a4484ef7564",
+      "neighborhood": "Lomas De San Miguel",
+      "municipality": "San Pedro Tlaquepaque",
+      "sourceNeighborhood": "LOMAS DE SAN MIGUEL",
+      "municipalityCode": 98,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 9,
+      "vehicleRobberies": 22,
+      "total": 31,
+      "municipalityRank": 8,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-a4b0f604f507",
+      "neighborhood": "Nueva Santa Maria",
+      "municipality": "San Pedro Tlaquepaque",
+      "sourceNeighborhood": "NUEVA SANTA MARIA",
+      "municipalityCode": 98,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 24,
+      "vehicleRobberies": 7,
+      "total": 31,
+      "municipalityRank": 9,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-c881f9f1dc3b",
+      "neighborhood": "Las Liebres",
+      "municipality": "San Pedro Tlaquepaque",
+      "sourceNeighborhood": "LAS LIEBRES",
+      "municipalityCode": 98,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 6,
+      "vehicleRobberies": 24,
+      "total": 30,
+      "municipalityRank": 10,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-a79df0ee4202",
+      "neighborhood": "Santa Paula",
+      "municipality": "Tonalá",
+      "sourceNeighborhood": "SANTA PAULA",
+      "municipalityCode": 101,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 29,
+      "vehicleRobberies": 23,
+      "total": 52,
+      "municipalityRank": 1,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-11fd1039c20e",
+      "neighborhood": "Loma Dorada Seccion A",
+      "municipality": "Tonalá",
+      "sourceNeighborhood": "LOMA DORADA SECC. A",
+      "municipalityCode": 101,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 20,
+      "vehicleRobberies": 20,
+      "total": 40,
+      "municipalityRank": 2,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-943d47cdb791",
+      "neighborhood": "Basilio Vadillo",
+      "municipality": "Tonalá",
+      "sourceNeighborhood": "BASILIO VADILLO",
+      "municipalityCode": 101,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 27,
+      "vehicleRobberies": 7,
+      "total": 34,
+      "municipalityRank": 3,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-d3f9e1885093",
+      "neighborhood": "Infonavit Rio Nilo",
+      "municipality": "Tonalá",
+      "sourceNeighborhood": "INFONAVIT RIO NILO",
+      "municipalityCode": 101,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 13,
+      "vehicleRobberies": 18,
+      "total": 31,
+      "municipalityRank": 4,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-f73e1fb0df02",
+      "neighborhood": "Coyula",
+      "municipality": "Tonalá",
+      "sourceNeighborhood": "COYULA",
+      "municipalityCode": 101,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 15,
+      "vehicleRobberies": 15,
+      "total": 30,
+      "municipalityRank": 5,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-82ca3ead0bfd",
+      "neighborhood": "Lomas Del Camichin",
+      "municipality": "Tonalá",
+      "sourceNeighborhood": "LOMAS DEL CAMICHIN",
+      "municipalityCode": 101,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 4,
+      "vehicleRobberies": 25,
+      "total": 29,
+      "municipalityRank": 6,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-e533aeb633bd",
+      "neighborhood": "Loma Dorada Seccion B",
+      "municipality": "Tonalá",
+      "sourceNeighborhood": "LOMA DORADA SECC. B",
+      "municipalityCode": 101,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 17,
+      "vehicleRobberies": 11,
+      "total": 28,
+      "municipalityRank": 7,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-9ae8251b698d",
+      "neighborhood": "Alamedas De Zalatitan",
+      "municipality": "Tonalá",
+      "sourceNeighborhood": "ALAMEDAS DE ZALATITAN",
+      "municipalityCode": 101,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 15,
+      "vehicleRobberies": 12,
+      "total": 27,
+      "municipalityRank": 8,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-9e67b7320103",
+      "neighborhood": "Jauja",
+      "municipality": "Tonalá",
+      "sourceNeighborhood": "JAUJA",
+      "municipalityCode": 101,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 11,
+      "vehicleRobberies": 16,
+      "total": 27,
+      "municipalityRank": 9,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-f417011b0c58",
+      "neighborhood": "Infonavit La Soledad",
+      "municipality": "Tonalá",
+      "sourceNeighborhood": "INFONAVIT LA SOLEDAD",
+      "municipalityCode": 101,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 13,
+      "vehicleRobberies": 13,
+      "total": 26,
+      "municipalityRank": 10,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-95cee4356a6a",
+      "neighborhood": "Chulavista",
+      "municipality": "Tlajomulco de Zúñiga",
+      "sourceNeighborhood": "FRACC. CHULAVISTA",
+      "municipalityCode": 97,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 73,
+      "vehicleRobberies": 4,
+      "total": 77,
+      "municipalityRank": 1,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-095cbbb15c60",
+      "neighborhood": "San Agustin",
+      "municipality": "Tlajomulco de Zúñiga",
+      "sourceNeighborhood": "SAN AGUSTIN",
+      "municipalityCode": 97,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 29,
+      "vehicleRobberies": 31,
+      "total": 60,
+      "municipalityRank": 2,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-9a3c38e7d45a",
+      "neighborhood": "La Tijera",
+      "municipality": "Tlajomulco de Zúñiga",
+      "sourceNeighborhood": "LA TIJERA",
+      "municipalityCode": 97,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 24,
+      "vehicleRobberies": 20,
+      "total": 44,
+      "municipalityRank": 3,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-b852c7784759",
+      "neighborhood": "Hacienda Santa Fe",
+      "municipality": "Tlajomulco de Zúñiga",
+      "sourceNeighborhood": "FRACC. HDA. SANTA FE",
+      "municipalityCode": 97,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 32,
+      "vehicleRobberies": 11,
+      "total": 43,
+      "municipalityRank": 4,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-acc1c983b26f",
+      "neighborhood": "Santa Cruz Del Valle",
+      "municipality": "Tlajomulco de Zúñiga",
+      "sourceNeighborhood": "SANTA CRUZ DEL VALLE",
+      "municipalityCode": 97,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 24,
+      "vehicleRobberies": 4,
+      "total": 28,
+      "municipalityRank": 5,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-05dfaccb59ee",
+      "neighborhood": "Santa Cruz De Las Flores",
+      "municipality": "Tlajomulco de Zúñiga",
+      "sourceNeighborhood": "SANTA CRUZ DE LAS FLORES",
+      "municipalityCode": 97,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 7,
+      "vehicleRobberies": 20,
+      "total": 27,
+      "municipalityRank": 6,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-990bb70f2b01",
+      "neighborhood": "Los Gavilanes Oriente",
+      "municipality": "Tlajomulco de Zúñiga",
+      "sourceNeighborhood": "LOS GAVILANES OTE.",
+      "municipalityCode": 97,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 14,
+      "vehicleRobberies": 8,
+      "total": 22,
+      "municipalityRank": 7,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-b3c1021fb586",
+      "neighborhood": "Zapote Del Valle",
+      "municipality": "Tlajomulco de Zúñiga",
+      "sourceNeighborhood": "ZAPOTE DEL VALLE",
+      "municipalityCode": 97,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 21,
+      "vehicleRobberies": 1,
+      "total": 22,
+      "municipalityRank": 8,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-ce86095134ee",
+      "neighborhood": "Nueva Galicia",
+      "municipality": "Tlajomulco de Zúñiga",
+      "sourceNeighborhood": "NUEVA GALICIA",
+      "municipalityCode": 97,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 11,
+      "vehicleRobberies": 9,
+      "total": 20,
+      "municipalityRank": 9,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-faa63df26ad4",
+      "neighborhood": "Los Cantaros",
+      "municipality": "Tlajomulco de Zúñiga",
+      "sourceNeighborhood": "FRACC. LOS CANTAROS",
+      "municipalityCode": 97,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 14,
+      "vehicleRobberies": 3,
+      "total": 17,
+      "municipalityRank": 10,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-b5255f062a4b",
+      "neighborhood": "Las Pintas",
+      "municipality": "El Salto",
+      "sourceNeighborhood": "LAS PINTAS",
+      "municipalityCode": 70,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 18,
+      "vehicleRobberies": 16,
+      "total": 34,
+      "municipalityRank": 1,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-ecbe117b16f3",
+      "neighborhood": "Las Pintas Centro",
+      "municipality": "El Salto",
+      "sourceNeighborhood": "LAS PINTAS CENTRO",
+      "municipalityCode": 70,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 12,
+      "vehicleRobberies": 17,
+      "total": 29,
+      "municipalityRank": 2,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-c77fc6d6ac9f",
+      "neighborhood": "San Jose Del Quince",
+      "municipality": "El Salto",
+      "sourceNeighborhood": "SAN JOSE DEL QUINCE",
+      "municipalityCode": 70,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 8,
+      "vehicleRobberies": 12,
+      "total": 20,
+      "municipalityRank": 3,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-09e8bf26e4ef",
+      "neighborhood": "San Jose Del Castillo",
+      "municipality": "El Salto",
+      "sourceNeighborhood": "SAN JOSE DEL CASTILLO",
+      "municipalityCode": 70,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 9,
+      "vehicleRobberies": 9,
+      "total": 18,
+      "municipalityRank": 4,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-04d229d3e2a5",
+      "neighborhood": "El Verde",
+      "municipality": "El Salto",
+      "sourceNeighborhood": "EL VERDE",
+      "municipalityCode": 70,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 7,
+      "vehicleRobberies": 9,
+      "total": 16,
+      "municipalityRank": 5,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-3675e43b06ee",
+      "neighborhood": "Santa Rosa Del Valle",
+      "municipality": "El Salto",
+      "sourceNeighborhood": "SANTA ROSA DEL VALLE",
+      "municipalityCode": 70,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 7,
+      "vehicleRobberies": 8,
+      "total": 15,
+      "municipalityRank": 6,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-62ea74981cef",
+      "neighborhood": "Parques Del Castillo",
+      "municipality": "El Salto",
+      "sourceNeighborhood": "PARQUES DEL CASTILLO",
+      "municipalityCode": 70,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 4,
+      "vehicleRobberies": 9,
+      "total": 13,
+      "municipalityRank": 7,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-e788758b02ff",
+      "neighborhood": "Cima Serena",
+      "municipality": "El Salto",
+      "sourceNeighborhood": "FRACC. CIMA SERENA",
+      "municipalityCode": 70,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 1,
+      "vehicleRobberies": 10,
+      "total": 11,
+      "municipalityRank": 8,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-c6e7a45a4ed9",
+      "neighborhood": "Baja California",
+      "municipality": "El Salto",
+      "sourceNeighborhood": "BAJA CALIFORNIA",
+      "municipalityCode": 70,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 9,
+      "vehicleRobberies": 1,
+      "total": 10,
+      "municipalityRank": 9,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-5cf50377f396",
+      "neighborhood": "El Carmen",
+      "municipality": "El Salto",
+      "sourceNeighborhood": "EL CARMEN",
+      "municipalityCode": 70,
+      "localities": [
+        "N.D."
+      ],
+      "personRobberies": 3,
+      "vehicleRobberies": 6,
+      "total": 9,
+      "municipalityRank": 10,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-a0b97077de23",
+      "neighborhood": "Villas Andalucia",
+      "municipality": "Juanacatlán",
+      "sourceNeighborhood": "VILLAS ANDALUCIA",
+      "municipalityCode": 51,
+      "localities": [
+        "N.D.",
+        "VILLAS ANDALUCIA"
+      ],
+      "personRobberies": 3,
+      "vehicleRobberies": 3,
+      "total": 6,
+      "municipalityRank": 1,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-69d42707f573",
+      "neighborhood": "Santa Rosa",
+      "municipality": "Ixtlahuacán de los Membrillos",
+      "sourceNeighborhood": "SANTA ROSA",
+      "municipalityCode": 44,
+      "localities": [
+        "N.D.",
+        "SANTA ROSA"
+      ],
+      "personRobberies": 2,
+      "vehicleRobberies": 4,
+      "total": 6,
+      "municipalityRank": 1,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-dcef0c7a6189",
+      "neighborhood": "El Rodeo",
+      "municipality": "Ixtlahuacán de los Membrillos",
+      "sourceNeighborhood": "EL RODEO",
+      "municipalityCode": 44,
+      "localities": [
+        "EL RODEO",
+        "N.D."
+      ],
+      "personRobberies": 5,
+      "vehicleRobberies": 0,
+      "total": 5,
+      "municipalityRank": 2,
+      "initialAction": "PRECAUCION"
+    },
+    {
+      "id": "iieg-2021-9f4240e231fe",
+      "neighborhood": "La Laja",
+      "municipality": "Zapotlanejo",
+      "sourceNeighborhood": "LA LAJA",
+      "municipalityCode": 124,
+      "localities": [
+        "LA LAJA",
+        "N.D."
+      ],
+      "personRobberies": 3,
+      "vehicleRobberies": 11,
+      "total": 14,
+      "municipalityRank": 1,
+      "initialAction": "PRECAUCION"
+    }
+  ]
+}

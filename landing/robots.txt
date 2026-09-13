@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://semaforo.uber.tesivil.com/sitemap.xml

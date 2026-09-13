@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#102822" />
+    <title>Privacidad y permisos · Semáforo de TESIVIL</title>
+    <meta
+      name="description"
+      content="Cómo Semáforo 0.3.3 procesa pantallas, guarda evaluaciones locales y utiliza los permisos de Android."
+    />
+    <link
+      rel="canonical"
+      href="https://semaforo.uber.tesivil.com/privacidad.html"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <a class="skip" href="#contenido">Saltar al contenido</a>
+    <header class="header wrap legal-header">
+      <a class="brand" href="/"
+        ><span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i></span
+        ><span>semáforo<span class="brand-by">por TESIVIL</span></span></a
+      ><a class="text-link" href="/">Volver al inicio ↗</a>
+    </header>
+    <main class="wrap privacy" id="contenido">
+      <p class="eyebrow">VERSIÓN 0.3.3 · 12 SEPTIEMBRE 2026</p>
+      <h1>Privacidad<br />y permisos.</h1>
+      <p>
+        Semáforo es una beta independiente de TESIVIL para Android 14 o
+        posterior. Este documento describe la APK 0.3.3 y esta landing. El
+        <a href="https://github.com/galjoctavio-ux/semaforo"
+          >código del proyecto es público</a
+        >.
+      </p>
+      <h2>Lectura en el teléfono</h2>
+      <p>
+        La app usa MediaProjection, la captura de pantalla autorizada por
+        Android, y reconocimiento de texto incluido en el APK. Procesa las
+        imágenes localmente mientras la sesión está activa. En «Pantalla
+        completa» también procesa las demás pantallas visibles; detén la sesión
+        cuando no quieras que las lea. No guarda los fotogramas de la captura
+        continua ni envía pantallas a GPT u otro servidor.
+      </p>
+      <h2>Permisos de la APK</h2>
+      <ul>
+        <li>
+          <strong>Mostrar sobre otras apps:</strong> permite presentar y mover
+          la ventana del semáforo.
+        </li>
+        <li>
+          <strong>Servicio en primer plano de captura:</strong> mantiene la
+          sesión activa y ofrece un control para detenerla.
+        </li>
+        <li>
+          <strong>Notificaciones:</strong> muestra el estado de la sesión y
+          acceso a Detener.
+        </li>
+        <li>
+          <strong>Consentimiento de captura de Android:</strong> se solicita al
+          iniciar cada sesión.
+        </li>
+      </ul>
+      <p>
+        La APK 0.3.3 no tiene permiso de Internet, ubicación, cámara, micrófono,
+        accesibilidad ni lectura de notificaciones de Uber. No consulta tu
+        cuenta ni pulsa aceptar o rechazar. Puedes importar una imagen o guardar
+        un diagnóstico con el selector de archivos de Android.
+      </p>
+      <h2>Datos locales y diagnósticos</h2>
+      <p>
+        Guarda tu perfil configurable, reglas de zonas y hasta 200 evaluaciones
+        de ofertas en almacenamiento privado de la app. El historial describe
+        ofertas observadas; no acredita viajes realizados ni pagos. La
+        exportación de diagnóstico es voluntaria e incluye perfil, cifras
+        visibles del pasajero, versiones y motivos. Excluye capturas, OCR
+        completo y direcciones capturadas. Los textos que escribas en tus reglas
+        o motivos sí pueden aparecer: revisa el archivo antes de compartirlo.
+        Android no realiza una copia de seguridad de los datos de esta app.
+      </p>
+      <h2>La página y las donaciones</h2>
+      <p>
+        Esta landing no añade analítica, publicidad, formularios de registro ni
+        rastreadores. Vercel sirve la página y puede procesar datos técnicos de
+        las solicitudes, como dirección IP y registros de acceso, conforme a su
+        <a
+          href="https://vercel.com/legal/privacy-policy"
+          target="_blank"
+          rel="noopener noreferrer"
+          >política de privacidad</a
+        >. Donar abre una página alojada por Stripe: los datos necesarios para
+        el pago se gestionan allí conforme a la
+        <a
+          href="https://stripe.com/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          >política de Stripe</a
+        >. Esta landing no recibe los datos de tu tarjeta. La aportación es
+        única, voluntaria y no condiciona la descarga.
+      </p>
+      <h2>Reportes públicos</h2>
+      <p>
+        GitHub aloja código y reportes públicos. Evita publicar información
+        personal de pasajeros o del conductor. Para preguntas o problemas de
+        privacidad,
+        <a
+          href="https://github.com/galjoctavio-ux/semaforo/issues"
+          target="_blank"
+          rel="noopener noreferrer"
+          >abre un reporte sin datos sensibles</a
+        >.
+      </p>
+      <h2>Alcance de las recomendaciones</h2>
+      <p>
+        El score es una comparación con tus objetivos y filtros, no una
+        probabilidad de delito ni una garantía de ganancia. Las zonas usan
+        antecedentes históricos y reglas editables; no representan vigilancia
+        actual, cobertura completa ni evaluación de toda la ruta. Los contadores
+        y estrellas visibles tampoco certifican seguridad.
+      </p>
+      <a class="text-link" href="/">← Volver a Semáforo</a>
+    </main>
+  </body>
+</html>
