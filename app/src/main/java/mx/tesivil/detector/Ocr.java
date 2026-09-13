@@ -39,6 +39,31 @@ final class Ocr {
         for (Text.Line line : orderedLines(result)) text.append(line.getText()).append('\n');
         return text.toString();
     }
+    private static Rect cardBounds(List<Text.Line> lines,Bitmap bitmap){
+        Text.Line category=null,action=null;int left=bitmap.getWidth();
+        for(Text.Line line:lines){
+            if(OfferParser.isCategoryLine(line.getText())){if(category!=null)return null;category=line;}
+            if(category==null)continue;
+            Rect r=line.getBoundingBox();
+            if(r!=null&&(line==category||OfferParser.numericFieldKind(line.getText())>0))left=Math.min(left,r.left);
+            if(OfferParser.isCardActionLine(line.getText())){action=line;break;}
+        }
+        if(category==null||action==null||category.getBoundingBox()==null||action.getBoundingBox()==null)return null;
+        Rect header=category.getBoundingBox(),button=action.getBoundingBox();
+        int pad=Math.max(12,header.height());
+        left=Math.max(0,left-pad);
+        if(left>bitmap.getWidth()*.15||button.top<=header.bottom)return null;
+        return new Rect(left,Math.max(0,header.top-pad),bitmap.getWidth()-left,Math.min(bitmap.getHeight(),button.bottom+pad));
+    }
+    private static List<Text.Line> cardLines(List<Text.Line> lines,Rect card){
+        if(card==null)return lines;
+        List<Text.Line> kept=new ArrayList<>();
+        for(Text.Line line:lines){Rect r=line.getBoundingBox();if(r!=null&&card.contains(r.centerX(),r.centerY()))kept.add(line);}
+        // A second offer must remain ambiguous even if its badge is outside the first card.
+        for(Text.Line line:lines)if(!kept.contains(line)&&OfferParser.isCategoryLine(line.getText()))return lines;
+        return kept;
+    }
+    private static String joined(List<Text.Line> lines){StringBuilder s=new StringBuilder();for(Text.Line l:lines)s.append(l.getText()).append('\n');return s.toString();}
     private static final class Field {
         final Text.Line line;final Rect source;final int kind,width,height;
         Field(Text.Line line,Rect source,int kind){this.line=line;this.source=source;this.kind=kind;double scale=Math.min(3d,1600d/source.width());width=Math.max(1,(int)(source.width()*scale));height=Math.max(1,(int)(source.height()*scale));}
@@ -62,8 +87,11 @@ final class Ocr {
     }
     /** One refinement stage: isolated crops retain natural context instead of a synthetic montage. */
     static Task<OfferParser.Result> read(TextRecognizer recognizer,Bitmap bitmap) {
+        return read(recognizer,bitmap,new Rect[]{null});
+    }
+    private static Task<OfferParser.Result> read(TextRecognizer recognizer,Bitmap bitmap,Rect[] region) {
         // Keep the proven original-color path; retry contrast only after it fails.
-        Task<OfferParser.Result> primary=readVariant(recognizer,bitmap);
+        Task<OfferParser.Result> primary=readVariant(recognizer,bitmap,region);
         return primary.continueWithTask(done->{
                 if(!done.isSuccessful())return Tasks.forException(done.getException()==null?new IllegalStateException("OCR unavailable"):done.getException());
                 OfferParser.Result initial=done.getResult();
@@ -71,18 +99,19 @@ final class Ocr {
                 // One bounded full retry from the same pixels; never reuse another frame.
                 Bitmap retry=contrast(bitmap);
                 try{
-                    Task<OfferParser.Result> second=readVariant(recognizer,retry);
+                    Task<OfferParser.Result> second=readVariant(recognizer,retry,region);
                     second.addOnCompleteListener(completed->retry.recycle());
                     return second.continueWith(completed->completed.isSuccessful()&&completed.getResult().offer!=null?completed.getResult():initial);
                 }catch(RuntimeException e){retry.recycle();return Tasks.forResult(initial);}
         });
     }
-    private static Task<OfferParser.Result> readVariant(TextRecognizer recognizer,Bitmap bitmap) {
+    private static Task<OfferParser.Result> readVariant(TextRecognizer recognizer,Bitmap bitmap,Rect[] region) {
         return recognizer.process(image(bitmap)).continueWithTask(first->{
             if(!first.isSuccessful())return Tasks.forException(first.getException()==null?new IllegalStateException("OCR unavailable"):first.getException());
-            Text text=first.getResult();OfferParser.Result initial=OfferParser.parse(orderedText(text));
+            List<Text.Line> all=orderedLines(first.getResult());region[0]=cardBounds(all,bitmap);
+            List<Text.Line> lines=cardLines(all,region[0]);OfferParser.Result initial=OfferParser.parse(joined(lines));
             if(!initial.needsMoneyRefinement&&!initial.needsNumericRefinement)return Tasks.forResult(initial);
-            List<Text.Line> lines=orderedLines(text);List<Field> fields=new ArrayList<>();boolean inCard=false;boolean[] seen=new boolean[5];
+            List<Field> fields=new ArrayList<>();boolean inCard=false;boolean[] seen=new boolean[5];
             for(Text.Line line:lines){
                 if(OfferParser.isCategoryLine(line.getText()))inCard=true;
                 if(!inCard)continue;if(OfferParser.isCardActionLine(line.getText()))break;

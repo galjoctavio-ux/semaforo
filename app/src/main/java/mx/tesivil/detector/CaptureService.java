@@ -99,8 +99,9 @@ public final class CaptureService extends Service {
                     if (!ended && worker != null) worker.post(() -> configureDisplay(w, h));
                 }
                 @Override public void onCapturedContentVisibilityChanged(boolean isVisible) {
+                    boolean changed=visible!=isVisible;
                     visible = isVisible;
-                    if (ended) return;
+                    if (ended || !changed) return;
                     if (!visible) {
                         gate.invalidate(); Diagnostics.clear("La aplicación compartida no está visible");
                         if (overlay != null) overlay.hide();

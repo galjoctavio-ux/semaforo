@@ -21,6 +21,7 @@ public final class SampleOfferActivity extends Activity {
     private final Handler handler = new Handler(Looper.getMainLooper());
     private View progress;
     private int step;
+    private String asset="user-offer.jpg";
     private final Runnable animate = new Runnable() {
         @Override public void run() {
             // A moving marker generates frames like the countdown of a live offer.
@@ -48,6 +49,12 @@ public final class SampleOfferActivity extends Activity {
     }
     @Override public void onNewIntent(Intent intent) { super.onNewIntent(intent); show(intent); }
     private void show(Intent intent) {
+        String next=intent.getStringExtra("asset");
+        if(next!=null&&!next.equals(asset)) {
+            image.setImageBitmap(null); if(sample!=null)sample.recycle();
+            try(InputStream input=getAssets().open(next)){sample=BitmapFactory.decodeStream(input);asset=next;}
+            catch(Exception e){throw new IllegalStateException("Test image missing",e);}
+        }
         if(intent.getBooleanExtra("floating",false)) {
             image.setImageBitmap(null);
             startService(new Intent(this,FloatingOfferService.class).putExtra("newRider",intent.getBooleanExtra("newRider",false)).putExtra("asset",intent.getStringExtra("asset")).putExtra("cardTop",intent.getDoubleExtra("cardTop",.438)));

@@ -69,7 +69,7 @@ final class Diagnostics {
     }
     static JSONObject offerJson(OfferParser.Offer o)throws JSONException{
         JSONObject j=new JSONObject();j.put("fare_cents",o.cents);j.put("currency_assumed","MXN");
-        j.put("reader_version","0.4.0");j.put("service_type",o.serviceType.name());j.put("service_label",o.typeLabel());j.put("exclusive",o.exclusive);
+        j.put("reader_version","0.4.1");j.put("service_type",o.serviceType.name());j.put("service_label",o.typeLabel());j.put("exclusive",o.exclusive);
         j.put("pickup_minutes",o.pickupMinutes);j.put("pickup_km",o.pickupKm);j.put("trip_minutes",o.tripMinutes);j.put("trip_km",o.tripKm);
         j.put("destination_notice_count",o.destinationNoticeCount);
         j.put("reservation",o.reserved);
@@ -97,7 +97,7 @@ final class Diagnostics {
         return j;
     }
     static String export(Context c)throws JSONException{
-        JSONObject j=new JSONObject();j.put("schema",6);j.put("app_version","0.4.0");j.put("model",Build.MANUFACTURER+" "+Build.MODEL);
+        JSONObject j=new JSONObject();j.put("schema",6);j.put("app_version","0.4.1");j.put("model",Build.MANUFACTURER+" "+Build.MODEL);
         j.put("android",Build.VERSION.RELEASE);j.put("sdk",Build.VERSION.SDK_INT);
         try{PackageInfo p=c.getPackageManager().getPackageInfo("com.ubercab.driver",0);j.put("uber_version",p.versionName);j.put("uber_version_code",p.getLongVersionCode());}
         catch(Exception e){j.put("uber_version","not_available");}

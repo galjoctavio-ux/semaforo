@@ -12,6 +12,9 @@ public final class OfferParser {
     private static final Pattern CTA = Pattern.compile("\\b(viaje\\s+disponible|aceptar(?:\\s+viaje)?)\\b");
     private static final Pattern FARE = Pattern.compile(
             "(?m)^\\s*(?:mx\\s*\\$|\\$|mxn)\\s*([0-9][0-9., ]{0,12})\\s*(?:mxn)?\\s*$");
+    // Candidate for another OCR pass only. Letters never become money by replacement.
+    private static final Pattern DAMAGED_FARE = Pattern.compile(
+            "(?m)^\\s*(?:mx\\s*\\$|\\$|mxn)\\s*[0-9il|][0-9il|., ]{0,12}\\s*(?:mxn)?\\s*$");
     // Confined to a complete leg: OCR reads 11 as ll and endpoint icons as 9/o/°.
     private static final String ICON_PREFIX = "(?:[0-9o°○●◦]{1,3}\\s+)?";
     private static final String DURATION = "(?:([0-9il|]{1,2})\\s*(?:h|horas?)\\s*(?:([0-9il|]{1,3})\\s*min(?:utos)?)?|([0-9il|]{1,3})\\s*min(?:utos)?)";
@@ -129,8 +132,10 @@ public final class OfferParser {
         while(destinations.find())if(++destinationLabels>1 || minutes(destinations.group(1))!=1)
             return missing(true,"Múltiples destinos o contador ambiguo: formato pendiente");
         if(STOPS.matcher(text).find())return missing(true,"Paradas adicionales: formato pendiente");
+        Matcher candidates=DAMAGED_FARE.matcher(text);int candidateCount=0;
+        while(candidates.find())if(++candidateCount>1)return missing(true,"Hay varios importes: lectura ambigua");
         Matcher fare = FARE.matcher(text);
-        if (!fare.find()) return missing(true, "Falta el importe de la oferta");
+        if (!fare.find()) return new Result(null,true,"Falta el importe de la oferta",DAMAGED_FARE.matcher(text).find());
         int fareEnd = fare.end();
         String fareValue=fare.group(1);
         if (fare.find()) return missing(true, "Hay varios importes: lectura ambigua");
@@ -180,7 +185,7 @@ public final class OfferParser {
     static String normalized(String text){return Normalizer.normalize(text,Normalizer.Form.NFKD).replaceAll("\\p{M}","").replace('\u00a0',' ').replace('\r','\n').toLowerCase(Locale.ROOT);}
     static boolean isCategoryLine(String text){return CATEGORY.matcher(normalized(text)).matches();}
     static boolean moneyNeedsRefinement(String text){Matcher m=FARE.matcher(normalized(text));return m.matches()&&!hasMoneyDecimals(m.group(1));}
-    static int numericFieldKind(String original){String text=normalized(original);if(FARE.matcher(text).matches())return 1;if(RATE.matcher(text).find())return 2;if(PICKUP.matcher(text).matches())return 3;if(TRIP.matcher(text).matches())return 4;return 0;}
+    static int numericFieldKind(String original){String text=normalized(original);if(DAMAGED_FARE.matcher(text).matches())return 1;if(RATE.matcher(text).find())return 2;if(PICKUP.matcher(text).matches())return 3;if(TRIP.matcher(text).matches())return 4;return 0;}
     static boolean isCardActionLine(String text){return CTA.matcher(normalized(text)).find();}
     private static boolean hasMoneyDecimals(String value){return value.replace(" ","").matches(".*[.,][0-9]{2}");}
     private static int minutes(String value){return Integer.parseInt(value.replace('i','1').replace('l','1').replace('|','1'));}

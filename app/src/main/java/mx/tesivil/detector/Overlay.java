@@ -17,6 +17,7 @@ final class Overlay {
     private final TextView title;
     private final WindowManager.LayoutParams params;
     private boolean attached;
+    private int shownColor=Integer.MIN_VALUE;
     Overlay(Context context, Runnable stop) {
         windows = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         root = new LinearLayout(context); root.setOrientation(LinearLayout.VERTICAL);
@@ -24,7 +25,7 @@ final class Overlay {
         root.setBackground(Ui.shape(Color.rgb(24, 42, 52), 14, context));
         root.setElevation(Ui.dp(context, 6));
         LinearLayout header = new LinearLayout(context); header.setGravity(Gravity.CENTER_VERTICAL);
-        title = Ui.text(context, "SEMÁFORO · 0.4.0", 11, true); title.setTextColor(Color.rgb(122, 221, 238));
+        title = Ui.text(context, "SEMÁFORO · 0.4.1", 11, true); title.setTextColor(Color.rgb(122, 221, 238));
         header.addView(title, new LinearLayout.LayoutParams(0, Ui.dp(context, 32), 1));
         TextView close = Ui.text(context, "Detener", 12, true); close.setTextColor(Color.WHITE);
         close.setPadding(Ui.dp(context, 8), 0, 0, 0); close.setGravity(Gravity.CENTER);
@@ -57,10 +58,14 @@ final class Overlay {
     }
     void update(String status, OfferParser.Offer offer, long ms) {
         ScoreEngine.Evaluation e=Diagnostics.evaluation;
-        title.setText(offer==null?"SEMÁFORO · 0.4.0":"TIPO: "+offer.typeLabel().toUpperCase(java.util.Locale.ROOT));
-        if(offer==null||e==null){body.setText(status);root.setBackground(Ui.shape(Ui.signalColor(null),14,root.getContext()));return;}
-        body.setText(Ui.compact(e));
-        root.setBackground(Ui.shape(Ui.signalColor(e),14,root.getContext()));
+        String heading=offer==null?"SEMÁFORO · 0.4.1":"TIPO: "+offer.typeLabel().toUpperCase(java.util.Locale.ROOT);
+        String content=offer==null||e==null?status:Ui.compact(e);
+        int color=Ui.signalColor(offer==null?null:e);
+        // The overlay is itself in a full-screen capture. Avoid triggering another
+        // layout/frame when the displayed text and color have not changed.
+        if(!heading.contentEquals(title.getText()))title.setText(heading);
+        if(!content.contentEquals(body.getText()))body.setText(content);
+        if(shownColor!=color){shownColor=color;root.setBackground(Ui.shape(color,14,root.getContext()));}
     }
     void show() { if (!attached) { windows.addView(root, params); attached = true; } }
     void hide() { if (attached) { windows.removeView(root); attached = false; } }

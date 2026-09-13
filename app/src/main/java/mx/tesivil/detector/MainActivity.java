@@ -55,7 +55,7 @@ public final class MainActivity extends Activity {
             page.setPadding(pad + bars.left, pad + bars.top, pad + bars.right, pad + bars.bottom);
             return insets;
         });
-        page.addView(Ui.text(this, "TESIVIL  /  SEMÁFORO 0.4.0", 12, true));
+        page.addView(Ui.text(this, "TESIVIL  /  SEMÁFORO 0.4.1", 12, true));
         addText(page, "Evalúa tus viajes", 29, true, 14);
         addText(page, "Rentabilidad estimada, reglas personales y datos pendientes, separados. Ajusta vehículo, costos y metas; los valores iniciales son ejemplos. Registra resultados voluntarios para comparar la estimación con lo ocurrido.", 16, false, 8);
 

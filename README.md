@@ -1,14 +1,14 @@
-# Semáforo de TESIVIL · Beta pública Android 0.4.0
+# Semáforo de TESIVIL · Beta pública Android 0.4.1
 
 App Android disponible al público, con descarga gratuita y código consultable en este repositorio. Requiere Android 14 o posterior. Lee tarjetas compatibles en español de UberX, UberXL, Priority y Comfort, con Exclusivo/Aceptar, en fondos claros u oscuros, y «Reservar UberX» con advertencia de horario y espera previa. Evalúa costos, metas, zonas y pasajero. La aceptación/rechazo permanece a cargo del conductor. Es un proyecto independiente, sin afiliación ni respaldo de Uber.
 
-**Página:** https://semaforo.uber.tesivil.com/ · **Código:** https://github.com/galjoctavio-ux/semaforo · **Descarga alternativa:** [Release v0.4.0](https://github.com/galjoctavio-ux/semaforo/releases/tag/v0.4.0).
+**Página:** https://semaforo.uber.tesivil.com/ · **Código:** https://github.com/galjoctavio-ux/semaforo · **Descarga alternativa:** [Release v0.4.1](https://github.com/galjoctavio-ux/semaforo/releases/tag/v0.4.1).
 
 El score compara ofertas con tus ajustes; no es una probabilidad de delito ni garantiza ingresos. Los costos iniciales son ejemplos. El catálogo histórico no cubre todas las colonias ni evalúa la ruta completa. La landing está en [landing/](landing/README.md). Las donaciones son voluntarias y únicas mediante un enlace de Stripe; no condicionan la descarga.
 
 [Publicación y mantenimiento](PUBLICACION.md).
 
-**APK:** [Detector-ofertas-0.4.0.apk](entrega/Detector-ofertas-0.4.0.apk). Instala sobre la anterior sin desinstalar. [Mejoras y resultados voluntarios](VERSION_0.4.0.md). [Reservar UberX](VERSION_0.3.5.md). [Fondos oscuros, Comfort y horas](VERSION_0.3.4.md). [Lectura durante el efecto azul](VERSION_0.3.3.md). [UberXL y Exclusivo](VERSION_0.3.2.md). [Correcciones de importes, Exclusivo y Priority](VERSION_0.3.1.md). [Defaults y reglas](VERSION_0.3.0.md).
+**APK:** [Detector-ofertas-0.4.1.apk](entrega/Detector-ofertas-0.4.1.apk). Instala sobre la anterior sin desinstalar. [Corrección de lectura en pantalla completa](VERSION_0.4.1.md). [Mejoras y resultados voluntarios](VERSION_0.4.0.md). [Reservar UberX](VERSION_0.3.5.md). [Fondos oscuros, Comfort y horas](VERSION_0.3.4.md). [Lectura durante el efecto azul](VERSION_0.3.3.md). [UberXL y Exclusivo](VERSION_0.3.2.md). [Correcciones de importes, Exclusivo y Priority](VERSION_0.3.1.md). [Defaults y reglas](VERSION_0.3.0.md).
 
 0.3.0 leyó $77.06 como $7706 en una captura real y permitió un cálculo incorrecto de miles de pesos. 0.3.1 exige centavos legibles, reintenta campos numéricos ampliados y descarta incoherencias; si no puede validar, deja gris. Registros anteriores se conservan sin revalidación automática. Actualiza antes de continuar las pruebas.
 
@@ -41,9 +41,11 @@ En **Resultados y precisión**, selecciona la versión de la oferta y registra v
 
 Comprueba que la sesión siga activa y el modo corresponda a la superficie donde aparece Uber. Evita tapar encabezado o datos con la ventana. Prueba una captura de esa tarjeta para distinguir captura de OCR/formato; guarda diagnóstico si falla. Si Android terminó la sesión, inicia otra.
 
+La 0.4.1 vuelve a leer los importes con caracteres confundidos a partir de los mismos píxeles, delimita las líneas de la tarjeta actual y evita redibujar una ventana flotante idéntica.
+
 Se requieren dos lecturas coincidentes. Se descartan resultados con más de 1.4 s desde adquisición; la lectura caduca 1.4 s después de su publicación válida (revisión cada 0.3 s). Android puede dejar de producir fotogramas en contenido estático; para fotos fijas usa el importador.
 
-Las tarjetas recortadas sin botón no se califican. Múltiples destinos, paradas adicionales y categorías distintas de UberX/UberXL/Priority/Comfort siguen pendientes. «1 destino» no acredita una ruta completamente evaluada. La app no lee ofertas ausentes/ocultas/protegidas ni evade cierres forzados/restricciones del fabricante. Importar una foto originada en iOS no convierte esta APK en una app para iPhone. Las pruebas reales en distintos Android siguen pendientes; la verificación local está en verification/release-0.4.0.json.
+Las tarjetas recortadas sin botón no se califican. Múltiples destinos, paradas adicionales y categorías distintas de UberX/UberXL/Priority/Comfort siguen pendientes. «1 destino» no acredita una ruta completamente evaluada. La app no lee ofertas ausentes/ocultas/protegidas ni evade cierres forzados/restricciones del fabricante. Importar una foto originada en iOS no convierte esta APK en una app para iPhone. Las pruebas reales en distintos Android siguen pendientes; la verificación local está en verification/release-0.4.1.json.
 
 ## Privacidad y compilación
 

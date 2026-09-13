@@ -1,0 +1,76 @@
+{
+  "version": "0.4.1",
+  "version_code": 11,
+  "package": "mx.tesivil.detector",
+  "deliverable": "entrega/Detector-ofertas-0.4.1.apk",
+  "bytes": 50454300,
+  "sha256": "9eaac58dcfbe41f67f0a0e00b74e2bb3955fc0673dcecd5a0c75399b999b3957",
+  "certificate_sha256": "0876d6d2d8230ab279806e24c3072fae05740e7a3e7bc6c922efa7b90c798986",
+  "unit_tests": {
+    "tests": 134,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "android_tests_passed": 73,
+  "additional_live_projection_test_passed": true,
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": 17
+    },
+    "release": {
+      "errors": 0,
+      "warnings": 17
+    }
+  },
+  "catalog_unchanged_from_040": true,
+  "installed_and_landing_apks_match_delivery": true,
+  "signed_update_preserved_fuel_28_and_all_90_zone_rules": true,
+  "user_photos_or_test_fixtures_embedded": false,
+  "internet_camera_microphone_location_permissions": false,
+  "regression_11433_before": "Original 0.4.0 ML Kit returned $1l4.33; missing fare reproduced.",
+  "regression_11803_live_before": "Signed 0.4.0 did not confirm the full-screen fixture within the observation window; screen showed missing fare.",
+  "native_continuous_readings": [
+    {
+      "fare_cents": 11433,
+      "seconds": 16,
+      "samples": 158,
+      "missing_samples": 0,
+      "frames": 27,
+      "complete_frames": 27
+    },
+    {
+      "fare_cents": 11803,
+      "seconds": 10,
+      "samples": 98,
+      "missing_samples": 0,
+      "frames": 18,
+      "complete_frames": 18
+    },
+    {
+      "fare_cents": 9292,
+      "seconds": 10,
+      "samples": 98,
+      "missing_samples": 0,
+      "frames": 11,
+      "complete_frames": 11
+    }
+  ],
+  "native_home_surface_confirmed_by_android_activity_events": true,
+  "removed_offer_cleared_score": true,
+  "projection_stop_verified": true,
+  "geometry_recomputed_from_each_image": true,
+  "frame_max_age_ms": 1400,
+  "publication_expiry_ms": 1400,
+  "expiry_poll_ms": 300,
+  "required_confirming_observations": 2,
+  "test_device": "Owned isolated Android 16 emulator, 896x1920; not the driver phone",
+  "limitations": [
+    "Controlled fixtures are not the Uber app running on the driver phone",
+    "Field OCR times are not end-to-end detection latency",
+    "No old result or reconstructed fare is used to hide an unreadable card",
+    "New images may stop arriving for static surfaces",
+    "Actual Uber behavior on the reporting phone still requires validation"
+  ]
+}

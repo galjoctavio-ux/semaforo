@@ -7,6 +7,17 @@ import static org.junit.Assert.*;
 
 public class OfferReadingRegressionTest {
     private final String sample=OfferParserTest.SAMPLE;
+    @Test public void damagedMoneyRequestsFreshPixelsWithoutReplacingLetters(){
+        for(String money:new String[]{"$1l4.33","$ll4.33","$I14.33","$1|4.33"}){
+            OfferParser.Result r=OfferParser.parse(sample.replace("$69.56",money));
+            assertNull(r.offer);assertTrue(r.needsMoneyRefinement);assertEquals(1,OfferParser.numericFieldKind(money));
+        }
+        assertEquals(0,OfferParser.numericFieldKind("$114.33 por inicio de viaje"));
+        assertEquals(0,OfferParser.numericFieldKind("$ll.33/km"));
+        assertNull(OfferParser.parse(sample.replace("$69.56","$1O4.33")).offer);
+        assertNull(OfferParser.parse(sample.replace("$69.56","$69.56\n$1l4.33")).offer);
+        assertNull(OfferParser.parse(sample.replace("$69.56","$1l4.33\n$1l8.03")).offer);
+    }
     @Test public void damagedJoinedBadgeCanRetryPixelsButIsNotAnAcceptedCategory(){
         OfferParser.Result r=OfferParser.parse(sample.replace("UberX","UberX Exdusivo"));
         assertNull(r.offer);assertTrue(r.needsCardRefinement);
