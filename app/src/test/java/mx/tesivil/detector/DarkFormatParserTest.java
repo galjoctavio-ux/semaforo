@@ -65,7 +65,7 @@ public class DarkFormatParserTest {
     }
     @Test public void destinationNoticeCannotBecomeGreenOrCancelAnExistingRed() {
         String generous=sample.replace("$69.56","$500.00").replace("$11.04/km (estimado)\n","");
-        DriverConfig c=new DriverConfig();c.calibrated=true;c.zoneFilter=false;c.riderFilter=false;
+        DriverConfig c=new DriverConfig();c.calibrated=true;c.vehicleConfirmed=true;c.energyReviewed=true;c.costsReviewed=true;c.goalsReviewed=true;c.zoneFilter=false;c.riderFilter=false;
         OfferParser.Offer plain=OfferParser.parse(generous).offer;
         OfferParser.Offer notice=OfferParser.parse(generous.replace("Calle de ejemplo","Calle de ejemplo\n1 destino")).offer;
         assertEquals(ScoreEngine.Color.VERDE,ScoreEngine.evaluate(plain,c,java.util.List.of(),java.time.LocalDate.now(),12).color);

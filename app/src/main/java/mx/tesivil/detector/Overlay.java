@@ -24,7 +24,7 @@ final class Overlay {
         root.setBackground(Ui.shape(Color.rgb(24, 42, 52), 14, context));
         root.setElevation(Ui.dp(context, 6));
         LinearLayout header = new LinearLayout(context); header.setGravity(Gravity.CENTER_VERTICAL);
-        title = Ui.text(context, "SEMÁFORO · 0.3.5", 11, true); title.setTextColor(Color.rgb(122, 221, 238));
+        title = Ui.text(context, "SEMÁFORO · 0.4.0", 11, true); title.setTextColor(Color.rgb(122, 221, 238));
         header.addView(title, new LinearLayout.LayoutParams(0, Ui.dp(context, 32), 1));
         TextView close = Ui.text(context, "Detener", 12, true); close.setTextColor(Color.WHITE);
         close.setPadding(Ui.dp(context, 8), 0, 0, 0); close.setGravity(Gravity.CENTER);
@@ -57,13 +57,9 @@ final class Overlay {
     }
     void update(String status, OfferParser.Offer offer, long ms) {
         ScoreEngine.Evaluation e=Diagnostics.evaluation;
-        title.setText(offer==null?"SEMÁFORO · 0.3.5":"TIPO: "+offer.typeLabel().toUpperCase(java.util.Locale.ROOT));
+        title.setText(offer==null?"SEMÁFORO · 0.4.0":"TIPO: "+offer.typeLabel().toUpperCase(java.util.Locale.ROOT));
         if(offer==null||e==null){body.setText(status);root.setBackground(Ui.shape(Ui.signalColor(null),14,root.getContext()));return;}
-        body.setText(e.label()+" · "+e.score+"/100\n"+Ui.evaluationSummary(e)
-                +"\n"+offer.rider.summary()
-                +(offer.reserved?"\nReserva: revisar horario y espera previa":"")
-                +(offer.destinationNoticeCount>0?"\nDestinos: revisar paradas y esperas":"")
-                +"\n"+(Diagnostics.config.zoneFilter?(e.zones!=null&&e.zones.unknown?"Zonas: sin verificar":"Zonas: reglas aplicadas"):"Zonas: filtro desactivado"));
+        body.setText(Ui.compact(e));
         root.setBackground(Ui.shape(Ui.signalColor(e),14,root.getContext()));
     }
     void show() { if (!attached) { windows.addView(root, params); attached = true; } }

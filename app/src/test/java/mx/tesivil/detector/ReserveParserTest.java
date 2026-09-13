@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 public class ReserveParserTest {
     private static final String CARD="Reservar UberX\n$265.62\n4.91 (74)\n° A 24 min y (14,4 km)\nCalle Privada Ejemplo\no Viaje: 29 min (21.4 km)\nAvenida Destino Ejemplo\n9 Reserva\nViaje disponible";
     private OfferParser.Offer parse(String s){OfferParser.Result r=OfferParser.parse(s);assertNotNull(r.reason,r.offer);return r.offer;}
-    private DriverConfig reviewed(){DriverConfig c=new DriverConfig();c.calibrated=true;c.zoneFilter=false;return c;}
+    private DriverConfig reviewed(){DriverConfig c=new DriverConfig();c.calibrated=true;c.vehicleConfirmed=true;c.energyReviewed=true;c.costsReviewed=true;c.goalsReviewed=true;c.zoneFilter=false;return c;}
     private ScoreEngine.Evaluation evaluate(OfferParser.Offer o,DriverConfig c){return ScoreEngine.evaluate(o,c,List.of(),LocalDate.of(2026,9,13),12);}
     @Test public void reservedCardPreservesVisibleTotalsAndAbsentRate(){
         OfferParser.Offer o=parse(CARD);assertTrue(o.reserved);assertFalse(o.exclusive);

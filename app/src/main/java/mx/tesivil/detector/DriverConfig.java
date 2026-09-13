@@ -2,8 +2,8 @@ package mx.tesivil.detector;
 
 /** Editable assumptions, not manufacturer specifications or market quotations. */
 public final class DriverConfig {
-    public String vehicle = "Captiva PHEV · perfil editable";
-    public String energyMode = "PHEV";
+    public String vehicle = "Mi vehículo · ejemplo por configurar";
+    public String energyMode = "GASOLINA";
     public double modelYear = 0, odometerKm = 0;
     public double fuelPrice = 25, kmPerLiter = 12, kwhPer100Km = 20, electricityPrice = 0;
     public double electricRangeKm = 100, remainingElectricKm = 100;
@@ -17,11 +17,29 @@ public final class DriverConfig {
     public double weightHourly = 55, weightKm = 30, weightPickup = 15;
     public double greenScore = 75, amberScore = 45, cautionPenalty = 20;
     public boolean zoneFilter = true, calibrated = false;
+    public boolean vehicleConfirmed=false, energyReviewed=false, costsReviewed=false, goalsReviewed=false;
+    public long rangeUpdatedAtMs=0;
+    public double pickupShareAlertPercent=60;
+    public boolean returnScenarioEnabled=false;
+    public double returnScenarioKm=10, returnScenarioMin=20;
     public boolean riderFilter = true, blockNewRider = true;
     public boolean captureWholeScreen = true;
     public double newRiderMinCount = 5, establishedRiderCount = 20;
     public double minRiderRating = 4.70, goodRiderRating = 4.85, riderCautionPenalty = 10;
     public long revision = 1;
+
+    public java.util.List<String> pendingProfile() {
+        java.util.List<String> out=new java.util.ArrayList<>();
+        if(!vehicleConfirmed)out.add("vehículo y energía");
+        if(!energyReviewed)out.add("precio y rendimiento de energía");
+        if(!costsReviewed)out.add("mantenimiento, desgaste y fijos");
+        if(!goalsReviewed)out.add("metas y esperas");
+        if(!calibrated && out.isEmpty())out.add("revisión general del perfil");
+        return out;
+    }
+    public boolean rangeStale(long now) {
+        return !energyMode.equals("GASOLINA") && (rangeUpdatedAtMs<=0 || rangeUpdatedAtMs>now || now-rangeUpdatedAtMs>86_400_000L);
+    }
 
     public String validate() {
         if (vehicle == null || vehicle.isBlank() || vehicle.length() > 100) return "Escribe el modelo (máximo 100 caracteres)";
@@ -36,6 +54,9 @@ public final class DriverConfig {
         if (maintenanceIntervalKm < 1 || tiresLifeKm < 1 || hoursMonthly < 1 || hoursMonthly > 744) return "Intervalos y horas deben ser al menos 1";
         if (modelYear != 0 && (modelYear < 1980 || modelYear > 2100 || modelYear != Math.rint(modelYear))) return "Año inválido (0 significa sin registrar)";
         if (remainingElectricKm > electricRangeKm) return "La autonomía restante supera la autonomía cargado";
+        if(rangeUpdatedAtMs<0) return "Fecha de autonomía inválida";
+        if(pickupShareAlertPercent<1 || pickupShareAlertPercent>100) return "La alerta de proporción debe estar entre 1 y 100%";
+        if(returnScenarioKm>300 || returnScenarioMin>300 || returnScenarioEnabled && returnScenarioKm==0 && returnScenarioMin==0) return "Revisa el escenario de regreso (0–300 km/min; no ambos en cero si está activo)";
         if (additionalFeePercent > 50) return "Revisa el descuento adicional; máximo 50%";
         if (passengerWaitMin > 120 || conservativeExtraMin > 120 || repositionMin > 300 || repositionKm > 300) return "Revisa las esperas y el reposicionamiento";
         if (minHourly < .01 || targetHourly <= minHourly || minPerKm < .01 || targetPerKm <= minPerKm) return "Cada meta debe superar su mínimo y los mínimos deben ser al menos 0.01";

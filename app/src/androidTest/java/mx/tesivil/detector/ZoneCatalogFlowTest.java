@@ -56,7 +56,7 @@ public class ZoneCatalogFlowTest {
         List<ZoneRule> rules=ConfigStore.zones(context);ZoneRule r=rules.get(0);String evidence=r.officialEvidence;
         r.action=ZoneRule.Action.EVITAR;ConfigStore.saveZones(context,rules);r=ConfigStore.zones(context).get(0);
         OfferParser.Offer o=new OfferParser.Offer(100000,1,1,10,5,null,r.neighborhood+", "+r.municipality,r.neighborhood+", "+r.municipality);
-        DriverConfig c=new DriverConfig();c.calibrated=true;c.riderFilter=false;
+        DriverConfig c=new DriverConfig();c.calibrated=true;c.vehicleConfirmed=c.energyReviewed=c.costsReviewed=c.goalsReviewed=true;c.riderFilter=false;
         assertEquals(ScoreEngine.Color.ROJO,ScoreEngine.evaluate(o,c,List.of(r),LocalDate.now(),12).color);
         r.action=ZoneRule.Action.REVISADA;ConfigStore.saveZones(context,List.of(r));r=ConfigStore.zones(context).get(0);
         assertEquals(evidence,r.officialEvidence);assertEquals(ScoreEngine.Color.VERDE,ScoreEngine.evaluate(o,c,List.of(r),LocalDate.now(),12).color);

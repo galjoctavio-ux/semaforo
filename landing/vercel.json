@@ -25,7 +25,7 @@
       ]
     },
     {
-      "source": "/descargas/Detector-ofertas-0.3.5.apk",
+      "source": "/descargas/Detector-ofertas-0.4.0.apk",
       "headers": [
         {
           "key": "Content-Type",
@@ -33,7 +33,7 @@
         },
         {
           "key": "Content-Disposition",
-          "value": "attachment; filename=\"Detector-ofertas-0.3.5.apk\""
+          "value": "attachment; filename=\"Detector-ofertas-0.4.0.apk\""
         },
         {
           "key": "Cache-Control",

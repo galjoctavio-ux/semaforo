@@ -74,36 +74,46 @@ public final class ZoneRule {
     }
     public static final class Assessment {
         public boolean blocked, caution, unknown;
+        public boolean pickupUnknown,destinationUnknown;
         public String pickupStatus, destinationStatus, reason;
+        public String pickupReference="Sin fuente coincidente",destinationReference="Sin fuente coincidente";
     }
     public static Assessment assess(OfferParser.Offer o, List<ZoneRule> rules, LocalDate date, int hour) {
         Endpoint p = endpoint(o.pickupAddress, rules, true, date, hour);
         Endpoint d = endpoint(o.destinationAddress, rules, false, date, hour);
         Assessment a = new Assessment();
         a.blocked = p.blocked || d.blocked; a.caution = p.caution || d.caution; a.unknown = !p.reviewed || !d.reviewed;
+        a.pickupUnknown=!p.reviewed;a.destinationUnknown=!d.reviewed;
         a.pickupStatus = p.message; a.destinationStatus = d.message;
+        a.pickupReference=p.reference;a.destinationReference=d.reference;
         a.reason = a.blocked ? (p.blocked ? "Recogida: " + p.message : "Destino: " + d.message)
                 : a.caution ? (p.caution ? "Recogida: " + p.message : "Destino: " + d.message)
                 : a.unknown ? "Zona sin evaluación suficiente" : "Ambos extremos revisados por ti";
         return a;
     }
-    private static final class Endpoint { boolean blocked, caution, reviewed; String message = "Sin evaluación de zona"; }
+    private static final class Endpoint { boolean blocked, caution, reviewed; String message = "Sin evaluación de zona",reference="Sin fuente coincidente"; }
     private static Endpoint endpoint(String address, List<ZoneRule> rules, boolean pickup, LocalDate date, int hour) {
         Endpoint e = new Endpoint();
         if (address == null || address.isBlank()) { e.message = "Dirección no legible"; return e; }
-        boolean uncertain = false;
+        boolean uncertain = false;String uncertainty="",uncertainReference="";
         for (ZoneRule r : rules) {
             if (pickup ? !r.pickup : !r.destination) continue;
             if (!r.activeAt(hour)) continue;
             int match = r.matches(address);
             if (match == 0) continue;
-            if (match == 1 || !r.current(date)) { uncertain = true; continue; }
+            String kind=r.catalogId.isEmpty() && r.officialEvidence.isEmpty() && r.supplementEvidence.isEmpty()?"Regla personal":r.referenceKind();
+            String reference=kind+" · motivo declarado: "+r.source+" · revisión "+r.reviewedOn
+                    +(r.noExpiry?" · sin vencimiento automático":" · vigencia "+r.validDays+" días")+". La fecha de revisión no es la fecha de un delito.";
+            for(String line:(r.officialEvidence+"\n"+r.supplementEvidence).split("\n"))if(line.startsWith("Periodo") || line.startsWith("Fiscalía") || line.startsWith("FUENTE") || line.startsWith("REPORTE") || line.startsWith("http"))reference+="\n"+line;
+            if(!r.officialUrl.isBlank())reference+="\n"+r.officialUrl;
+            if (match == 1 || !r.current(date)) { uncertain = true; uncertainty=match==1?"Colonia coincidente; municipio sin confirmar":"Revisión vencida o fecha inválida";uncertainReference=reference;continue; }
             e.reviewed = true;
+            if(!e.blocked && (!e.caution || r.action!=Action.REVISADA))e.reference=reference;
             if (r.action == Action.EVITAR) { e.blocked = true; e.message = "Evitar " + r.neighborhood + (r.catalogId.isEmpty()?" (regla tuya)":" (base histórica / ajuste tuyo)"); }
             else if (r.action == Action.PRECAUCION && !e.blocked) { e.caution = true; e.message = "Precaución: " + r.neighborhood + (r.catalogId.isEmpty()?"":r.referenceKind().startsWith("Reporte comunitario")?" (reporte comunitario)":" (antecedente histórico)"); }
             else if (r.action == Action.REVISADA && !e.blocked && !e.caution) { e.reviewed = true; e.message = "Revisada por ti: " + r.neighborhood; }
         }
-        if (uncertain && !e.blocked && !e.caution) { e.reviewed = false; e.message = "Coincidencia ambigua o revisión vencida"; }
+        if (uncertain && !e.blocked && !e.caution) { e.reviewed = false; e.message = uncertainty;e.reference=uncertainReference; }
         return e;
     }
 }

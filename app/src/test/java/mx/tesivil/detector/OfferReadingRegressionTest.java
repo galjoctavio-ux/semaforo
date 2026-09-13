@@ -58,7 +58,7 @@ public class OfferReadingRegressionTest {
         assertNull(OfferParser.parse(sample.replace("UberX","UberX Priority").replace("$69.56","$69.56\n$5.00")).offer);
     }
     private ScoreEngine.Evaluation evaluate(String badge,String rider){
-        DriverConfig c=new DriverConfig();c.calibrated=true;c.zoneFilter=false;
+        DriverConfig c=new DriverConfig();c.calibrated=true;c.vehicleConfirmed=true;c.energyReviewed=true;c.costsReviewed=true;c.goalsReviewed=true;c.zoneFilter=false;
         OfferParser.Offer o=OfferParser.parse(sample.replace("UberX",badge).replace("4.83 (370)",rider)).offer;
         assertNotNull(o);return ScoreEngine.evaluate(o,c,List.of(),LocalDate.now(),12);
     }

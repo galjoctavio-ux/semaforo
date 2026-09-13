@@ -12,6 +12,7 @@ public final class SettingsActivity extends Activity {
     private DriverConfig config;
     private final Map<String,EditText> fields = new LinkedHashMap<>();
     private CheckBox calibrated, zoneFilter, riderFilter, blockNewRider;
+    private CheckBox vehicleConfirmed,energyReviewed,costsReviewed,goalsReviewed,rangeUpdated,returnEnabled;
     private Spinner mode;
     private EditText model;
     @Override public void onCreate(Bundle state) {
@@ -30,6 +31,7 @@ public final class SettingsActivity extends Activity {
             field(p,"fuelPrice","Gasolina, MXN por litro"); field(p,"kmPerLiter","Rendimiento con gasolina, km/L");
             field(p,"electricityPrice","Electricidad, MXN por kWh"); field(p,"kwhPer100Km","Consumo eléctrico, kWh por 100 km");
             field(p,"electricRangeKm","Autonomía eléctrica cargado, km"); field(p,"remainingElectricKm","Autonomía eléctrica restante ahora, km");
+            rangeUpdated=FormUi.check(p,"Actualicé la autonomía restante para hoy (si uso electricidad)",false);
             FormUi.text(p,"Actualiza la autonomía al iniciar tu jornada y cuando cambie. No se lee del carro ni se descuenta por ofertas que no aceptas.",13,false);
             FormUi.text(p,"Mantenimiento y desgaste",20,true);
             field(p,"maintenanceCost","Costo de cada servicio, MXN"); field(p,"maintenanceIntervalKm","Intervalo de servicio, km");
@@ -37,19 +39,29 @@ public final class SettingsActivity extends Activity {
             field(p,"wearPerKm","Otro desgaste / depreciación por uso, MXN/km");
             field(p,"fixedMonthly","Gastos fijos mensuales asignados, MXN"); field(p,"hoursMonthly","Horas trabajadas al mes");
             FormUi.text(p,"El odómetro no cambia costos automáticamente. Calibra los intervalos con tu mantenimiento. Evita contar dos veces depreciación y financiamiento. El saldo estimado es antes de impuestos y depende de las horas configuradas.",13,false);
+            vehicleConfirmed=FormUi.check(p,"Confirmo mi vehículo y el tipo de energía",config.vehicleConfirmed);
+            energyReviewed=FormUi.check(p,"Revisé precio y rendimiento de energía con mis registros",config.energyReviewed);
+            costsReviewed=FormUi.check(p,"Revisé mantenimiento, desgaste, llantas y gastos fijos",config.costsReviewed);
+            FormUi.text(p,"Electricidad a $0 solo corresponde si de verdad no la pagas. Confirmar casillas registra tu revisión; no verifica el consumo del carro. Los perfiles anteriores se conservan, pero requieren estas revisiones específicas.",13,false);
         } else {
             field(p,"minHourly","Mínimo disponible estimado, MXN/h"); field(p,"targetHourly","Meta disponible estimado, MXN/h");
             field(p,"minPerKm","Mínimo disponible estimado, MXN/km"); field(p,"targetPerKm","Meta disponible estimado, MXN/km");
             field(p,"maxPickupMin","Máximo de recogida, minutos"); field(p,"maxPickupKm","Máximo de recogida, km");
+            field(p,"pickupShareAlertPercent","Alertar si la recogida consume al menos este % de km o tiempo");
             field(p,"passengerWaitMin","Espera estimada del pasajero, minutos"); field(p,"conservativeExtraMin","Espera extra del escenario conservador, minutos");
             field(p,"repositionKm","Reposicionamiento adicional estimado, km"); field(p,"repositionMin","Reposicionamiento adicional estimado, minutos");
             field(p,"extrasPerTrip","Extras no reembolsados por viaje, MXN"); field(p,"additionalFeePercent","Descuento adicional no incluido en la oferta, %");
             FormUi.text(p,"Deja el descuento adicional en 0 si la oferta ya descuenta la comisión. No se suman propinas o bonos hipotéticos. Reposición en 0 significa que este escenario no considera regreso.",13,false);
+            FormUi.text(p,"Escenario alternativo de regreso",20,true);
+            returnEnabled=FormUi.check(p,"Comparar también con mi escenario de regreso",config.returnScenarioEnabled);
+            field(p,"returnScenarioKm","Regreso alternativo, km (ejemplo editable)");field(p,"returnScenarioMin","Regreso alternativo, minutos (ejemplo editable)");
+            FormUi.text(p,"Es una hipótesis tuya, no una predicción de demanda. Este escenario reemplaza la reposición anterior; no suma dos veces el regreso. Si queda bajo tus mínimos, limita a ámbar y conserva cualquier rojo.",13,false);
             FormUi.text(p,"Pesos del score",20,true);
             FormUi.text(p,"Se normalizan entre sí. Son preferencias, no probabilidades. Costos y rendimientos entran en el margen; no vuelven a penalizarse por separado.",13,false);
             field(p,"weightHourly","Peso del margen por hora"); field(p,"weightKm","Peso del margen por km"); field(p,"weightPickup","Peso del esfuerzo de recogida");
             field(p,"greenScore","Score mínimo verde, 0–100"); field(p,"amberScore","Score mínimo ámbar, 0–100"); field(p,"cautionPenalty","Descuento de score por zona de precaución");
             zoneFilter=FormUi.check(p,"Evaluar zonas (sin información no habrá verde)",config.zoneFilter);
+            goalsReviewed=FormUi.check(p,"Revisé metas, recogida, esperas y regreso",config.goalsReviewed);
         }
         calibrated=FormUi.check(p,"He revisado mis costos y objetivos",config.calibrated);
         FormUi.text(p,"Mientras uses valores sin revisar, la recomendación no será verde. Puedes analizar escenarios desde Simulador.",13,false);
@@ -62,11 +74,18 @@ public final class SettingsActivity extends Activity {
     }
     private void save() {
         try {
+            double oldRange=config.remainingElectricKm;
             for (Map.Entry<String,EditText> entry:fields.entrySet()) DriverConfig.class.getField(entry.getKey()).setDouble(config,FormUi.number(entry.getValue()));
             if (model!=null) { config.vehicle=model.getText().toString().trim(); config.energyMode=new String[]{"PHEV","GASOLINA","ELECTRICO"}[mode.getSelectedItemPosition()]; }
             if(zoneFilter!=null)config.zoneFilter=zoneFilter.isChecked();
             if(riderFilter!=null)config.riderFilter=riderFilter.isChecked();
             if(blockNewRider!=null)config.blockNewRider=blockNewRider.isChecked();
+            if(vehicleConfirmed!=null)config.vehicleConfirmed=vehicleConfirmed.isChecked();
+            if(energyReviewed!=null)config.energyReviewed=energyReviewed.isChecked();
+            if(costsReviewed!=null)config.costsReviewed=costsReviewed.isChecked();
+            if(goalsReviewed!=null)config.goalsReviewed=goalsReviewed.isChecked();
+            if(returnEnabled!=null)config.returnScenarioEnabled=returnEnabled.isChecked();
+            if(rangeUpdated!=null && (rangeUpdated.isChecked() || oldRange!=config.remainingElectricKm))config.rangeUpdatedAtMs=System.currentTimeMillis();
             if(calibrated!=null)config.calibrated=calibrated.isChecked(); ConfigStore.save(this,config); finish();
         } catch(Exception e) { FormUi.error(this,e instanceof NumberFormatException?"Completa los campos numéricos con valores válidos":e.getMessage()); }
     }

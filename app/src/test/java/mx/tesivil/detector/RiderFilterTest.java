@@ -9,7 +9,7 @@ public class RiderFilterTest {
     private ScoreEngine.Evaluation evaluate(RiderProfile r,DriverConfig c) {
         return ScoreEngine.evaluate(new OfferParser.Offer(100000,1,1,10,4,null,"","",r),c,List.of(),LocalDate.now(),12);
     }
-    private DriverConfig config(){DriverConfig c=new DriverConfig();c.zoneFilter=false;c.calibrated=true;return c;}
+    private DriverConfig config(){DriverConfig c=new DriverConfig();c.zoneFilter=false;c.calibrated=true;c.vehicleConfirmed=true;c.energyReviewed=true;c.costsReviewed=true;c.goalsReviewed=true;return c;}
     private RiderProfile profile(Double rating,Integer count){return new RiderProfile(rating,count,false,false,"ADJACENT_TO_RATING");}
     @Test public void explicitNewOverridesHighFareAndReviewedCosts(){ScoreEngine.Evaluation e=evaluate(new RiderProfile(null,null,true,false,"NOT_VISIBLE"),config());assertEquals(ScoreEngine.Color.ROJO,e.color);assertTrue(e.riderBlocked);assertTrue(e.reason().contains("NUEVO"));assertTrue(e.score<45);}
     @Test public void fiveStarsCannotOverrideNewByCount(){for(int n:new int[]{0,1,4})assertEquals(ScoreEngine.Color.ROJO,evaluate(profile(5d,n),config()).color);}

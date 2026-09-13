@@ -8,15 +8,15 @@ import static org.junit.Assert.*;
 public class ScoreEngineTest {
     private static final LocalDate DAY=LocalDate.of(2026,9,12);
     private OfferParser.Offer sample(long cents){return new OfferParser.Offer(cents,14,6.3,18,4,null,"Calle Uno, Colonia Ejemplo, Zapopan","Calle Dos, Colonia Destino, Zapopan");}
-    private DriverConfig config(){DriverConfig c=new DriverConfig();c.calibrated=true;c.zoneFilter=false;c.riderFilter=false;return c;}
+    private DriverConfig config(){DriverConfig c=new DriverConfig();c.calibrated=true;c.vehicleConfirmed=true;c.energyReviewed=true;c.costsReviewed=true;c.goalsReviewed=true;c.energyMode="PHEV";c.rangeUpdatedAtMs=System.currentTimeMillis();c.zoneFilter=false;c.riderFilter=false;return c;}
     private ScoreEngine.Evaluation evaluate(DriverConfig c){return ScoreEngine.evaluate(sample(9831),c,List.of(),DAY,12);}
     private ZoneRule rule(String name,ZoneRule.Action action){ZoneRule r=new ZoneRule();r.neighborhood=name;r.municipality="Zapopan";r.action=action;r.reviewedOn=DAY.toString();return r;}
     @Test public void defaultCostsAreExplicitAndArithmeticMatches(){
         DriverConfig c=new DriverConfig();assertNull(c.validate());ScoreEngine.Evaluation e=evaluate(c);
-        assertEquals(10.3,e.km,.0001);assertEquals(35,e.minutes,.0001);assertEquals(0,e.energyCost,.0001);
+        assertEquals(10.3,e.km,.0001);assertEquals(35,e.minutes,.0001);assertEquals(10.3/12*25,e.energyCost,.0001);
         assertEquals(15.45,e.upkeepCost,.0001);assertEquals(10.9375,e.fixedCost,.0001);
-        assertEquals(71.9225,e.margin,.0001);assertEquals(123.295714,e.hourly,.0001);
-        assertEquals(105.54,e.conservativeHourly,.001);assertNotEquals(ScoreEngine.Color.VERDE,e.color);
+        assertEquals(50.4641667,e.margin,.0001);assertEquals(86.51,e.hourly,.001);
+        assertEquals(73.3525,e.conservativeHourly,.001);assertNotEquals(ScoreEngine.Color.VERDE,e.color);
     }
     @Test public void depletedPhevUsesOnlyRemainingElectricKm(){
         DriverConfig c=config();c.remainingElectricKm=4;c.electricityPrice=2;

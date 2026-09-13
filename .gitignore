@@ -29,6 +29,7 @@ verification/*
 !verification/release-0.3.3.json
 !verification/release-0.3.4.json
 !verification/release-0.3.5.json
+!verification/release-0.4.0.json
 !verification/sources/
 verification/sources/*
 !verification/sources/iieg-oct2021/
@@ -42,3 +43,5 @@ entrega/*
 !entrega/Detector-ofertas-0.3.4.sha256.txt
 !entrega/Detector-ofertas-0.3.5.apk
 !entrega/Detector-ofertas-0.3.5.sha256.txt
+!entrega/Detector-ofertas-0.4.0.apk
+!entrega/Detector-ofertas-0.4.0.sha256.txt

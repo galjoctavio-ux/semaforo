@@ -34,11 +34,43 @@ final class Ui {
     static String evaluationSummary(ScoreEngine.Evaluation e) {
         if(e==null)return "Confirmando la lectura…";
         if(e.color==ScoreEngine.Color.GRIS)return e.reason();
-        return "Disponible estimado: "+amount(e.hourly)+"/h\n"+amount(e.margin)+" por viaje · "+amount(e.perKm)+"/km\n"+e.reason();
+        return "Rentabilidad: "+e.economyStatus+" · económico "+e.economyScore+"/100"
+                +"\nDisponible estimado: "+amount(e.hourly)+"/h · "+amount(e.margin)+" por viaje · "+amount(e.perKm)+"/km"
+                +"\nLímite principal: "+restriction(e)
+                +"\nDatos pendientes: "+(e.pending.isEmpty()?"ninguno de los comprobados por la app":String.join("; ",e.pending))
+                +(e.alerts.isEmpty()?"":"\n"+String.join("\n",e.alerts))
+                +"\n"+(e.belowFloor?"Ya está bajo tus mínimos económicos":"Espera extra tolerable estimada: "+km(Math.floor(e.extraWaitToleranceMin*10)/10)+" min")
+                +"\nImporte mínimo económico estimado: "+amount(e.minimumFare)
+                +(e.returnHourly==null?"":"\nCon regreso configurado: "+amount(e.returnHourly)+"/h · "+amount(e.returnMargin)+" disponibles");
+    }
+    static String restriction(ScoreEngine.Evaluation e){
+        if(e.zoneBlocked)return e.zones.reason;
+        if(e.riderBlocked)return "Regla personal de pasajero: "+(e.rider.explicitNew?"NUEVO visible":e.reason());
+        for(String reason:e.reasons)if(reason.contains("Autonomía eléctrica insuficiente") || reason.contains("Recogida fuera"))return reason;
+        if(e.belowFloor)return "Bajo tus mínimos económicos";
+        if(e.color==ScoreEngine.Color.ROJO)return "No alcanza tu calificación mínima";
+        return e.reason();
+    }
+    static String pendingShort(ScoreEngine.Evaluation e){
+        String first=e.pending.isEmpty()?"Sin pendientes detectados":e.pending.get(0);
+        for(String s:e.pending)if(s.startsWith("Reserva:")){first="Reserva: revisar horario y espera";break;}
+        if(first.startsWith("Perfil:"))first="Perfil por revisar";
+        if(first.startsWith("Zonas:"))first="Zonas por verificar";
+        return first+(e.pending.size()>1?" (+"+(e.pending.size()-1)+")":"");
+    }
+    static String compact(ScoreEngine.Evaluation e){
+        if(e.color==ScoreEngine.Color.GRIS)return e.reason();
+        String limit=e.zoneBlocked?"Zona bloqueada por tu regla":e.riderBlocked?e.riderLimit:restriction(e);
+        if(limit.length()>65)limit=limit.substring(0,62)+"…";
+        return e.label()+" "+e.score+"/100 · económico "+e.economyScore+"\nEst.: "+amount(e.hourly)+"/h · "+amount(e.margin)+"/viaje"
+                +"\nLímite: "+limit+"\nPendiente: "+pendingShort(e)
+                +(Diagnostics.offerChange.isEmpty()?(e.pickupDisproportionate?"\nRecogida: "+Math.round(e.pickupKmShare)+"% km · "+Math.round(e.pickupTimeShare)+"% tiempo":"") :"\n"+Diagnostics.offerChange);
     }
     static String details(ScoreEngine.Evaluation e,DriverConfig c){
         if(e==null)return "Todavía no hay una lectura confirmada";
+        if(e.color==ScoreEngine.Color.GRIS)return "Sin cálculo válido: "+e.reason();
         return e.label()+" · "+e.score+"/100\n"+String.join("\n",e.reasons)
+                +"\n\n"+evaluationSummary(e)
                 +"\n\nEstimación en MXN antes de impuestos. Incluye costos variables y fijos prorrateados."
                 +"\nImporte tras descuento adicional: "+amount(e.revenue)+"\nEnergía: "+amount(e.energyCost)
                 +"\nMantenimiento, llantas y desgaste: "+amount(e.upkeepCost)+"\nFijos prorrateados: "+amount(e.fixedCost)+"\nExtras: "+amount(e.extraCost)
@@ -48,7 +80,9 @@ final class Ui {
                 +"\nPesos: "+km(c.weightHourly)+" / "+km(c.weightKm)+" / "+km(c.weightPickup)
                 +(e.rider==null?"":"\n\n"+e.rider.summary()+"\nFiltro: "+(c.riderFilter?"activo":"desactivado")+" · Nuevo < "+(int)c.newRiderMinCount+" · Verde desde "+(int)c.establishedRiderCount+" visibles\nCalificación mínima "+c.minRiderRating+" · meta "+c.goodRiderRating)
                 +(e.zones==null?"":"\n\nRecogida: "+e.zones.pickupStatus+"\nDestino: "+e.zones.destinationStatus)
+                +(e.zones==null?"":"\nFuente de recogida: "+e.zones.pickupReference+"\nFuente de destino: "+e.zones.destinationReference)
                 +"\nNo se evalúa la ruta intermedia ni se certifica seguridad."
-                +"\n\nPerfil: "+c.vehicle+" · revisión "+c.revision+"\n"+(c.calibrated?"Costos marcados como revisados por ti":"Valores iniciales pendientes de revisar");
+                +"\nEl margen de espera supone el carro detenido sin costos adicionales de energía ni km; es una estimación. El importe mínimo económico no elimina restricciones de zona, pasajero o recogida."
+                +"\n\nPerfil: "+c.vehicle+" · revisión "+c.revision+"\n"+(c.pendingProfile().isEmpty()?"Costos marcados como revisados por ti":"Pendiente: "+String.join(", ",c.pendingProfile()));
     }
 }

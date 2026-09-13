@@ -1,0 +1,76 @@
+{
+  "version": "0.4.0",
+  "version_code": 10,
+  "package": "mx.tesivil.detector",
+  "deliverable": "entrega/Detector-ofertas-0.4.0.apk",
+  "bytes": 50454300,
+  "sha256": "3825b17c18f956d2277546da81793111468534b29a5748c3c52c4d654ffb7ccd",
+  "certificate_sha256": "0876d6d2d8230ab279806e24c3072fae05740e7a3e7bc6c922efa7b90c798986",
+  "unit_tests": {
+    "tests": 133,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "android_tests_passed": 66,
+  "final_changed_android_cases_passed": 19,
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": 17
+    },
+    "release": {
+      "errors": 0,
+      "warnings": 17
+    }
+  },
+  "catalog_unchanged_from_035": true,
+  "installed_and_landing_apks_match_delivery": true,
+  "signed_update_preserved_fuel_28_and_all_90_zone_rules": true,
+  "migration_check": "035 to 040 checked before final presentation and disk-queue changes; final Android test also loads an old PHEV profile and preserves its values while requiring new reviews.",
+  "user_photos_or_test_fixtures_embedded": false,
+  "internet_camera_microphone_location_permissions": false,
+  "manual_results": {
+    "exact_selected_version": true,
+    "one_result_per_group": true,
+    "unknown_costs_excluded_from_actual_margin": true,
+    "atomic_disk_commit_verified": true,
+    "completed_requires_reported_payment_time_km": true,
+    "platform_payment_verification": false,
+    "automatic_uber_acceptance": false,
+    "retained_versions_limit": 200
+  },
+  "decision_insights": {
+    "pickup_share_threshold_editable": true,
+    "inverse_wait_honors_hourly_and_km_floors": true,
+    "minimum_fare_rounded_up_to_cents": true,
+    "return_scenario_replaces_base_repositioning": true,
+    "return_demand_predictions": false,
+    "historical_source_date_separate_from_personal_review": true,
+    "risk_score_is_probability": false
+  },
+  "live_projection_with_both_activities_minimized": {
+    "fare_cents": 26562,
+    "service_type": "UBER_X",
+    "reservation": true,
+    "pickup_minutes": 24,
+    "pickup_km": 14.4,
+    "trip_minutes": 29,
+    "trip_km": 21.4,
+    "ocr_ms": 615,
+    "decision_ms": 106
+  },
+  "native_color": "ROJO",
+  "frame_max_age_ms": 1400,
+  "required_confirming_observations": 2,
+  "test_device": "Owned isolated Android 16 emulator, 896x1920; not a driver phone",
+  "limitations": [
+    "Actual results are voluntary driver reports, not verified payments",
+    "Historical reports do not certify current neighborhood safety",
+    "Return is a configurable scenario, not learned demand",
+    "Extra waiting tolerance assumes no additional km or energy",
+    "OCR time is not end-to-end detection latency",
+    "Real offers on more Android devices remain to be tested",
+    "No full route, live traffic or reservation schedule extraction"
+  ]
+}

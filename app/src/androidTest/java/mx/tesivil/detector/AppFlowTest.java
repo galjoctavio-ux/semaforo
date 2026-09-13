@@ -72,9 +72,9 @@ public class AppFlowTest {
     @Test public void riderChangesCreateTheirOwnHistoryAndUnknownRemainsNull()throws Exception{
         main(()->{Diagnostics.reading(OfferParser.parse(SAMPLE),140,"Captura seleccionada");Diagnostics.reading(OfferParser.parse(SAMPLE.replace("4.92 (149)","Nuevo")),140,"Captura seleccionada");});
         JSONArray rows=HistoryStore.snapshot();assertEquals(2,rows.length());assertEquals(149,rows.getJSONObject(0).getJSONObject("rider").getInt("visible_count"));assertTrue(rows.getJSONObject(1).getJSONObject("rider").isNull("visible_count"));assertEquals("ROJO",rows.getJSONObject(1).getJSONObject("evaluation").getString("color"));
-        assertEquals("0.3.5",new org.json.JSONObject(Diagnostics.export(context)).getString("app_version"));
+        assertEquals("0.4.0",new org.json.JSONObject(Diagnostics.export(context)).getString("app_version"));
         assertEquals("UBER_X",rows.getJSONObject(0).getString("service_type"));assertFalse(rows.getJSONObject(0).getBoolean("exclusive"));
-        assertEquals("0.3.5",rows.getJSONObject(0).getString("reader_version"));
+        assertEquals("0.4.0",rows.getJSONObject(0).getString("reader_version"));
     }
     @Test public void changedXlFareIsConfirmedAndJournaledSeparately()throws Exception{
         String original=SAMPLE.replace("UberX","UberXL Exclusivo").replace("98.31","284.93");
@@ -88,6 +88,8 @@ public class AppFlowTest {
         JSONArray rows=HistoryStore.snapshot();assertEquals(2,rows.length());
         assertEquals(28493,rows.getJSONObject(0).getLong("fare_cents"));assertEquals(23682,rows.getJSONObject(1).getLong("fare_cents"));
         assertEquals("UBER_XL",rows.getJSONObject(1).getString("service_type"));assertTrue(rows.getJSONObject(1).getBoolean("exclusive"));
+        assertEquals(rows.getJSONObject(0).getString("episode_id"),rows.getJSONObject(1).getString("episode_id"));assertEquals(2,rows.getJSONObject(1).getInt("offer_version"));
+        assertEquals(1,TripJournal.groups(rows).size());assertEquals(0,TripJournal.stats(rows).completed);assertTrue(Diagnostics.offerChange.contains("48.11"));
     }
     @Test public void comfortHoursAndDestinationNoticeAreRecordedWithoutStreetText() throws Exception {
         String card=SAMPLE.replace("UberX","Comfort Exclusivo").replace("18 min","1 h 3 min")
