@@ -12,6 +12,7 @@ app/src/androidTest/assets/user-offer-overlay.jpg
 app/src/androidTest/assets/user-031-*
 app/src/androidTest/assets/user-032-*
 app/src/androidTest/assets/user-033-*
+app/src/androidTest/assets/user-034-*
 verification/ocr-031-baseline-lines.txt
 .vercel/
 **/.vercel/
@@ -25,6 +26,7 @@ node_modules/
 # Local diagnostic artifacts and private research notes are not release sources.
 verification/*
 !verification/release-0.3.3.json
+!verification/release-0.3.4.json
 !verification/sources/
 verification/sources/*
 !verification/sources/iieg-oct2021/
@@ -34,3 +36,5 @@ HALLAZGOS_GRUPO_CHOFERES.md
 entrega/*
 !entrega/Detector-ofertas-0.3.3.apk
 !entrega/Detector-ofertas-0.3.3.sha256.txt
+!entrega/Detector-ofertas-0.3.4.apk
+!entrega/Detector-ofertas-0.3.4.sha256.txt

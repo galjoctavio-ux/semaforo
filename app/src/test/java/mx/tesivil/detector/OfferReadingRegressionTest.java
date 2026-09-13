@@ -64,7 +64,7 @@ public class OfferReadingRegressionTest {
     }
     @Test public void categoryAndExclusiveDoNotDoubleCountHigherFareOrChangeScore(){
         ScoreEngine.Evaluation standard=evaluate("UberX","4.92 (149)");
-        for(String badge:new String[]{"UberX Priority","UberX Exclusivo"}){
+        for(String badge:new String[]{"UberX Priority","UberX Exclusivo","Comfort","Comfort Exclusivo"}){
             ScoreEngine.Evaluation other=evaluate(badge,"4.92 (149)");
             assertEquals(standard.score,other.score);assertEquals(standard.color,other.color);
             assertEquals(standard.revenue,other.revenue,0);assertEquals(standard.margin,other.margin,0);

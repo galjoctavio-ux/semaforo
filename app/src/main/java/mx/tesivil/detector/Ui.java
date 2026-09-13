@@ -22,7 +22,8 @@ final class Ui {
     static String summary(OfferParser.Offer o) {
         return "Tipo: "+o.typeLabel()+"\nOferta " + money(o.cents) + "\nRecogida: " + o.pickupMinutes + " min · " + km(o.pickupKm) + " km"
                 + "\nViaje: " + o.tripMinutes + " min · " + km(o.tripKm) + " km"
-                + "\nTotal mostrado: " + o.totalMinutes() + " min · " + km(o.totalKm()) + " km";
+                + "\nTotal mostrado: " + o.totalMinutes() + " min · " + km(o.totalKm()) + " km"
+                +(o.destinationNoticeCount>0?"\nAviso visible: "+o.destinationNoticeCount+" destino · revisar paradas y esperas":"");
     }
     static String amount(double value) { return String.format(java.util.Locale.US,"$%.2f",value); }
     static int signalColor(ScoreEngine.Evaluation e) {

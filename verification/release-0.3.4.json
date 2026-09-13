@@ -1,0 +1,79 @@
+{
+  "version": "0.3.4",
+  "version_code": 8,
+  "package": "mx.tesivil.detector",
+  "deliverable": "entrega/Detector-ofertas-0.3.4.apk",
+  "bytes": 50421532,
+  "sha256": "0aabf83b2f80f5eb4ac3466b02ea57c67ec98631361f74292af316fa346492db",
+  "certificate_sha256": "0876d6d2d8230ab279806e24c3072fae05740e7a3e7bc6c922efa7b90c798986",
+  "unit_tests": {
+    "tests": 99,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "android_tests_passed": 54,
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": 17
+    },
+    "release": {
+      "errors": 0,
+      "warnings": 17
+    }
+  },
+  "signed_update_preserved_fuel_28_and_all_90_zone_rules": true,
+  "catalog_unchanged_from_033": true,
+  "installed_and_landing_apks_match_delivery": true,
+  "user_photos_or_test_fixtures_embedded": false,
+  "internet_camera_microphone_location_permissions": false,
+  "new_private_samples": {
+    "complete_photos": 4,
+    "full_and_live_regions_passed": true,
+    "cropped_photo_without_action_rejected": true
+  },
+  "live_projection_with_both_activities_minimized": [
+    {
+      "fare_cents": 23582,
+      "service_type": "COMFORT",
+      "exclusive": true,
+      "pickup_minutes": 2,
+      "pickup_km": 0.6,
+      "trip_minutes": 63,
+      "trip_km": 16.3,
+      "destination_notice_count": 1,
+      "ocr_ms": 1150,
+      "decision_ms": 169
+    },
+    {
+      "fare_cents": 6603,
+      "service_type": "PRIORITY",
+      "exclusive": true,
+      "pickup_minutes": 11,
+      "pickup_km": 6.7,
+      "trip_minutes": 5,
+      "trip_km": 1.3,
+      "destination_notice_count": 0,
+      "ocr_ms": 888,
+      "decision_ms": 235
+    }
+  ],
+  "test_device": "Owned isolated Android 16 emulator, 896x1920; not a driver phone",
+  "original_color_ocr_preserved": true,
+  "bounded_full_contrast_retries": 1,
+  "global_dark_inversion_added": false,
+  "frame_max_age_ms": 1400,
+  "required_confirming_observations": 2,
+  "category_score_bonus": 0,
+  "priority_surcharge_added_again": false,
+  "destination_notice": "Visible label preserved, exact meaning unconfirmed; cap amber without upgrading red. Additional stops and multiple destinations unsupported.",
+  "limitations": [
+    "Real dark offers on driver Android devices remain to be tested",
+    "Some source photos came from iOS; APK is Android only",
+    "OCR duration is not end-to-end detection latency",
+    "Not every screen scale or animation phase is covered",
+    "Neighborhood matching remains textual and can be ambiguous; route is not fully evaluated",
+    "Offers are not confirmed payouts or crime probabilities"
+  ]
+}

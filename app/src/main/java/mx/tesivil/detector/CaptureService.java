@@ -105,7 +105,7 @@ public final class CaptureService extends Service {
                         gate.invalidate(); Diagnostics.clear("La aplicación compartida no está visible");
                         if (overlay != null) overlay.hide();
                     } else {
-                        gate.start(); Diagnostics.clear("Esperando oferta UberX, UberXL o Priority…");
+                        gate.start(); Diagnostics.clear("Esperando oferta UberX, UberXL, Priority o Comfort…");
                         if (overlay != null) {
                             try { overlay.show(); } catch (RuntimeException e) { finish("No se pudo mostrar la ventana flotante"); }
                         }
@@ -114,7 +114,7 @@ public final class CaptureService extends Service {
             }, main);
             worker.post(() -> configureDisplay(bounds.width(), bounds.height()));
             worker.post(capturePoll);
-            Diagnostics.status("Esperando oferta UberX, UberXL o Priority…"); main.post(expire);
+            Diagnostics.status("Esperando oferta UberX, UberXL, Priority o Comfort…"); main.post(expire);
         } catch (RuntimeException e) {
             android.util.Log.e("DetectorCapture", "Capture startup failed", e);
             finish("No se pudo iniciar. Revisa los permisos y vuelve a intentarlo.");
@@ -138,7 +138,7 @@ public final class CaptureService extends Service {
             } else {
                 display.resize(w, h, density); display.setSurface(reader.getSurface());
             }
-            main.post(() -> { if (!ended) Diagnostics.clear("Esperando oferta UberX, UberXL o Priority…"); });
+            main.post(() -> { if (!ended) Diagnostics.clear("Esperando oferta UberX, UberXL, Priority o Comfort…"); });
         } catch (RuntimeException e) { main.post(() -> finish("La captura se interrumpió. Inicia otra sesión.")); }
     }
 

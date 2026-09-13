@@ -80,6 +80,9 @@ public final class ScoreEngine {
             e.score = Math.max(0, e.score - (int)Math.round(c.cautionPenalty)); capAmber(e,c); e.reasons.add(e.zones.reason);
         }
         if (c.zoneFilter && e.zones.unknown && !e.zones.blocked) { capAmber(e,c); e.reasons.add("Riesgo de zona no verificado"); }
+        if(o.destinationNoticeCount>0){
+            capAmber(e,c);e.reasons.add("Aviso de destinos: revisar paradas, direcciones y esperas; sin verde");
+        }
         if (!c.calibrated) { capAmber(e,c); e.reasons.add("Costos y metas iniciales sin revisar"); }
         if (e.conservativeHourly < c.minHourly && !belowFloor) { capAmber(e,c); e.reasons.add("Una espera extra lo deja bajo tu mínimo"); }
         if (e.reasons.isEmpty()) e.reasons.add(e.color == Color.VERDE ? "Cumple tus metas y reglas" : e.color == Color.ROJO ? "Calificación bajo tu mínimo" : "No alcanza tu meta completa");

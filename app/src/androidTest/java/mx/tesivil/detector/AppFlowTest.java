@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -71,9 +72,9 @@ public class AppFlowTest {
     @Test public void riderChangesCreateTheirOwnHistoryAndUnknownRemainsNull()throws Exception{
         main(()->{Diagnostics.reading(OfferParser.parse(SAMPLE),140,"Captura seleccionada");Diagnostics.reading(OfferParser.parse(SAMPLE.replace("4.92 (149)","Nuevo")),140,"Captura seleccionada");});
         JSONArray rows=HistoryStore.snapshot();assertEquals(2,rows.length());assertEquals(149,rows.getJSONObject(0).getJSONObject("rider").getInt("visible_count"));assertTrue(rows.getJSONObject(1).getJSONObject("rider").isNull("visible_count"));assertEquals("ROJO",rows.getJSONObject(1).getJSONObject("evaluation").getString("color"));
-        assertEquals("0.3.3",new org.json.JSONObject(Diagnostics.export(context)).getString("app_version"));
+        assertEquals("0.3.4",new org.json.JSONObject(Diagnostics.export(context)).getString("app_version"));
         assertEquals("UBER_X",rows.getJSONObject(0).getString("service_type"));assertFalse(rows.getJSONObject(0).getBoolean("exclusive"));
-        assertEquals("0.3.3",rows.getJSONObject(0).getString("reader_version"));
+        assertEquals("0.3.4",rows.getJSONObject(0).getString("reader_version"));
     }
     @Test public void changedXlFareIsConfirmedAndJournaledSeparately()throws Exception{
         String original=SAMPLE.replace("UberX","UberXL Exclusivo").replace("98.31","284.93");
@@ -87,6 +88,17 @@ public class AppFlowTest {
         JSONArray rows=HistoryStore.snapshot();assertEquals(2,rows.length());
         assertEquals(28493,rows.getJSONObject(0).getLong("fare_cents"));assertEquals(23682,rows.getJSONObject(1).getLong("fare_cents"));
         assertEquals("UBER_XL",rows.getJSONObject(1).getString("service_type"));assertTrue(rows.getJSONObject(1).getBoolean("exclusive"));
+    }
+    @Test public void comfortHoursAndDestinationNoticeAreRecordedWithoutStreetText() throws Exception {
+        String card=SAMPLE.replace("UberX","Comfort Exclusivo").replace("18 min","1 h 3 min")
+                .replace("Calle PrivadaUnica 123, Colonia Ejemplo, Zapopan","Calle PrivadaUnica 123, Colonia Ejemplo, Zapopan\n1 destino");
+        main(()->Diagnostics.reading(OfferParser.parse(card),140,"Captura seleccionada"));
+        JSONObject row=HistoryStore.snapshot().getJSONObject(0);
+        assertEquals("COMFORT",row.getString("service_type"));assertTrue(row.getBoolean("exclusive"));
+        assertEquals(63,row.getInt("trip_minutes"));assertEquals(1,row.getInt("destination_notice_count"));
+        assertFalse(row.toString().contains("PrivadaUnica"));
+        assertNotEquals("VERDE",row.getJSONObject("evaluation").getString("color"));
+        assertTrue(row.getJSONObject("evaluation").getJSONArray("reasons").toString().contains("Aviso de destinos"));
     }
     @Test public void liveReadingsRequireConfirmationAndInvalidReadClearsScore()throws Exception{
         main(()->Diagnostics.reading(OfferParser.parse(SAMPLE),140,"Captura en vivo"));assertNull(Diagnostics.evaluation);

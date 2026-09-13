@@ -55,7 +55,7 @@ public final class MainActivity extends Activity {
             page.setPadding(pad + bars.left, pad + bars.top, pad + bars.right, pad + bars.bottom);
             return insets;
         });
-        page.addView(Ui.text(this, "TESIVIL  /  SEMÁFORO 0.3.3", 12, true));
+        page.addView(Ui.text(this, "TESIVIL  /  SEMÁFORO 0.3.4", 12, true));
         addText(page, "Evalúa tus viajes", 29, true, 14);
         addText(page, "Calificación local según tus costos, objetivos, pasajero y reglas de zona. Los valores iniciales son editables; no son datos verificados del carro.", 16, false, 8);
 
@@ -107,7 +107,7 @@ public final class MainActivity extends Activity {
         addText(page, "Cómo probar", 18, true, 22);
         addText(page, "Estando estacionado, permite la ventana flotante e inicia la prueba. Pantalla completa lee también la oferta flotante de Uber sobre el inicio u otra app. Solo Uber requiere que Uber esté visible. Android pedirá tu autorización.\n\nPuedes minimizar este lector durante la sesión. Arrastra el título lejos de la tarjeta y usa Detener al terminar. Al bloquear el teléfono tendrás que iniciar otra sesión.", 15, false, 8);
         addText(page, "Solo lectura local", 18, true, 18);
-        addText(page, "Sin Internet ni pulsaciones en Uber. En pantalla completa se procesan también las otras apps visibles mientras la lectura esté activa. Imágenes y direcciones se procesan en memoria. Se guardan hasta 200 evaluaciones numéricas, calificación y contador anónimos, costos, reglas y configuración en este teléfono. Puedes exportar y borrar el historial.\n\nIncluye una lista editable de colonias ZMG con antecedentes de Fiscalía / IIEG y fuentes municipales. Las fuentes conservan sus fechas y los niveles iniciales son de la app. Verde significa que cumple tus parámetros, sin garantizar ingresos o seguridad. Lee UberX y UberXL en español, con Exclusivo. Las etiquetas Priority requieren comprobar su formato mexicano.", 14, false, 8);
+        addText(page, "Sin Internet ni pulsaciones en Uber. En pantalla completa se procesan también las otras apps visibles mientras la lectura esté activa. Imágenes y direcciones se procesan en memoria. Se guardan hasta 200 evaluaciones numéricas, calificación y contador anónimos, costos, reglas y configuración en este teléfono. Puedes exportar y borrar el historial.\n\nIncluye una lista editable de colonias ZMG con antecedentes de Fiscalía / IIEG y fuentes municipales. Las fuentes conservan sus fechas y los niveles iniciales son de la app. Verde significa que cumple tus parámetros, sin garantizar ingresos o seguridad. Lee tarjetas compatibles en español de UberX, UberXL, Priority y Comfort, con Exclusivo, fondos claros u oscuros e importes $ o MXN. Convierte duraciones en horas a minutos. Las paradas adicionales y múltiples destinos siguen pendientes.", 14, false, 8);
         setContentView(scroll); refresh();
     }
 

@@ -11,8 +11,8 @@ android {
         applicationId 'mx.tesivil.detector'
         minSdk 34
         targetSdk 36
-        versionCode 7
-        versionName '0.3.3'
+        versionCode 8
+        versionName '0.3.4'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
     signingConfigs {
@@ -36,6 +36,8 @@ android {
         targetCompatibility JavaVersion.VERSION_17
     }
     testOptions { unitTests.returnDefaultValues = true }
+    // -PtestRelease exercises the signed production APK on an isolated emulator.
+    testBuildType project.hasProperty('testRelease') ? 'release' : 'debug'
     lint { abortOnError true }
 }
 

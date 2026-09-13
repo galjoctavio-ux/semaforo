@@ -7,22 +7,26 @@ import java.util.regex.Pattern;
 
 /** Explicit Spanish offer formats. Category labels do not imply extra earnings or safety. */
 public final class OfferParser {
-    private static final Pattern CATEGORY = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(uber\\s*x\\s*l|uber\\s*x(?:\\s+priority)?|uber\\s+priority|priority)\\s*(?:exclusivo)?\\s*$");
-    private static final Pattern CATEGORY_PREFIX = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(?:uber\\s*x\\s*l|uber\\s*x|uber\\s+priority|priority)(?=\\s|$)");
+    private static final Pattern CATEGORY = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(uber\\s*x\\s*l|uber\\s*x(?:\\s+priority)?|uber\\s+priority|priority|comfort)\\s*(?:exclusivo)?\\s*$");
+    private static final Pattern CATEGORY_PREFIX = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(?:uber\\s*x\\s*l|uber\\s*x|uber\\s+priority|priority|comfort)(?=\\s|$)");
     private static final Pattern CTA = Pattern.compile("\\b(viaje\\s+disponible|aceptar(?:\\s+viaje)?)\\b");
     private static final Pattern FARE = Pattern.compile(
             "(?m)^\\s*(?:mx\\s*\\$|\\$|mxn)\\s*([0-9][0-9., ]{0,12})\\s*(?:mxn)?\\s*$");
-    // Real sample: OCR read 11 as 1l. Repair only the minute token of a complete leg.
-    private static final String LEG = "([0-9il|]{1,3})\\s*min(?:utos)?\\s*\\(\\s*([0-9]+(?:[.,][0-9]+)?)\\s*(km|m)\\s*\\)";
-    private static final Pattern PICKUP = Pattern.compile("(?m)^\\s*a\\s*" + LEG + "\\s*$");
-    private static final Pattern TRIP = Pattern.compile("(?m)^\\s*viaje\\s*:\\s*" + LEG + "\\s*$");
-    private static final Pattern RATE = Pattern.compile("\\$\\s*([0-9]+[.,][0-9]{2})\\s*/\\s*km");
+    // Confined to a complete leg: OCR reads 11 as ll and endpoint icons as 9/o/°.
+    private static final String ICON_PREFIX = "(?:[0-9o°○●◦]{1,3}\\s+)?";
+    private static final String LEG = "(?:([0-9il|]{1,2})\\s*(?:h|horas?)\\s*(?:([0-9il|]{1,3})\\s*min(?:utos)?)?|([0-9il|]{1,3})\\s*min(?:utos)?)\\s*\\(\\s*([0-9]+(?:[.,][0-9]+)?)\\s*(km|m)\\s*\\)";
+    private static final Pattern PICKUP = Pattern.compile("(?m)^\\s*" + ICON_PREFIX + "a\\s*" + LEG + "\\s*$");
+    private static final Pattern TRIP = Pattern.compile("(?m)^\\s*" + ICON_PREFIX + "viaje\\s*:\\s*" + LEG + "\\s*$");
+    private static final Pattern RATE = Pattern.compile("(?:mx\\s*\\$|\\$|mxn)\\s*([0-9]+[.,][0-9]{2})\\s*/\\s*km");
+    private static final Pattern DESTINATION_COUNT = Pattern.compile("(?m)^\\s*([0-9il|]{1,3})\\s+destinos?\\s*$");
+    private static final Pattern STOPS = Pattern.compile("(?m)^\\s*[0-9il|]{1,3}\\s+paradas?\\s*$");
+    private static final Pattern LONG_TRIP = Pattern.compile("(?m)^\\s*(?:[^a-z\\n]{0,4}|[a-z0-9]{1,2}\\s+)viaje\\s+largo\\s*\\(\\s*45\\s*\\+\\s*min\\s*\\)\\s*$");
     private static final Pattern RIDER = Pattern.compile("(?m)^\\s*(?:identidad\\s+verificada\\s+)?[★☆⭐*]?\\s*([0-9][.,][0-9]{1,2})\\s*(?:\\(\\s*([0-9]{1,7})\\s*\\)|(?:[·|]\\s*)?([0-9]{1,7})\\s+viajes)?\\s*$");
     private static final Pattern NEW_RIDER = Pattern.compile("(?m)^\\s*[★☆⭐*]?\\s*(?:nuevo|usuario nuevo|pasajero nuevo|nuevo usuario|nuevo pasajero)\\s*$");
     private static final Pattern RIDER_COUNT = Pattern.compile("(?m)^\\s*([0-9]{1,7})\\s+viajes\\s*$");
     private static final Pattern RIDER_PAIR = Pattern.compile("(?<![0-9$])([0-9][.,][0-9]{1,2})\\s*\\(\\s*([0-9]{1,7})\\s*\\)");
     private static final Pattern EXCLUSIVE = Pattern.compile("\\bexclusivo\\b");
-    public enum ServiceType { UBER_X, UBER_XL, PRIORITY }
+    public enum ServiceType { UBER_X, UBER_XL, PRIORITY, COMFORT }
 
     public static final class Offer {
         public final long cents;
@@ -33,6 +37,8 @@ public final class OfferParser {
         public final RiderProfile rider;
         public final ServiceType serviceType;
         public final boolean exclusive;
+        /** Number in the visible destination notice; not a confirmed count of stops. */
+        public final int destinationNoticeCount;
         public Offer(long cents, int pickupMinutes, double pickupKm,
                      int tripMinutes, double tripKm, Double displayedRate) {
             this(cents, pickupMinutes, pickupKm, tripMinutes, tripKm, displayedRate, "", "");
@@ -48,17 +54,23 @@ public final class OfferParser {
         public Offer(long cents, int pickupMinutes, double pickupKm, int tripMinutes, double tripKm,
                      Double displayedRate, String pickupAddress, String destinationAddress, RiderProfile rider,
                      ServiceType serviceType, boolean exclusive) {
+            this(cents,pickupMinutes,pickupKm,tripMinutes,tripKm,displayedRate,pickupAddress,destinationAddress,rider,serviceType,exclusive,0);
+        }
+        public Offer(long cents, int pickupMinutes, double pickupKm, int tripMinutes, double tripKm,
+                     Double displayedRate, String pickupAddress, String destinationAddress, RiderProfile rider,
+                     ServiceType serviceType, boolean exclusive, int destinationNoticeCount) {
             this.cents = cents; this.pickupMinutes = pickupMinutes; this.pickupKm = pickupKm;
             this.tripMinutes = tripMinutes; this.tripKm = tripKm; this.displayedRate = displayedRate;
             this.pickupAddress = pickupAddress; this.destinationAddress = destinationAddress;
             this.rider = rider == null ? RiderProfile.unknown() : rider;
             this.serviceType = serviceType == null ? ServiceType.UBER_X : serviceType;this.exclusive=exclusive;
+            this.destinationNoticeCount=destinationNoticeCount;
         }
         public double totalKm() { return pickupKm + tripKm; }
         public int totalMinutes() { return pickupMinutes + tripMinutes; }
-        public String typeLabel(){return (serviceType==ServiceType.PRIORITY?"Priority":serviceType==ServiceType.UBER_XL?"UberXL":"UberX")+(exclusive?" · Exclusivo":"");}
+        public String typeLabel(){return (serviceType==ServiceType.PRIORITY?"Priority":serviceType==ServiceType.UBER_XL?"UberXL":serviceType==ServiceType.COMFORT?"Comfort":"UberX")+(exclusive?" · Exclusivo":"");}
         // Exclusive can change when the same offer moves from radar to a direct card.
-        public String key() { return cents + ":" + pickupMinutes + ":" + pickupKm + ":" + tripMinutes + ":" + tripKm + ":" + rider.key()+":"+serviceType.name(); }
+        public String key() { return cents + ":" + pickupMinutes + ":" + pickupKm + ":" + tripMinutes + ":" + tripKm + ":" + rider.key()+":"+serviceType.name()+":"+destinationNoticeCount; }
     }
 
     public static final class Result {
@@ -89,18 +101,22 @@ public final class OfferParser {
         if (original == null || original.isBlank()) return missing(false, "Sin texto legible");
         String text = normalized(original);
         Matcher category=CATEGORY.matcher(text);
-        if (!category.find()) return new Result(null,false,"Esperando oferta UberX, UberXL o Priority",false,false,
+        if (!category.find()) return new Result(null,false,"Esperando oferta UberX, UberXL, Priority o Comfort",false,false,
                 CATEGORY_PREFIX.matcher(text).find() && FARE.matcher(text).find() && PICKUP.matcher(text).find() && TRIP.matcher(text).find());
         int categoryStart=category.start();String label=category.group(1).replaceAll("\\s+","");
-        ServiceType type=label.contains("priority")?ServiceType.PRIORITY:label.equals("uberxl")?ServiceType.UBER_XL:ServiceType.UBER_X;
+        ServiceType type=label.contains("priority")?ServiceType.PRIORITY:label.equals("uberxl")?ServiceType.UBER_XL:label.equals("comfort")?ServiceType.COMFORT:ServiceType.UBER_X;
         // Horizontally adjacent badges can be sorted with Exclusive just before UberX.
         boolean precedingExclusive=Pattern.compile("(?:^|\\n)\\s*exclusivo\\s*$").matcher(text.substring(0,categoryStart)).find();
         if(category.find())return missing(true,"Hay varias tarjetas: lectura ambigua");
         Matcher cta=CTA.matcher(text);
-        if (!cta.find(categoryStart)) return new Result(null,false,"Sin tarjeta de solicitud vigente",false,false,
+        if (!cta.find(categoryStart)) return new Result(null,false,"Tarjeta incompleta: falta el botón de la oferta",false,false,
                 FARE.matcher(text.substring(categoryStart)).find() && PICKUP.matcher(text.substring(categoryStart)).find() && TRIP.matcher(text.substring(categoryStart)).find());
         // Exclude our own score, banners and other app amounts above/below the current card.
         text=text.substring(categoryStart,cta.end());
+        Matcher destinations=DESTINATION_COUNT.matcher(text);int destinationLabels=0;
+        while(destinations.find())if(++destinationLabels>1 || minutes(destinations.group(1))!=1)
+            return missing(true,"Múltiples destinos o contador ambiguo: formato pendiente");
+        if(STOPS.matcher(text).find())return missing(true,"Paradas adicionales: formato pendiente");
         Matcher fare = FARE.matcher(text);
         if (!fare.find()) return missing(true, "Falta el importe de la oferta");
         int fareEnd = fare.end();
@@ -114,16 +130,16 @@ public final class OfferParser {
         Matcher pickup = PICKUP.matcher(text), trip = TRIP.matcher(text);
         if (!pickup.find()) return missing(true, "Faltan minutos o km de recogida");
         int pickupStart = pickup.start(), pickupEnd = pickup.end();
-        int pMinutes = minutes(pickup.group(1));
-        double pKm = distance(pickup.group(2), pickup.group(3));
+        int pMinutes = duration(pickup);
+        double pKm = distance(pickup.group(4), pickup.group(5));
         if (pickup.find()) return missing(true, "Hay varias recogidas: lectura ambigua");
         if (!trip.find()) return missing(true, "Faltan minutos o km del viaje");
         int tripStart = trip.start(), tripEnd = trip.end();
-        int tMinutes = minutes(trip.group(1));
-        double tKm = distance(trip.group(2), trip.group(3));
+        int tMinutes = duration(trip);
+        double tKm = distance(trip.group(4), trip.group(5));
         if (trip.find()) return missing(true, "Hay varios viajes: lectura ambigua");
         if(fareEnd>pickupStart || pickupEnd>tripStart)return missing(true,"Orden de datos ambiguo");
-        if (cents <= 0 || cents > 10_000_000 || pMinutes > 240 || tMinutes < 1 || tMinutes > 600
+        if (cents <= 0 || cents > 10_000_000 || pMinutes < 0 || pMinutes > 240 || tMinutes < 1 || tMinutes > 600
                 || pKm > 300 || tKm <= 0 || tKm > 1000) return missing(true, "Valores fuera del formato soportado");
         Double rate = null;
         String header=text.substring(fareEnd,pickupStart);
@@ -139,11 +155,13 @@ public final class OfferParser {
         String pickupAddress = tripStart > pickupEnd ? text.substring(pickupEnd, tripStart).trim() : "";
         Matcher endCard = CTA.matcher(text);
         String destinationAddress = endCard.find(tripEnd) ? text.substring(tripEnd, endCard.start()).trim() : "";
+        pickupAddress=DESTINATION_COUNT.matcher(pickupAddress).replaceAll("").trim();
+        destinationAddress=LONG_TRIP.matcher(DESTINATION_COUNT.matcher(destinationAddress).replaceAll("")).replaceAll("").trim();
         if (pickupAddress.length() > 600) pickupAddress = "";
         if (destinationAddress.length() > 600) destinationAddress = "";
         RiderProfile rider = parseRider(header);
         boolean exclusive=precedingExclusive||EXCLUSIVE.matcher(text.substring(0,pickupStart)).find();
-        return new Result(new Offer(cents, pMinutes, pKm, tMinutes, tKm, rate, pickupAddress, destinationAddress,rider,type,exclusive), true, "Datos detectados");
+        return new Result(new Offer(cents, pMinutes, pKm, tMinutes, tKm, rate, pickupAddress, destinationAddress,rider,type,exclusive,destinationLabels), true, "Datos detectados");
     }
 
     static String normalized(String text){return Normalizer.normalize(text,Normalizer.Form.NFKD).replaceAll("\\p{M}","").replace('\u00a0',' ').replace('\r','\n').toLowerCase(Locale.ROOT);}
@@ -153,6 +171,11 @@ public final class OfferParser {
     static boolean isCardActionLine(String text){return CTA.matcher(normalized(text)).find();}
     private static boolean hasMoneyDecimals(String value){return value.replace(" ","").matches(".*[.,][0-9]{2}");}
     private static int minutes(String value){return Integer.parseInt(value.replace('i','1').replace('l','1').replace('|','1'));}
+    private static int duration(Matcher leg){
+        if(leg.group(1)==null)return minutes(leg.group(3));
+        int remainder=leg.group(2)==null?0:minutes(leg.group(2));
+        return remainder>=60?-1:minutes(leg.group(1))*60+remainder;
+    }
 
     private static RiderProfile parseRider(String header) {
         boolean isNew = NEW_RIDER.matcher(header).find();
