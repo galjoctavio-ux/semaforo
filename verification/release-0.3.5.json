@@ -1,0 +1,76 @@
+{
+  "version": "0.3.5",
+  "version_code": 9,
+  "package": "mx.tesivil.detector",
+  "deliverable": "entrega/Detector-ofertas-0.3.5.apk",
+  "bytes": 50421532,
+  "sha256": "d4b77070fb9a38d25db94d5a5a2cd3250a202f5c0a47c5e787f39809fe9a809a",
+  "certificate_sha256": "0876d6d2d8230ab279806e24c3072fae05740e7a3e7bc6c922efa7b90c798986",
+  "unit_tests": {
+    "tests": 108,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "android_tests_passed": 57,
+  "lint": {
+    "debug": {
+      "errors": 0,
+      "warnings": 17
+    },
+    "release": {
+      "errors": 0,
+      "warnings": 17
+    }
+  },
+  "signed_update_preserved_fuel_28_and_all_90_zone_rules": true,
+  "catalog_unchanged_from_034": true,
+  "installed_and_landing_apks_match_delivery": true,
+  "user_photos_or_test_fixtures_embedded": false,
+  "internet_camera_microphone_location_permissions": false,
+  "reproduced_before_fix": {
+    "new_full_and_live_regions_failed": 2,
+    "reason": "Unsupported Reservar UberX badge and pickup conjunction y"
+  },
+  "new_private_sample": {
+    "full_and_live_regions_passed": true,
+    "fare_cents": 26562,
+    "visible_total_minutes": 53,
+    "visible_total_km": 35.8,
+    "displayed_rate": null,
+    "rider_rating": 4.91,
+    "rider_visible_count": 74
+  },
+  "live_projection_with_reader_activity_minimized": {
+    "fare_cents": 26562,
+    "service_type": "UBER_X",
+    "exclusive": false,
+    "reservation": true,
+    "pickup_minutes": 24,
+    "pickup_km": 14.4,
+    "trip_minutes": 29,
+    "trip_km": 21.4,
+    "ocr_ms": 1130,
+    "decision_ms": 97
+  },
+  "native_color": "ROJO",
+  "native_reason": "Pickup exceeds initial limits",
+  "test_device": "Owned isolated Android 16 emulator, 896x1920; not a driver phone",
+  "original_color_ocr_preserved": true,
+  "bounded_full_contrast_retries": 1,
+  "frame_max_age_ms": 1400,
+  "required_confirming_observations": 2,
+  "category_score_bonus": 0,
+  "reservation_surcharge_added_again": false,
+  "unseen_reservation_wait_minutes_invented": false,
+  "reservation_rule": "Visible Reservar UberX badge stored separately; verify schedule and early waiting. Cap amber without upgrading red. Visible times plus configured waits are an incomplete estimate for reservations.",
+  "limitations": [
+    "Real reserved offers on driver Android devices remain to be tested",
+    "Source photo came from iOS; APK is Android only",
+    "OCR duration is not end-to-end detection latency",
+    "Other reservation categories and schedule extraction unsupported",
+    "Not every screen scale or animation phase is covered",
+    "Neighborhood matching remains textual and can be ambiguous; route is not fully evaluated",
+    "Offers are not confirmed payouts or crime probabilities"
+  ]
+}

@@ -83,6 +83,7 @@ public final class ScoreEngine {
         if(o.destinationNoticeCount>0){
             capAmber(e,c);e.reasons.add("Aviso de destinos: revisar paradas, direcciones y esperas; sin verde");
         }
+        if(o.reserved){capAmber(e,c);e.reasons.add("Reserva: horario y espera previa por verificar; sin verde");}
         if (!c.calibrated) { capAmber(e,c); e.reasons.add("Costos y metas iniciales sin revisar"); }
         if (e.conservativeHourly < c.minHourly && !belowFloor) { capAmber(e,c); e.reasons.add("Una espera extra lo deja bajo tu mínimo"); }
         if (e.reasons.isEmpty()) e.reasons.add(e.color == Color.VERDE ? "Cumple tus metas y reglas" : e.color == Color.ROJO ? "Calificación bajo tu mínimo" : "No alcanza tu meta completa");

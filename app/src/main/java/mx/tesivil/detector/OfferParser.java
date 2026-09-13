@@ -7,20 +7,23 @@ import java.util.regex.Pattern;
 
 /** Explicit Spanish offer formats. Category labels do not imply extra earnings or safety. */
 public final class OfferParser {
-    private static final Pattern CATEGORY = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(uber\\s*x\\s*l|uber\\s*x(?:\\s+priority)?|uber\\s+priority|priority|comfort)\\s*(?:exclusivo)?\\s*$");
-    private static final Pattern CATEGORY_PREFIX = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(?:uber\\s*x\\s*l|uber\\s*x|uber\\s+priority|priority|comfort)(?=\\s|$)");
+    private static final Pattern CATEGORY = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(reservar\\s+uber\\s*x|uber\\s*x\\s*l|uber\\s*x(?:\\s+priority)?|uber\\s+priority|priority|comfort)\\s*(?:exclusivo)?\\s*$");
+    private static final Pattern CATEGORY_PREFIX = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(?:reservar\\s+uber\\s*x|uber\\s*x\\s*l|uber\\s*x|uber\\s+priority|priority|comfort)(?=\\s|$)");
     private static final Pattern CTA = Pattern.compile("\\b(viaje\\s+disponible|aceptar(?:\\s+viaje)?)\\b");
     private static final Pattern FARE = Pattern.compile(
             "(?m)^\\s*(?:mx\\s*\\$|\\$|mxn)\\s*([0-9][0-9., ]{0,12})\\s*(?:mxn)?\\s*$");
     // Confined to a complete leg: OCR reads 11 as ll and endpoint icons as 9/o/°.
     private static final String ICON_PREFIX = "(?:[0-9o°○●◦]{1,3}\\s+)?";
-    private static final String LEG = "(?:([0-9il|]{1,2})\\s*(?:h|horas?)\\s*(?:([0-9il|]{1,3})\\s*min(?:utos)?)?|([0-9il|]{1,3})\\s*min(?:utos)?)\\s*\\(\\s*([0-9]+(?:[.,][0-9]+)?)\\s*(km|m)\\s*\\)";
-    private static final Pattern PICKUP = Pattern.compile("(?m)^\\s*" + ICON_PREFIX + "a\\s*" + LEG + "\\s*$");
+    private static final String DURATION = "(?:([0-9il|]{1,2})\\s*(?:h|horas?)\\s*(?:([0-9il|]{1,3})\\s*min(?:utos)?)?|([0-9il|]{1,3})\\s*min(?:utos)?)";
+    private static final String DISTANCE = "\\(\\s*([0-9]+(?:[.,][0-9]+)?)\\s*(km|m)\\s*\\)";
+    private static final String LEG = DURATION + "\\s*" + DISTANCE;
+    private static final Pattern PICKUP = Pattern.compile("(?m)^\\s*" + ICON_PREFIX + "a\\s*" + DURATION + "\\s*(?:y\\s*)?" + DISTANCE + "\\s*$");
     private static final Pattern TRIP = Pattern.compile("(?m)^\\s*" + ICON_PREFIX + "viaje\\s*:\\s*" + LEG + "\\s*$");
     private static final Pattern RATE = Pattern.compile("(?:mx\\s*\\$|\\$|mxn)\\s*([0-9]+[.,][0-9]{2})\\s*/\\s*km");
     private static final Pattern DESTINATION_COUNT = Pattern.compile("(?m)^\\s*([0-9il|]{1,3})\\s+destinos?\\s*$");
     private static final Pattern STOPS = Pattern.compile("(?m)^\\s*[0-9il|]{1,3}\\s+paradas?\\s*$");
     private static final Pattern LONG_TRIP = Pattern.compile("(?m)^\\s*(?:[^a-z\\n]{0,4}|[a-z0-9]{1,2}\\s+)viaje\\s+largo\\s*\\(\\s*45\\s*\\+\\s*min\\s*\\)\\s*$");
+    private static final Pattern RESERVATION_NOTICE = Pattern.compile("(?m)^\\s*" + ICON_PREFIX + "reserva\\s*$");
     private static final Pattern RIDER = Pattern.compile("(?m)^\\s*(?:identidad\\s+verificada\\s+)?[★☆⭐*]?\\s*([0-9][.,][0-9]{1,2})\\s*(?:\\(\\s*([0-9]{1,7})\\s*\\)|(?:[·|]\\s*)?([0-9]{1,7})\\s+viajes)?\\s*$");
     private static final Pattern NEW_RIDER = Pattern.compile("(?m)^\\s*[★☆⭐*]?\\s*(?:nuevo|usuario nuevo|pasajero nuevo|nuevo usuario|nuevo pasajero)\\s*$");
     private static final Pattern RIDER_COUNT = Pattern.compile("(?m)^\\s*([0-9]{1,7})\\s+viajes\\s*$");
@@ -37,6 +40,8 @@ public final class OfferParser {
         public final RiderProfile rider;
         public final ServiceType serviceType;
         public final boolean exclusive;
+        /** Visible reservation badge; schedule and early waiting are not inferred. */
+        public final boolean reserved;
         /** Number in the visible destination notice; not a confirmed count of stops. */
         public final int destinationNoticeCount;
         public Offer(long cents, int pickupMinutes, double pickupKm,
@@ -59,18 +64,24 @@ public final class OfferParser {
         public Offer(long cents, int pickupMinutes, double pickupKm, int tripMinutes, double tripKm,
                      Double displayedRate, String pickupAddress, String destinationAddress, RiderProfile rider,
                      ServiceType serviceType, boolean exclusive, int destinationNoticeCount) {
+            this(cents,pickupMinutes,pickupKm,tripMinutes,tripKm,displayedRate,pickupAddress,destinationAddress,rider,serviceType,exclusive,destinationNoticeCount,false);
+        }
+        public Offer(long cents, int pickupMinutes, double pickupKm, int tripMinutes, double tripKm,
+                     Double displayedRate, String pickupAddress, String destinationAddress, RiderProfile rider,
+                     ServiceType serviceType, boolean exclusive, int destinationNoticeCount, boolean reserved) {
             this.cents = cents; this.pickupMinutes = pickupMinutes; this.pickupKm = pickupKm;
             this.tripMinutes = tripMinutes; this.tripKm = tripKm; this.displayedRate = displayedRate;
             this.pickupAddress = pickupAddress; this.destinationAddress = destinationAddress;
             this.rider = rider == null ? RiderProfile.unknown() : rider;
             this.serviceType = serviceType == null ? ServiceType.UBER_X : serviceType;this.exclusive=exclusive;
             this.destinationNoticeCount=destinationNoticeCount;
+            this.reserved=reserved;
         }
         public double totalKm() { return pickupKm + tripKm; }
         public int totalMinutes() { return pickupMinutes + tripMinutes; }
-        public String typeLabel(){return (serviceType==ServiceType.PRIORITY?"Priority":serviceType==ServiceType.UBER_XL?"UberXL":serviceType==ServiceType.COMFORT?"Comfort":"UberX")+(exclusive?" · Exclusivo":"");}
+        public String typeLabel(){return (serviceType==ServiceType.PRIORITY?"Priority":serviceType==ServiceType.UBER_XL?"UberXL":serviceType==ServiceType.COMFORT?"Comfort":"UberX")+(reserved?" · Reserva":"")+(exclusive?" · Exclusivo":"");}
         // Exclusive can change when the same offer moves from radar to a direct card.
-        public String key() { return cents + ":" + pickupMinutes + ":" + pickupKm + ":" + tripMinutes + ":" + tripKm + ":" + rider.key()+":"+serviceType.name()+":"+destinationNoticeCount; }
+        public String key() { return cents + ":" + pickupMinutes + ":" + pickupKm + ":" + tripMinutes + ":" + tripKm + ":" + rider.key()+":"+serviceType.name()+":"+destinationNoticeCount+":"+reserved; }
     }
 
     public static final class Result {
@@ -104,6 +115,7 @@ public final class OfferParser {
         if (!category.find()) return new Result(null,false,"Esperando oferta UberX, UberXL, Priority o Comfort",false,false,
                 CATEGORY_PREFIX.matcher(text).find() && FARE.matcher(text).find() && PICKUP.matcher(text).find() && TRIP.matcher(text).find());
         int categoryStart=category.start();String label=category.group(1).replaceAll("\\s+","");
+        boolean reserved=label.startsWith("reservar");
         ServiceType type=label.contains("priority")?ServiceType.PRIORITY:label.equals("uberxl")?ServiceType.UBER_XL:label.equals("comfort")?ServiceType.COMFORT:ServiceType.UBER_X;
         // Horizontally adjacent badges can be sorted with Exclusive just before UberX.
         boolean precedingExclusive=Pattern.compile("(?:^|\\n)\\s*exclusivo\\s*$").matcher(text.substring(0,categoryStart)).find();
@@ -157,11 +169,12 @@ public final class OfferParser {
         String destinationAddress = endCard.find(tripEnd) ? text.substring(tripEnd, endCard.start()).trim() : "";
         pickupAddress=DESTINATION_COUNT.matcher(pickupAddress).replaceAll("").trim();
         destinationAddress=LONG_TRIP.matcher(DESTINATION_COUNT.matcher(destinationAddress).replaceAll("")).replaceAll("").trim();
+        if(reserved)destinationAddress=RESERVATION_NOTICE.matcher(destinationAddress).replaceAll("").trim();
         if (pickupAddress.length() > 600) pickupAddress = "";
         if (destinationAddress.length() > 600) destinationAddress = "";
         RiderProfile rider = parseRider(header);
         boolean exclusive=precedingExclusive||EXCLUSIVE.matcher(text.substring(0,pickupStart)).find();
-        return new Result(new Offer(cents, pMinutes, pKm, tMinutes, tKm, rate, pickupAddress, destinationAddress,rider,type,exclusive,destinationLabels), true, "Datos detectados");
+        return new Result(new Offer(cents, pMinutes, pKm, tMinutes, tKm, rate, pickupAddress, destinationAddress,rider,type,exclusive,destinationLabels,reserved), true, "Datos detectados");
     }
 
     static String normalized(String text){return Normalizer.normalize(text,Normalizer.Form.NFKD).replaceAll("\\p{M}","").replace('\u00a0',' ').replace('\r','\n').toLowerCase(Locale.ROOT);}

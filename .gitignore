@@ -13,6 +13,7 @@ app/src/androidTest/assets/user-031-*
 app/src/androidTest/assets/user-032-*
 app/src/androidTest/assets/user-033-*
 app/src/androidTest/assets/user-034-*
+app/src/androidTest/assets/user-035-*
 verification/ocr-031-baseline-lines.txt
 .vercel/
 **/.vercel/
@@ -27,6 +28,7 @@ node_modules/
 verification/*
 !verification/release-0.3.3.json
 !verification/release-0.3.4.json
+!verification/release-0.3.5.json
 !verification/sources/
 verification/sources/*
 !verification/sources/iieg-oct2021/
@@ -38,3 +40,5 @@ entrega/*
 !entrega/Detector-ofertas-0.3.3.sha256.txt
 !entrega/Detector-ofertas-0.3.4.apk
 !entrega/Detector-ofertas-0.3.4.sha256.txt
+!entrega/Detector-ofertas-0.3.5.apk
+!entrega/Detector-ofertas-0.3.5.sha256.txt

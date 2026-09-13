@@ -6,7 +6,7 @@ Dominio solicitado: https://semaforo.uber.tesivil.com/
 
 Repositorio: https://github.com/galjoctavio-ux/semaforo
 
-APK servida: `descargas/Detector-ofertas-0.3.4.apk`, exactamente la APK firmada y verificada de `entrega/`, SHA-256 `0aabf83b2f80f5eb4ac3466b02ea57c67ec98631361f74292af316fa346492db`. La landing no recompila Android. En cada actualización, copia el archivo final y su huella, y actualiza versión, enlaces y encabezado de descarga juntos.
+APK servida: `descargas/Detector-ofertas-0.3.5.apk`, exactamente la APK firmada y verificada de `entrega/`, SHA-256 `d4b77070fb9a38d25db94d5a5a2cd3250a202f5c0a47c5e787f39809fe9a809a`. La landing no recompila Android. En cada actualización, copia el archivo final y su huella, y actualiza versión, enlaces y encabezado de descarga juntos.
 
 ## Vista local
 

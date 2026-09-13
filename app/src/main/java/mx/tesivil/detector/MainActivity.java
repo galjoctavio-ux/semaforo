@@ -55,7 +55,7 @@ public final class MainActivity extends Activity {
             page.setPadding(pad + bars.left, pad + bars.top, pad + bars.right, pad + bars.bottom);
             return insets;
         });
-        page.addView(Ui.text(this, "TESIVIL  /  SEMÁFORO 0.3.4", 12, true));
+        page.addView(Ui.text(this, "TESIVIL  /  SEMÁFORO 0.3.5", 12, true));
         addText(page, "Evalúa tus viajes", 29, true, 14);
         addText(page, "Calificación local según tus costos, objetivos, pasajero y reglas de zona. Los valores iniciales son editables; no son datos verificados del carro.", 16, false, 8);
 
