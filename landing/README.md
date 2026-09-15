@@ -8,6 +8,8 @@ Repositorio: https://github.com/galjoctavio-ux/semaforo
 
 APK publicada: `Detector-ofertas-0.5.4.apk` en GitHub Releases, exactamente la APK firmada y verificada de `entrega/`, SHA-256 `cf5012511874cdb792b7e3624bdf4be0273cc48f3c281b76f012fa6a3420cc00`. Los botones apuntan directamente al artefacto de la versión para impedir que la landing quede ofreciendo una APK anterior. La landing no recompila Android. En cada actualización, publica el archivo final y su huella, y actualiza versión, enlaces y texto de descarga juntos.
 
+La ruta que utilizaba la página anterior, `/descargas/Detector-ofertas-0.4.1.apk`, redirige temporalmente al APK 0.5.4. Esto cubre pestañas o HTML guardados en caché sin sustituir silenciosamente el contenido del archivo histórico en GitHub Releases.
+
 ## Vista local
 
 Desde este directorio, sirve los archivos con cualquier servidor estático, por ejemplo `python -m http.server 4173 --bind 127.0.0.1`. La página usa rutas absolutas: abrir `index.html` directamente mediante `file://` no reproduce la publicación.
