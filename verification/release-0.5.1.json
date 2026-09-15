@@ -1,0 +1,147 @@
+{
+  "status": "prepared_locally",
+  "created_utc": "2026-09-13T18:08:18.8803167Z",
+  "version": "0.5.1",
+  "version_code": 13,
+  "diagnostic_schema": 8,
+  "branch": "codex/onboarding-perfiles",
+  "artifact": {
+    "path": "entrega/Detector-ofertas-0.5.1.apk",
+    "bytes": 50503556,
+    "sha256": "df979828450486080fae70c930fb33877c67dddf3ed2581cd662a08a8a66c588",
+    "signer_certificate_sha256": "0876d6d2d8230ab279806e24c3072fae05740e7a3e7bc6c922efa7b90c798986"
+  },
+  "checks": {
+    "build": {
+      "successful": true,
+      "log": "verification/build-0.5.1.txt",
+      "tasks": [
+        ":app:testDebugUnitTest",
+        ":app:lintDebug",
+        ":app:assembleRelease",
+        ":app:assembleReleaseAndroidTest"
+      ]
+    },
+    "unit_tests": {
+      "passed": 162,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reports": "app/build/test-results/testDebugUnitTest"
+    },
+    "android_tests": {
+      "unique_final_passed": 85,
+      "unique_final_failed": 0,
+      "ledger": "verification/android-0.5.1-ledger.json",
+      "device": "Owned isolated Android 16 AVD Detector16 / emulator-5558, 896x1920, 420 dpi",
+      "initial_run": {
+        "tests": 85,
+        "passed": 81,
+        "failed": 4,
+        "log": "verification/instrumented-0.5.1-initial.txt",
+        "cause": "Test selectors matched labels instead of typed editors or spinners; corrected test helpers"
+      },
+      "final_affected_classes": {
+        "tests": 12,
+        "passed": 12,
+        "failed": 0,
+        "classes": [
+          "OnboardingFlowTest",
+          "MonthlyPlanFlowTest"
+        ],
+        "log": "verification/instrumented-0.5.1-ui-final.txt",
+        "final_apk_sha256": "df979828450486080fae70c930fb33877c67dddf3ed2581cd662a08a8a66c588"
+      },
+      "unaffected_cases_passed_initial": 73,
+      "single_clean_full_run_claimed": false,
+      "excluded": [
+        "ReleaseEvidenceTest: upgrade seed and preservation selected separately",
+        "LiveCaptureEvidenceTest: requires prior authorized projection and visible fixture"
+      ]
+    },
+    "lint_debug": {
+      "errors": 0,
+      "warnings": 21,
+      "report": "app/build/reports/lint-results-debug.txt"
+    },
+    "upgrade": {
+      "from": "0.5.0",
+      "to": "0.5.1",
+      "final_apk_sha256": "df979828450486080fae70c930fb33877c67dddf3ed2581cd662a08a8a66c588",
+      "seed_test_passed": true,
+      "preservation_test_passed": true,
+      "logs": [
+        "verification/upgrade-0.5.1-seed.txt",
+        "verification/upgrade-0.5.1-preserved.txt"
+      ],
+      "verified": "Every pre-existing profile field including revision and exact zone rules preserved; PHEV free charging, 74 km remaining, deliberately empty zone list",
+      "legacy_basis": "TOTAL",
+      "legacy_uber_use_percent": 100
+    },
+    "rotation": {
+      "passed": true,
+      "verified": "Shared-use draft remained at step 3 with 10 weekly hours, MIXED use and 50 percent after portrait to landscape to portrait; original orientation preferences restored",
+      "record": "verification/rotation-0.5.1.json",
+      "xml": "verification/onboarding-rotacion-0.5.1-restaurado.xml"
+    },
+    "visual_qa": {
+      "passed": true,
+      "images": [
+        "verification/onboarding-carro-0.5.1.png",
+        "verification/onboarding-uso-0.5.1.png",
+        "verification/plan-mes-0.5.1-inicio.png",
+        "verification/plan-mes-0.5.1-resultado.png"
+      ],
+      "verified": "Final UI shows Aveo in sedan, optional mileage allocation, explicit cash assumption, full payment obligation, monthly deficit and break-even hours without salary"
+    },
+    "signature_verified": true,
+    "apk_permissions": [
+      "android.permission.SYSTEM_ALERT_WINDOW",
+      "android.permission.FOREGROUND_SERVICE",
+      "android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION",
+      "android.permission.POST_NOTIFICATIONS",
+      "mx.tesivil.detector.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+    ],
+    "apk_internet_permission": false
+  },
+  "presets": {
+    "version": 2,
+    "vehicle_classes": 6,
+    "strategies": 3,
+    "basic_steps": 5,
+    "electric_and_phev_steps": 6,
+    "aveo": "Sedan",
+    "costs": "Explicit starting assumptions, not measured costs, manufacturer specifications or verified market averages",
+    "new_profile_basis": "TRIP"
+  },
+  "exercise": {
+    "document": "EJERCICIO_POCAS_HORAS.md",
+    "inputs": "Hypothetical 5000 car payment + 3000 other shared fixed / month, exclusive Uber use, 150 MXN cash contribution per online hour before fixed",
+    "scenarios": [
+      {
+        "weekly_hours": 5,
+        "monthly_contribution": 3250,
+        "after_fixed": -4750
+      },
+      {
+        "weekly_hours": 10,
+        "monthly_contribution": 6500,
+        "after_fixed": -1500
+      },
+      {
+        "weekly_hours": 20,
+        "monthly_contribution": 13000,
+        "after_fixed": 5000
+      }
+    ],
+    "break_even_weekly_hours": 12.3076923077,
+    "excludes": "Target salary and taxes; this is not observed or promised Uber earnings",
+    "android_result_log": "verification/exercise-0.5.1-android.txt"
+  },
+  "publication": "No public release, deployment, push or commit performed for this task",
+  "pending_validation": [
+    "Usability and comprehension with new drivers without assistance",
+    "Calibration of starting cost assumptions against real expenses",
+    "New onboarding and monthly plan flow on physical driver phones"
+  ]
+}

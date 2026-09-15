@@ -14,32 +14,34 @@ final class Overlay {
     private final WindowManager windows;
     private final LinearLayout root;
     private final TextView body;
-    private final TextView title;
     private final WindowManager.LayoutParams params;
     private boolean attached;
     private int shownColor=Integer.MIN_VALUE;
     Overlay(Context context, Runnable stop) {
         windows = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        root = new LinearLayout(context); root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(Ui.dp(context, 12), Ui.dp(context, 8), Ui.dp(context, 12), Ui.dp(context, 10));
-        root.setBackground(Ui.shape(Color.rgb(24, 42, 52), 14, context));
-        root.setElevation(Ui.dp(context, 6));
-        LinearLayout header = new LinearLayout(context); header.setGravity(Gravity.CENTER_VERTICAL);
-        title = Ui.text(context, "SEMÁFORO · 0.4.1", 11, true); title.setTextColor(Color.rgb(122, 221, 238));
-        header.addView(title, new LinearLayout.LayoutParams(0, Ui.dp(context, 32), 1));
-        TextView close = Ui.text(context, "Detener", 12, true); close.setTextColor(Color.WHITE);
-        close.setPadding(Ui.dp(context, 8), 0, 0, 0); close.setGravity(Gravity.CENTER);
-        header.addView(close, new LinearLayout.LayoutParams(Ui.dp(context, 66), Ui.dp(context, 40)));
-        close.setOnClickListener(v -> stop.run()); root.addView(header);
-        body = Ui.text(context, "Esperando oferta…", 13, false); body.setTextColor(Color.WHITE);
-        root.addView(body);
-        params = new WindowManager.LayoutParams(Ui.dp(context, 262), WindowManager.LayoutParams.WRAP_CONTENT,
+        root = new LinearLayout(context); root.setOrientation(LinearLayout.HORIZONTAL);
+        root.setGravity(Gravity.CENTER_VERTICAL);
+        root.setPadding(Ui.dp(context, 14), Ui.dp(context, 4), Ui.dp(context, 4), Ui.dp(context, 4));
+        root.setBackground(Ui.shape(Ui.signalColor(null), 16, context));
+        root.setElevation(Ui.dp(context, 4));
+        body = Ui.text(context, "Esperando…", 22, true); body.setTextColor(Color.WHITE);
+        body.setGravity(Gravity.CENTER_VERTICAL);body.setIncludeFontPadding(false);body.setSingleLine(true);
+        body.setAutoSizeTextTypeUniformWithConfiguration(14,22,1,android.util.TypedValue.COMPLEX_UNIT_SP);
+        root.addView(body,new LinearLayout.LayoutParams(0,Ui.dp(context,48),1));
+        TextView close = Ui.text(context, "×", 26, false); close.setTextColor(Color.WHITE);
+        close.setGravity(Gravity.CENTER);close.setIncludeFontPadding(false);
+        close.setContentDescription("Detener lectura");close.setTooltipText("Detener lectura");
+        close.setBackground(new android.graphics.drawable.RippleDrawable(
+                android.content.res.ColorStateList.valueOf(0x33ffffff),null,Ui.shape(Color.WHITE,12,context)));
+        root.addView(close, new LinearLayout.LayoutParams(Ui.dp(context, 48), Ui.dp(context, 48)));
+        close.setOnClickListener(v -> stop.run());
+        params = new WindowManager.LayoutParams(Ui.dp(context, 216), WindowManager.LayoutParams.WRAP_CONTENT,
                 WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY,
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
                 PixelFormat.TRANSLUCENT);
         params.gravity = Gravity.TOP | Gravity.START;
         params.x = Ui.dp(context, 14); params.y = Ui.dp(context, 56);
-        title.setOnTouchListener(new View.OnTouchListener() {
+        body.setOnTouchListener(new View.OnTouchListener() {
             float startX, startY; int oldX, oldY;
             @Override public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -58,14 +60,18 @@ final class Overlay {
     }
     void update(String status, OfferParser.Offer offer, long ms) {
         ScoreEngine.Evaluation e=Diagnostics.evaluation;
-        String heading=offer==null?"SEMÁFORO · 0.4.1":"TIPO: "+offer.typeLabel().toUpperCase(java.util.Locale.ROOT);
-        String content=offer==null||e==null?status:Ui.compact(e);
+        String content=offer==null?"Esperando…":e==null?"Leyendo…":Ui.compact(e);
         int color=Ui.signalColor(offer==null?null:e);
+        String spoken=offer==null||e==null?"Semáforo. "+status
+                :e.color==ScoreEngine.Color.GRIS?"Semáforo sin datos. "+e.reason()
+                :"Semáforo "+e.label()+". "+(e.tripBasis?"Aporte antes de fijos: ":"Saldo tras fijos: ")
+                +Ui.amount(e.decisionHourly)+" por hora, estimado. "+e.reason();
+        spoken+=". Arrastra la franja para moverla.";
         // The overlay is itself in a full-screen capture. Avoid triggering another
         // layout/frame when the displayed text and color have not changed.
-        if(!heading.contentEquals(title.getText()))title.setText(heading);
         if(!content.contentEquals(body.getText()))body.setText(content);
-        if(shownColor!=color){shownColor=color;root.setBackground(Ui.shape(color,14,root.getContext()));}
+        if(!spoken.contentEquals(body.getContentDescription()==null?"":body.getContentDescription()))body.setContentDescription(spoken);
+        if(shownColor!=color){shownColor=color;root.setBackground(Ui.shape(color,16,root.getContext()));}
     }
     void show() { if (!attached) { windows.addView(root, params); attached = true; } }
     void hide() { if (attached) { windows.removeView(root); attached = false; } }

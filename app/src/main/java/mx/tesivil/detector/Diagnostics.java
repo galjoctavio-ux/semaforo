@@ -69,7 +69,7 @@ final class Diagnostics {
     }
     static JSONObject offerJson(OfferParser.Offer o)throws JSONException{
         JSONObject j=new JSONObject();j.put("fare_cents",o.cents);j.put("currency_assumed","MXN");
-        j.put("reader_version","0.4.1");j.put("service_type",o.serviceType.name());j.put("service_label",o.typeLabel());j.put("exclusive",o.exclusive);
+        j.put("reader_version","0.5.4");j.put("service_type",o.serviceType.name());j.put("service_label",o.typeLabel());j.put("exclusive",o.exclusive);
         j.put("pickup_minutes",o.pickupMinutes);j.put("pickup_km",o.pickupKm);j.put("trip_minutes",o.tripMinutes);j.put("trip_km",o.tripKm);
         j.put("destination_notice_count",o.destinationNoticeCount);
         j.put("reservation",o.reserved);
@@ -86,6 +86,12 @@ final class Diagnostics {
         j.put("return_scenario_km",e.returnKm);j.put("return_scenario_minutes",e.returnMinutes);j.put("return_scenario_remaining",e.returnMargin);j.put("return_scenario_hourly",e.returnHourly);j.put("return_scenario_per_km",e.returnPerKm);
         j.put("energy_cost",e.energyCost);j.put("upkeep_cost",e.upkeepCost);j.put("allocated_fixed_cost",e.fixedCost);j.put("extras",e.extraCost);
         j.put("estimated_remaining",e.margin);j.put("hourly",e.hourly);j.put("per_km",e.perKm);j.put("conservative_hourly",e.conservativeHourly);
+        j.put("evaluation_basis",e.tripBasis?"TRIP":"TOTAL");j.put("trip_contribution",e.contribution);
+        j.put("contribution_hourly",e.contributionHourly);j.put("contribution_per_km",e.contributionPerKm);
+        j.put("financed_wear_reserve",e.financedWearReserve);j.put("assigned_fixed_monthly",e.allocatedFixedMonthly);
+        j.put("decision_remaining",e.decisionMargin);j.put("decision_hourly",e.decisionHourly);j.put("decision_per_km",e.decisionPerKm);
+        j.put("decision_conservative_hourly",e.decisionConservativeHourly);j.put("fixed_shortfall",e.fixedShortfall);
+        j.put("return_scenario_contribution",e.returnContribution);j.put("return_decision_hourly",e.returnDecisionHourly);j.put("return_decision_per_km",e.returnDecisionPerKm);
         j.put("hourly_points",e.timePoints);j.put("km_points",e.kmPoints);j.put("pickup_points",e.pickupPoints);
         j.put("rider_blocked",e.riderBlocked);j.put("rider_caution",e.riderCaution);j.put("rider_unknown",e.riderUnknown);
         if(e.rider!=null)j.put("rider_summary",e.rider.summary());
@@ -97,7 +103,7 @@ final class Diagnostics {
         return j;
     }
     static String export(Context c)throws JSONException{
-        JSONObject j=new JSONObject();j.put("schema",6);j.put("app_version","0.4.1");j.put("model",Build.MANUFACTURER+" "+Build.MODEL);
+        JSONObject j=new JSONObject();j.put("schema",8);j.put("app_version","0.5.4");j.put("model",Build.MANUFACTURER+" "+Build.MODEL);
         j.put("android",Build.VERSION.RELEASE);j.put("sdk",Build.VERSION.SDK_INT);
         try{PackageInfo p=c.getPackageManager().getPackageInfo("com.ubercab.driver",0);j.put("uber_version",p.versionName);j.put("uber_version_code",p.getLongVersionCode());}
         catch(Exception e){j.put("uber_version","not_available");}

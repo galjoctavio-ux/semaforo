@@ -1,0 +1,96 @@
+{
+  "status": "prepared_locally",
+  "created_utc": "2026-09-15T15:27:32.1027873Z",
+  "version": "0.5.4",
+  "version_code": 16,
+  "diagnostic_schema": 8,
+  "branch": "codex/onboarding-perfiles",
+  "artifact": {
+    "path": "entrega/Detector-ofertas-0.5.4.apk",
+    "bytes": 50503556,
+    "sha256": "cf5012511874cdb792b7e3624bdf4be0273cc48f3c281b76f012fa6a3420cc00",
+    "signer_certificate_sha256": "0876d6d2d8230ab279806e24c3072fae05740e7a3e7bc6c922efa7b90c798986"
+  },
+  "change": {
+    "trigger": "Four supplied cards ended with Me interesa and were rejected as incomplete",
+    "behavior": "Me interesa is accepted only as a complete action line; Aceptar and Viaje disponible remain supported",
+    "scope": "Parser action boundary, version labels and regression tests; calculations and profile rules unchanged"
+  },
+  "screenshot_regression": {
+    "private_images": 5,
+    "old_version": "0.5.3",
+    "old_results": {
+      "tests": 10,
+      "passed": 2,
+      "failed": 8,
+      "failure_reason": "Tarjeta incompleta: falta el botón de la oferta",
+      "control": "Image 5 with Aceptar passed in full and cropped forms",
+      "log": "verification/ocr-054-baseline.txt"
+    },
+    "new_results": {
+      "tests": 10,
+      "passed": 10,
+      "failed": 0,
+      "forms": "Five full images and five live-capture-region crops",
+      "log": "verification/ocr-054-final.txt"
+    },
+    "priority_rate": {
+      "visible": "$11.08/km",
+      "native_ocr": "$1l08/km",
+      "stored": null,
+      "reason": "Optional rate was not converted from an ambiguous letter; fare, legs, rider and Priority type remained verified",
+      "primary_fare_cents": 4212,
+      "bonus_cents_not_added": 1034
+    }
+  },
+  "checks": {
+    "build": {
+      "successful": true,
+      "log": "verification/build-054-final.txt"
+    },
+    "unit_tests": {
+      "passed": 169,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reports": "app/build/test-results/testDebugUnitTest"
+    },
+    "android_tests": {
+      "passed": 97,
+      "failed": 0,
+      "single_clean_full_run": true,
+      "log": "verification/instrumented-0.5.4-final.txt",
+      "device": "Owned Android 16 AVD Detector16 / emulator-5556, 896x1920",
+      "excluded": [
+        "ReleaseEvidenceTest: selected separately for upgrade validation",
+        "LiveCaptureEvidenceTest: requires an authorized MediaProjection session"
+      ]
+    },
+    "upgrade": {
+      "from": "0.5.3",
+      "to": "0.5.4",
+      "seed_passed": true,
+      "preservation_passed": true,
+      "verified": "Every pre-existing profile field and exact zone rules preserved",
+      "logs": [
+        "verification/upgrade-054-seed.txt",
+        "verification/upgrade-054-preserved.txt"
+      ]
+    },
+    "lint_debug": {
+      "errors": 0,
+      "warnings": 21
+    },
+    "lint_release": {
+      "errors": 0,
+      "warnings": 21
+    },
+    "signature_verified": true,
+    "apk_internet_permission": false
+  },
+  "privacy": "Supplied screenshots and raw OCR output remain ignored and outside Git; test source contains numeric expectations only",
+  "publication": "Prepared locally; no push, commit, public release or deployment in this task",
+  "pending_validation": [
+    "Install over the existing app on the driver phone and test a live Me interesa offer"
+  ]
+}

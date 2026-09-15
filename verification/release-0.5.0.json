@@ -1,0 +1,72 @@
+{
+  "status": "prepared_locally",
+  "created_utc": "2026-09-13T17:02:18.8225928Z",
+  "version": "0.5.0",
+  "version_code": 12,
+  "diagnostic_schema": 7,
+  "branch": "codex/onboarding-perfiles",
+  "artifact": {
+    "path": "entrega/Detector-ofertas-0.5.0.apk",
+    "bytes": 50470760,
+    "sha256": "a4759731656c8da29894ba929c57ecea210ead268cf2d0bc1116a0e3557f724f",
+    "signer_certificate_sha256": "0876d6d2d8230ab279806e24c3072fae05740e7a3e7bc6c922efa7b90c798986"
+  },
+  "checks": {
+    "unit_tests": {
+      "passed": 146,
+      "failed": 0,
+      "errors": 0,
+      "reports": "app/build/test-results/testDebugUnitTest"
+    },
+    "android_tests": {
+      "passed": 79,
+      "failed": 0,
+      "log": "verification/instrumented-0.5.0-final.txt",
+      "device": "Owned isolated Android 16 emulator-5558, 896x1920, 420 dpi",
+      "excluded": [
+        "ReleaseEvidenceTest: update preparation selected separately",
+        "LiveCaptureEvidenceTest: requires prior authorized projection and visible fixture"
+      ]
+    },
+    "lint_debug": {
+      "errors": 0,
+      "warnings": 19,
+      "report": "app/build/reports/lint-results-debug.txt"
+    },
+    "upgrade": {
+      "from": "0.4.1",
+      "to": "0.5.0",
+      "seed_test_passed": true,
+      "preservation_test_passed": true,
+      "verified": "Every pre-existing profile field and exact zone rules match the pre-update snapshot, including a deliberately empty zone list"
+    },
+    "rotation": {
+      "passed": true,
+      "verified": "PHEV draft stayed on step 6 with free charging and 100 km remaining after activity recreation; original orientation restored"
+    },
+    "visual_qa": {
+      "passed": true,
+      "images": [
+        "verification/onboarding-carro.png",
+        "verification/onboarding-carga.png",
+        "verification/onboarding-metas.png",
+        "verification/onboarding-resumen.png"
+      ]
+    },
+    "signature_verified": true
+  },
+  "presets": {
+    "version": 1,
+    "vehicle_classes": 6,
+    "strategies": 3,
+    "costs": "Explicit starting assumptions, not measured costs, manufacturer specifications or verified market averages",
+    "basic_steps": 5,
+    "electric_and_phev_steps": 6
+  },
+  "publication": "No public release, deployment or push performed",
+  "pending_validation": [
+    "Usability with new drivers without assistance",
+    "Calibration of starting cost assumptions against real expenses",
+    "New onboarding flow on physical driver phones"
+  ]
+}

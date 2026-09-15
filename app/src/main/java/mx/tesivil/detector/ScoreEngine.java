@@ -12,12 +12,17 @@ public final class ScoreEngine {
         public int score, economyScore;
         public double km, minutes, electricKm, fuelKm, energyCost, upkeepCost, fixedCost, extraCost;
         public double revenue, margin, hourly, perKm, conservativeHourly, timePoints, kmPoints, pickupPoints;
+        public boolean tripBasis, fixedShortfall;
+        public double financedWearReserve, contribution, contributionHourly, contributionPerKm, conservativeContributionHourly;
+        public double decisionMargin, decisionHourly, decisionPerKm, decisionConservativeHourly;
+        public double allocatedFixedMonthly;
         public ZoneRule.Assessment zones;
         public RiderProfile rider;
         public boolean riderBlocked, riderUnknown, riderCaution, zoneBlocked;
         public boolean profilePending, rangeStale, pickupDisproportionate, belowFloor, returnBelowFloor;
         public double pickupKmShare, pickupTimeShare, extraWaitToleranceMin, minimumFare;
         public Double returnKm,returnMinutes,returnMargin,returnHourly,returnPerKm;
+        public Double returnContribution,returnDecisionHourly,returnDecisionPerKm;
         public String economyStatus="Sin evaluación";
         public String riderLimit="";
         public final List<String> pending=new ArrayList<>(), alerts=new ArrayList<>();
@@ -38,15 +43,23 @@ public final class ScoreEngine {
         e.fuelKm = e.km - e.electricKm;
         e.energyCost = e.electricKm * c.kwhPer100Km / 100 * c.electricityPrice + e.fuelKm / c.kmPerLiter * c.fuelPrice;
         e.upkeepCost = e.km * (c.maintenanceCost / c.maintenanceIntervalKm + c.tiresCost / c.tiresLifeKm + c.wearPerKm);
-        e.fixedCost = c.fixedMonthly / c.hoursMonthly * e.minutes / 60;
+        e.tripBasis=c.tripBasis();e.allocatedFixedMonthly=c.allocatedFixedMonthly();
+        e.fixedCost = e.allocatedFixedMonthly / c.hoursMonthly * e.minutes / 60;
         e.extraCost = c.extrasPerTrip;
         e.revenue = o.cents / 100d * (1 - c.additionalFeePercent / 100);
         e.margin = e.revenue - e.energyCost - e.upkeepCost - e.fixedCost - e.extraCost;
         e.hourly = e.margin * 60 / e.minutes; e.perKm = e.margin / e.km;
-        double extraFixed = c.fixedMonthly / c.hoursMonthly * c.conservativeExtraMin / 60;
+        e.financedWearReserve=e.km*c.financedWearRate();
+        e.contribution=e.revenue-e.energyCost-e.upkeepCost-e.extraCost-e.financedWearReserve;
+        e.contributionHourly=e.contribution*60/e.minutes;e.contributionPerKm=e.contribution/e.km;
+        e.conservativeContributionHourly=e.contribution*60/(e.minutes+c.conservativeExtraMin);
+        e.decisionMargin=e.tripBasis?e.contribution:e.margin;
+        e.decisionHourly=e.tripBasis?e.contributionHourly:e.hourly;e.decisionPerKm=e.tripBasis?e.contributionPerKm:e.perKm;
+        double extraFixed = e.allocatedFixedMonthly / c.hoursMonthly * c.conservativeExtraMin / 60;
         e.conservativeHourly = (e.margin - extraFixed) * 60 / (e.minutes + c.conservativeExtraMin);
-        e.timePoints = points(e.hourly, c.minHourly, c.targetHourly);
-        e.kmPoints = points(e.perKm, c.minPerKm, c.targetPerKm);
+        e.decisionConservativeHourly=e.tripBasis?e.conservativeContributionHourly:e.conservativeHourly;
+        e.timePoints = points(e.decisionHourly, c.minHourly, c.targetHourly);
+        e.kmPoints = points(e.decisionPerKm, c.minPerKm, c.targetPerKm);
         e.pickupPoints = Math.max(0, 100 - 80 * Math.max(o.pickupMinutes / c.maxPickupMin, o.pickupKm / c.maxPickupKm));
         double weights = c.weightHourly + c.weightKm + c.weightPickup;
         e.economyScore = (int)Math.round((e.timePoints*c.weightHourly + e.kmPoints*c.weightKm + e.pickupPoints*c.weightPickup)/weights);
@@ -54,14 +67,16 @@ public final class ScoreEngine {
         e.pickupKmShare=100*o.pickupKm/o.totalKm();e.pickupTimeShare=100d*o.pickupMinutes/o.totalMinutes();
         e.pickupDisproportionate=Math.max(e.pickupKmShare,e.pickupTimeShare)>=c.pickupShareAlertPercent;
         if(e.pickupDisproportionate)e.alerts.add("Recogida: "+Math.round(e.pickupKmShare)+"% de km · "+Math.round(e.pickupTimeShare)+"% del tiempo visible");
-        double fixedHourly=c.fixedMonthly/c.hoursMonthly;
-        double hourlyTolerance=(60*e.margin-c.minHourly*e.minutes)/(c.minHourly+fixedHourly);
-        double kmTolerance=fixedHourly==0?Double.POSITIVE_INFINITY:(e.margin-c.minPerKm*e.km)*60/fixedHourly;
+        double fixedHourly=e.allocatedFixedMonthly/c.hoursMonthly;
+        double decisionFixedHourly=e.tripBasis?0:fixedHourly;
+        double hourlyTolerance=(60*e.decisionMargin-c.minHourly*e.minutes)/(c.minHourly+decisionFixedHourly);
+        double kmTolerance=decisionFixedHourly==0?Double.POSITIVE_INFINITY:(e.decisionMargin-c.minPerKm*e.km)*60/decisionFixedHourly;
         e.extraWaitToleranceMin=Math.max(0,Math.min(hourlyTolerance,kmTolerance));
-        if(e.margin<c.minPerKm*e.km || e.margin<c.minHourly*e.minutes/60 || e.margin<=0)e.extraWaitToleranceMin=0;
-        e.minimumFare=(e.energyCost+e.upkeepCost+e.fixedCost+e.extraCost+Math.max(c.minHourly*e.minutes/60,c.minPerKm*e.km))/(1-c.additionalFeePercent/100);
+        if(e.decisionMargin<c.minPerKm*e.km || e.decisionMargin<c.minHourly*e.minutes/60 || e.decisionMargin<=0)e.extraWaitToleranceMin=0;
+        e.minimumFare=(e.energyCost+e.upkeepCost+(e.tripBasis?e.financedWearReserve:e.fixedCost)+e.extraCost+Math.max(c.minHourly*e.minutes/60,c.minPerKm*e.km))/(1-c.additionalFeePercent/100);
         e.minimumFare=Math.ceil(e.minimumFare*100-1e-8)/100;
         e.profilePending=!c.pendingProfile().isEmpty();e.rangeStale=c.rangeStale(System.currentTimeMillis());
+        if(c.usesPresetEstimates())e.alerts.add("Costos del perfil: estimaciones iniciales, ajustables");
         if(e.profilePending)e.pending.add("Perfil: falta revisar "+String.join(", ",c.pendingProfile()));
         if(e.rangeStale)e.pending.add("Autonomía sin actualizar en las últimas 24 h");
         if(c.returnScenarioEnabled){
@@ -72,7 +87,10 @@ public final class ScoreEngine {
             double upkeep=e.returnKm*(c.maintenanceCost/c.maintenanceIntervalKm+c.tiresCost/c.tiresLifeKm+c.wearPerKm);
             e.returnMargin=e.revenue-energy-upkeep-fixedHourly*e.returnMinutes/60-e.extraCost;
             e.returnHourly=e.returnMargin*60/e.returnMinutes;e.returnPerKm=e.returnMargin/e.returnKm;
-            e.returnBelowFloor=e.returnHourly<c.minHourly || e.returnPerKm<c.minPerKm || e.returnMargin<=0
+            e.returnContribution=e.revenue-energy-upkeep-e.returnKm*c.financedWearRate()-e.extraCost;
+            double returnDecisionMargin=e.tripBasis?e.returnContribution:e.returnMargin;
+            e.returnDecisionHourly=returnDecisionMargin*60/e.returnMinutes;e.returnDecisionPerKm=returnDecisionMargin/e.returnKm;
+            e.returnBelowFloor=e.returnDecisionHourly<c.minHourly || e.returnDecisionPerKm<c.minPerKm || returnDecisionMargin<=0
                     || c.energyMode.equals("ELECTRICO") && e.returnKm>c.remainingElectricKm;
             if(e.returnBelowFloor)e.alerts.add("Con tu escenario de regreso no cumple los mínimos o la autonomía");
         }else if(c.repositionKm==0 && c.repositionMin==0)e.pending.add("Regreso no considerado");
@@ -80,12 +98,12 @@ public final class ScoreEngine {
         if(o.destinationNoticeCount>0)e.pending.add("Aviso de destinos: revisar paradas y esperas");
         e.zones = ZoneRule.assess(o, zones, date, hour);
         e.zoneBlocked=c.zoneFilter && e.zones.blocked;
-        boolean belowFloor = e.hourly < c.minHourly || e.perKm < c.minPerKm || e.margin <= 0;
+        boolean belowFloor = e.decisionHourly < c.minHourly || e.decisionPerKm < c.minPerKm || e.decisionMargin <= 0;
         e.belowFloor=belowFloor;
-        e.economyStatus=belowFloor?"Bajo tus mínimos":e.hourly>=c.targetHourly && e.perKm>=c.targetPerKm?"Cumple metas económicas":"Supera mínimos; falta alcanzar metas";
+        e.economyStatus=belowFloor?"Bajo tus mínimos":e.decisionHourly>=c.targetHourly && e.decisionPerKm>=c.targetPerKm?"Cumple metas económicas":"Supera mínimos; falta alcanzar metas";
         boolean pickupTooLong = o.pickupMinutes > c.maxPickupMin || o.pickupKm > c.maxPickupKm;
         boolean unavailableRange = c.energyMode.equals("ELECTRICO") && e.km > c.remainingElectricKm;
-        e.color = e.score >= c.greenScore && e.hourly >= c.targetHourly ? Color.VERDE
+        e.color = e.score >= c.greenScore && e.decisionHourly >= c.targetHourly ? Color.VERDE
                 : e.score >= c.amberScore ? Color.AMBAR : Color.ROJO;
         e.rider=o.rider;
         if(c.riderFilter) {
@@ -109,7 +127,7 @@ public final class ScoreEngine {
         if (unavailableRange) { e.color = Color.ROJO; e.score = Math.min(e.score, (int)Math.ceil(c.amberScore)-1); e.reasons.add("Autonomía eléctrica insuficiente"); }
         if (belowFloor) {
             e.color = Color.ROJO; e.score = Math.min(e.score, (int)Math.ceil(c.amberScore)-1);
-            e.reasons.add(e.hourly < c.minHourly ? "Bajo tu mínimo por hora" : "Bajo tu mínimo por kilómetro");
+            e.reasons.add(e.decisionHourly < c.minHourly ? "Bajo tu mínimo por hora" : "Bajo tu mínimo por kilómetro");
         }
         if (pickupTooLong) { e.color = Color.ROJO; e.score = Math.min(e.score, (int)Math.ceil(c.amberScore)-1); e.reasons.add("Recogida fuera de tus límites"); }
         if(e.riderCaution){e.score=Math.max(0,e.score-(int)Math.round(c.riderCautionPenalty));capAmber(e,c);e.reasons.add("Pasajero: calificación o historial bajo tu meta");}
@@ -128,7 +146,13 @@ public final class ScoreEngine {
         if (e.profilePending) { capAmber(e,c); e.reasons.add("Costos y metas iniciales sin revisar"); }
         if(e.rangeStale){capAmber(e,c);e.reasons.add("Autonomía pendiente de actualizar; sin verde");}
         if(e.returnBelowFloor){capAmber(e,c);e.reasons.add("Con tu escenario de regreso no cumple tus mínimos; sin verde");}
-        if (e.conservativeHourly < c.minHourly && !belowFloor) { capAmber(e,c); e.reasons.add("Una espera extra lo deja bajo tu mínimo"); }
+        if (e.decisionConservativeHourly < c.minHourly && !belowFloor) { capAmber(e,c); e.reasons.add("Una espera extra lo deja bajo tu mínimo"); }
+        e.fixedShortfall=e.tripBasis && e.contribution>0 && e.margin<0;
+        if(e.fixedShortfall){
+            capAmber(e,c);
+            e.reasons.add("Aporta al viaje; no cubre los gastos fijos asignados a este tiempo");
+            e.alerts.add("Saldo después de fijos negativo: revisa Plan del mes. No es una pérdida adicional causada por este viaje.");
+        }
         if (e.reasons.isEmpty()) e.reasons.add(e.color == Color.VERDE ? "Cumple tus metas y reglas" : e.color == Color.ROJO ? "Calificación bajo tu mínimo" : "No alcanza tu meta completa");
         if (!c.zoneFilter) e.reasons.add("Filtro de zonas desactivado");
         if (!c.riderFilter) e.reasons.add("Filtro de pasajero desactivado");

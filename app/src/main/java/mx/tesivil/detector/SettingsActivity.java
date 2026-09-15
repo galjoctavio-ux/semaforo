@@ -13,7 +13,7 @@ public final class SettingsActivity extends Activity {
     private final Map<String,EditText> fields = new LinkedHashMap<>();
     private CheckBox calibrated, zoneFilter, riderFilter, blockNewRider;
     private CheckBox vehicleConfirmed,energyReviewed,costsReviewed,goalsReviewed,rangeUpdated,returnEnabled;
-    private Spinner mode;
+    private Spinner mode,basis,carUse;
     private EditText model;
     @Override public void onCreate(Bundle state) {
         super.onCreate(state); config=ConfigStore.load(this);
@@ -37,13 +37,22 @@ public final class SettingsActivity extends Activity {
             field(p,"maintenanceCost","Costo de cada servicio, MXN"); field(p,"maintenanceIntervalKm","Intervalo de servicio, km");
             field(p,"tiresCost","Costo del juego de llantas, MXN"); field(p,"tiresLifeKm","Duración estimada de llantas, km");
             field(p,"wearPerKm","Otro desgaste / depreciación por uso, MXN/km");
-            field(p,"fixedMonthly","Gastos fijos mensuales asignados, MXN"); field(p,"hoursMonthly","Horas trabajadas al mes");
+            if(config.ownership.equals("FINANCED"))field(p,"financedWearPerKm","Reserva de desgaste para comparar viajes financiados, MXN/km");
+            FormUi.text(p,"Gastos compartidos y uso para Uber",20,true);
+            carUse=FormUi.spinner(p,"Uso del carro",new String[]{"Sin indicar · reparto anterior","Solo para Uber","También personal u otro trabajo"},config.carUse.equals("EXCLUSIVE")?1:config.carUse.equals("MIXED")?2:0);
+            field(p,"fixedMonthly","Fijos compartidos al mes, incluido pago del carro, MXN");
+            field(p,"uberOnlyFixedMonthly","Fijos exclusivos de Uber al mes, MXN");
+            field(p,"uberUsePercent","Porcentaje de todos los km que son para Uber");
+            field(p,"hoursMonthly","Horas de Uber al mes, incluyendo espera de ofertas");
+            FormUi.text(p,"Uber recibe fijos compartidos × porcentaje de uso + fijos exclusivos completos. En perfiles anteriores, 100% conserva el importe que ya habías asignado. Si ese importe ya es solo la parte de Uber, conserva 100% o captura el gasto total compartido antes de repartirlo. Mantenimiento y llantas no se reducen otra vez por el porcentaje.",13,false);
             FormUi.text(p,"El odómetro no cambia costos automáticamente. Calibra los intervalos con tu mantenimiento. Evita contar dos veces depreciación y financiamiento. El saldo estimado es antes de impuestos y depende de las horas configuradas.",13,false);
             vehicleConfirmed=FormUi.check(p,"Confirmo mi vehículo y el tipo de energía",config.vehicleConfirmed);
             energyReviewed=FormUi.check(p,"Revisé precio y rendimiento de energía con mis registros",config.energyReviewed);
             costsReviewed=FormUi.check(p,"Revisé mantenimiento, desgaste, llantas y gastos fijos",config.costsReviewed);
             FormUi.text(p,"Electricidad a $0 solo corresponde si de verdad no la pagas. Confirmar casillas registra tu revisión; no verifica el consumo del carro. Los perfiles anteriores se conservan, pero requieren estas revisiones específicas.",13,false);
         } else {
+            basis=FormUi.spinner(p,"Cómo comparar cada viaje",new String[]{"Aporte antes de gastos fijos","Saldo después de gastos fijos y pagos"},config.tripBasis()?0:1);
+            FormUi.text(p,"Los mismos mínimos y metas se comparan con la opción elegida. Aporte descuenta energía y reservas por km; el saldo tras fijos y pagos siempre se muestra aparte. Plan del mes comprueba el presupuesto con un supuesto por hora de jornada.",13,false);
             field(p,"minHourly","Mínimo disponible estimado, MXN/h"); field(p,"targetHourly","Meta disponible estimado, MXN/h");
             field(p,"minPerKm","Mínimo disponible estimado, MXN/km"); field(p,"targetPerKm","Meta disponible estimado, MXN/km");
             field(p,"maxPickupMin","Máximo de recogida, minutos"); field(p,"maxPickupKm","Máximo de recogida, km");
@@ -77,6 +86,8 @@ public final class SettingsActivity extends Activity {
             double oldRange=config.remainingElectricKm;
             for (Map.Entry<String,EditText> entry:fields.entrySet()) DriverConfig.class.getField(entry.getKey()).setDouble(config,FormUi.number(entry.getValue()));
             if (model!=null) { config.vehicle=model.getText().toString().trim(); config.energyMode=new String[]{"PHEV","GASOLINA","ELECTRICO"}[mode.getSelectedItemPosition()]; }
+            if(carUse!=null)config.carUse=carUse.getSelectedItemPosition()==1?"EXCLUSIVE":carUse.getSelectedItemPosition()==2?"MIXED":config.carUse;
+            if(basis!=null)config.evaluationBasis=basis.getSelectedItemPosition()==0?"TRIP":"TOTAL";
             if(zoneFilter!=null)config.zoneFilter=zoneFilter.isChecked();
             if(riderFilter!=null)config.riderFilter=riderFilter.isChecked();
             if(blockNewRider!=null)config.blockNewRider=blockNewRider.isChecked();

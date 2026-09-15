@@ -1,0 +1,100 @@
+{
+  "status": "prepared_locally",
+  "created_utc": "2026-09-13T20:13:29.4992838Z",
+  "version": "0.5.3",
+  "version_code": 15,
+  "diagnostic_schema": 8,
+  "branch": "codex/onboarding-perfiles",
+  "baseline": "Existing local 0.5.2",
+  "artifact": {
+    "path": "entrega/Detector-ofertas-0.5.3.apk",
+    "bytes": 50503556,
+    "sha256": "7e3f49929a4ffac8f3354df3f4cc59f94e2f8d4321b86cc7c79f03bac10e529d",
+    "signer_certificate_sha256": "0876d6d2d8230ab279806e24c3072fae05740e7a3e7bc6c922efa7b90c798986"
+  },
+  "banner": {
+    "width_dp": 216,
+    "height_dp": 56,
+    "stop_touch_target_dp": 48,
+    "format": "Est. $146/h ×",
+    "hourly_source": "Configured decision basis: trip contribution or balance after fixed costs and payments",
+    "rounding": "Whole pesos for display only; calculations unchanged",
+    "color_source": "Full existing ScoreEngine evaluation",
+    "unconfirmed_states": [
+      "Esperando…",
+      "Leyendo…",
+      "Sin datos"
+    ],
+    "accessibility": "Spoken color, exact estimate, calculation basis, primary reason and stop label"
+  },
+  "checks": {
+    "build": {
+      "successful": true,
+      "log": "verification/build-053-final.txt",
+      "tasks": [
+        "testDebugUnitTest",
+        "lintDebug",
+        "lintRelease",
+        "assembleRelease",
+        "assembleReleaseAndroidTest"
+      ]
+    },
+    "unit_tests": {
+      "passed": 168,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reports": "app/build/test-results/testDebugUnitTest"
+    },
+    "android_affected_flows": {
+      "passed": 15,
+      "failed": 0,
+      "classes": [
+        "AppFlowTest",
+        "MonthlyPlanFlowTest"
+      ],
+      "log": "verification/instrumented-053-affected.txt",
+      "verified": "Existing app flows and displayed hourly amount for both contribution and total-cost bases"
+    },
+    "lint_debug": {
+      "errors": 0,
+      "warnings": 21
+    },
+    "lint_release": {
+      "errors": 0,
+      "warnings": 21
+    },
+    "live_projection": {
+      "passed": true,
+      "device": "Owned Android 16 AVD Detector16 / emulator-5556, 896x1920",
+      "type": "Native MediaProjection consent; external fixture displaying private screenshot",
+      "seconds": 20,
+      "state_samples": 171,
+      "missing_confirmed_result": 0,
+      "frames": 23,
+      "complete_frames": 23,
+      "fare_cents": 15305,
+      "log": "verification/live-053-log.txt",
+      "test_log": "verification/live-053-instrument.txt",
+      "physical_phone_test": false
+    },
+    "manual_controls": {
+      "drag_verified": true,
+      "stop_by_x_verified": true,
+      "projection_null_after_stop": true,
+      "images": [
+        "verification/device/live053-franja.png",
+        "verification/device/manual053-gris.png",
+        "verification/device/manual053-arrastrado.png",
+        "verification/device/manual053-detenido.png"
+      ]
+    },
+    "signature_verified": true,
+    "source_preservation": "OfferParser, ScoreEngine, configuration and onboarding sources unchanged from the start of this task",
+    "source_hash_comparison": "verification/preexisting-053-preserved.json"
+  },
+  "publication": "Prepared locally; no push, commit, public release or deployment in this task",
+  "pending_validation": [
+    "Check size and usability of the compact banner on the driver phone"
+  ]
+}

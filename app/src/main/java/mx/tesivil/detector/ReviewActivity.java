@@ -59,7 +59,7 @@ public final class ReviewActivity extends Activity {
                 String time=java.text.DateFormat.getDateTimeInstance(java.text.DateFormat.SHORT,java.text.DateFormat.SHORT).format(new java.util.Date(r.getLong("observed_at_ms")));
                 FormUi.text(p,time+" · "+r.optString("source"),12,false);
                 FormUi.text(p,Ui.money(r.getLong("fare_cents"))+" · "+e.getString("color")+" "+e.getInt("score")+"/100",18,true);
-                FormUi.text(p,Ui.amount(e.getDouble("hourly"))+"/h estimados\n"+e.getJSONArray("reasons").join(" · ").replace("\"","")+"\nPerfil revisión "+r.getJSONObject("config").getLong("revision"),14,false);
+                FormUi.text(p,(e.has("trip_contribution")?"Aporte: "+Ui.amount(e.getDouble("contribution_hourly"))+"/h · ":"")+"Tras fijos: "+Ui.amount(e.getDouble("hourly"))+"/h estimados\n"+e.getJSONArray("reasons").join(" · ").replace("\"","")+"\nPerfil revisión "+r.getJSONObject("config").getLong("revision"),14,false);
                 FormUi.text(p,g.rows.size()+" versiones · "+(g.anchor==null?"Resultado sin registrar":TripJournal.resultDetail(g.anchor)),14,false);
                 FormUi.button(p,"Ver versiones y registrar resultado",()->versions(g));
             }catch(Exception ignored){}
@@ -120,6 +120,7 @@ public final class ReviewActivity extends Activity {
                     +"\nDistancia estimada: "+Ui.km(e.getDouble("km"))+" km\nEnergía: "+Ui.amount(e.getDouble("energy_cost"))
                     +"\nMantenimiento y desgaste: "+Ui.amount(e.getDouble("upkeep_cost"))+"\nFijos prorrateados: "+Ui.amount(e.getDouble("allocated_fixed_cost"))
                     +"\nExtras: "+Ui.amount(e.getDouble("extras"))+"\nDisponible estimado: "+Ui.amount(e.getDouble("estimated_remaining"))
+                    +(e.has("trip_contribution")?"\nAporte antes de fijos: "+Ui.amount(e.getDouble("trip_contribution"))+" · "+Ui.amount(e.getDouble("contribution_hourly"))+"/h\nBase del semáforo: "+e.getString("evaluation_basis"):"")
                     +"\nPor hora: "+Ui.amount(e.getDouble("hourly"))+"\nPor km: "+Ui.amount(e.getDouble("per_km"))
                     +"\nCon espera extra: "+Ui.amount(e.getDouble("conservative_hourly"))+"/h"
                     +(e.has("economy_status")?"\nRentabilidad: "+e.optString("economy_status")+" · económico "+e.optInt("economy_score")+"/100":"")

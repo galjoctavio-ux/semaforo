@@ -7,22 +7,24 @@ import java.util.regex.Pattern;
 
 /** Explicit Spanish offer formats. Category labels do not imply extra earnings or safety. */
 public final class OfferParser {
-    private static final Pattern CATEGORY = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(reservar\\s+uber\\s*x|uber\\s*x\\s*l|uber\\s*x(?:\\s+priority)?|uber\\s+priority|priority|comfort)\\s*(?:exclusivo)?\\s*$");
+    private static final Pattern CATEGORY = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(reservar\\s+uber\\s*x|uber\\s*x\\s*l|uber\\s*x(?:\\s+priority)?|uber\\s+priority|priority|comfort)\\s*(?:exclusiv[oa])?\\s*$");
     private static final Pattern CATEGORY_PREFIX = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(?:reservar\\s+uber\\s*x|uber\\s*x\\s*l|uber\\s*x|uber\\s+priority|priority|comfort)(?=\\s|$)");
-    private static final Pattern CTA = Pattern.compile("\\b(viaje\\s+disponible|aceptar(?:\\s+viaje)?)\\b");
-    private static final Pattern FARE = Pattern.compile(
-            "(?m)^\\s*(?:mx\\s*\\$|\\$|mxn)\\s*([0-9][0-9., ]{0,12})\\s*(?:mxn)?\\s*$");
+    private static final Pattern CTA = Pattern.compile("(?m)^\\s*(viaje\\s+disponible|aceptar(?:\\s+viaje)?|me\\s+interesa)\\s*$");
+    private static final String MONEY_PREFIX="(?:mx\\s*\\$|\\$|mxn)";
+    private static final String MONEY_DIGITS="[0-9][0-9., ]{0,12}";
+    private static final String MONEY_GLYPHS="[0-9il|][0-9il|., ]{0,12}";
+    // Both layouts require an explicit MXN/$ marker; a bare number is never a fare.
+    private static final Pattern FARE = Pattern.compile("(?m)^\\s*(?:"+MONEY_PREFIX+"\\s*("+MONEY_DIGITS+")\\s*(?:mxn)?|("+MONEY_DIGITS+")\\s*mxn)\\s*$");
     // Candidate for another OCR pass only. Letters never become money by replacement.
-    private static final Pattern DAMAGED_FARE = Pattern.compile(
-            "(?m)^\\s*(?:mx\\s*\\$|\\$|mxn)\\s*[0-9il|][0-9il|., ]{0,12}\\s*(?:mxn)?\\s*$");
+    private static final Pattern DAMAGED_FARE = Pattern.compile("(?m)^\\s*(?:"+MONEY_PREFIX+"\\s*"+MONEY_GLYPHS+"\\s*(?:mxn)?|"+MONEY_GLYPHS+"\\s*mxn)\\s*$");
     // Confined to a complete leg: OCR reads 11 as ll and endpoint icons as 9/o/°.
     private static final String ICON_PREFIX = "(?:[0-9o°○●◦]{1,3}\\s+)?";
     private static final String DURATION = "(?:([0-9il|]{1,2})\\s*(?:h|horas?)\\s*(?:([0-9il|]{1,3})\\s*min(?:utos)?)?|([0-9il|]{1,3})\\s*min(?:utos)?)";
     private static final String DISTANCE = "\\(\\s*([0-9]+(?:[.,][0-9]+)?)\\s*(km|m)\\s*\\)";
     private static final String LEG = DURATION + "\\s*" + DISTANCE;
-    private static final Pattern PICKUP = Pattern.compile("(?m)^\\s*" + ICON_PREFIX + "a\\s*" + DURATION + "\\s*(?:y\\s*)?" + DISTANCE + "\\s*$");
-    private static final Pattern TRIP = Pattern.compile("(?m)^\\s*" + ICON_PREFIX + "viaje\\s*:\\s*" + LEG + "\\s*$");
-    private static final Pattern RATE = Pattern.compile("(?:mx\\s*\\$|\\$|mxn)\\s*([0-9]+[.,][0-9]{2})\\s*/\\s*km");
+    private static final Pattern PICKUP = Pattern.compile("(?m)^\\s*" + ICON_PREFIX + "a\\s*" + DURATION + "\\s*(?:y\\s*)?" + DISTANCE + "\\s*(?:de\\s+distancia)?\\s*$");
+    private static final Pattern TRIP = Pattern.compile("(?m)^\\s*" + ICON_PREFIX + "viaje\\s*(?::\\s*|de\\s+)" + LEG + "\\s*$");
+    private static final Pattern RATE = Pattern.compile("(?<![a-z0-9.,])(?:"+MONEY_PREFIX+"\\s*([0-9]+[.,][0-9]{2})\\s*(?:mxn)?|([0-9]+[.,][0-9]{2})\\s*mxn)\\s*/\\s*km");
     private static final Pattern DESTINATION_COUNT = Pattern.compile("(?m)^\\s*([0-9il|]{1,3})\\s+destinos?\\s*$");
     private static final Pattern STOPS = Pattern.compile("(?m)^\\s*[0-9il|]{1,3}\\s+paradas?\\s*$");
     private static final Pattern LONG_TRIP = Pattern.compile("(?m)^\\s*(?:[^a-z\\n]{0,4}|[a-z0-9]{1,2}\\s+)viaje\\s+largo\\s*\\(\\s*45\\s*\\+\\s*min\\s*\\)\\s*$");
@@ -31,7 +33,7 @@ public final class OfferParser {
     private static final Pattern NEW_RIDER = Pattern.compile("(?m)^\\s*[★☆⭐*]?\\s*(?:nuevo|usuario nuevo|pasajero nuevo|nuevo usuario|nuevo pasajero)\\s*$");
     private static final Pattern RIDER_COUNT = Pattern.compile("(?m)^\\s*([0-9]{1,7})\\s+viajes\\s*$");
     private static final Pattern RIDER_PAIR = Pattern.compile("(?<![0-9$])([0-9][.,][0-9]{1,2})\\s*\\(\\s*([0-9]{1,7})\\s*\\)");
-    private static final Pattern EXCLUSIVE = Pattern.compile("\\bexclusivo\\b");
+    private static final Pattern EXCLUSIVE = Pattern.compile("\\bexclusiv[oa]\\b");
     public enum ServiceType { UBER_X, UBER_XL, PRIORITY, COMFORT }
 
     public static final class Offer {
@@ -121,7 +123,7 @@ public final class OfferParser {
         boolean reserved=label.startsWith("reservar");
         ServiceType type=label.contains("priority")?ServiceType.PRIORITY:label.equals("uberxl")?ServiceType.UBER_XL:label.equals("comfort")?ServiceType.COMFORT:ServiceType.UBER_X;
         // Horizontally adjacent badges can be sorted with Exclusive just before UberX.
-        boolean precedingExclusive=Pattern.compile("(?:^|\\n)\\s*exclusivo\\s*$").matcher(text.substring(0,categoryStart)).find();
+        boolean precedingExclusive=Pattern.compile("(?:^|\\n)\\s*exclusiv[oa]\\s*$").matcher(text.substring(0,categoryStart)).find();
         if(category.find())return missing(true,"Hay varias tarjetas: lectura ambigua");
         Matcher cta=CTA.matcher(text);
         if (!cta.find(categoryStart)) return new Result(null,false,"Tarjeta incompleta: falta el botón de la oferta",false,false,
@@ -137,7 +139,7 @@ public final class OfferParser {
         Matcher fare = FARE.matcher(text);
         if (!fare.find()) return new Result(null,true,"Falta el importe de la oferta",DAMAGED_FARE.matcher(text).find());
         int fareEnd = fare.end();
-        String fareValue=fare.group(1);
+        String fareValue=amountValue(fare);
         if (fare.find()) return missing(true, "Hay varios importes: lectura ambigua");
         // Never turn $7706 into either $7,706 or $77.06 by assumption. Retry the pixels.
         if(!hasMoneyDecimals(fareValue))return new Result(null,true,"Importe sin centavos legibles",true);
@@ -162,7 +164,7 @@ public final class OfferParser {
         String header=text.substring(fareEnd,pickupStart);
         Matcher rateMatch = RATE.matcher(header);
         if (rateMatch.find()) {
-            rate = Double.parseDouble(rateMatch.group(1).replace(',', '.'));
+            rate = Double.parseDouble(amountValue(rateMatch).replace(',', '.'));
             if(rateMatch.find())return missing(true,"Hay varias tarifas por km: lectura ambigua");
             double expected=rate*(pKm+tKm), difference=Math.abs(cents/100d-expected);
             // Wide heuristic tolerance for rounded/estimated km. This only rejects disagreement;
@@ -184,7 +186,8 @@ public final class OfferParser {
 
     static String normalized(String text){return Normalizer.normalize(text,Normalizer.Form.NFKD).replaceAll("\\p{M}","").replace('\u00a0',' ').replace('\r','\n').toLowerCase(Locale.ROOT);}
     static boolean isCategoryLine(String text){return CATEGORY.matcher(normalized(text)).matches();}
-    static boolean moneyNeedsRefinement(String text){Matcher m=FARE.matcher(normalized(text));return m.matches()&&!hasMoneyDecimals(m.group(1));}
+    private static String amountValue(Matcher amount){return amount.group(1)!=null?amount.group(1):amount.group(2);}
+    static boolean moneyNeedsRefinement(String text){Matcher m=FARE.matcher(normalized(text));return m.matches()&&!hasMoneyDecimals(amountValue(m));}
     static int numericFieldKind(String original){String text=normalized(original);if(DAMAGED_FARE.matcher(text).matches())return 1;if(RATE.matcher(text).find())return 2;if(PICKUP.matcher(text).matches())return 3;if(TRIP.matcher(text).matches())return 4;return 0;}
     static boolean isCardActionLine(String text){return CTA.matcher(normalized(text)).find();}
     private static boolean hasMoneyDecimals(String value){return value.replace(" ","").matches(".*[.,][0-9]{2}");}

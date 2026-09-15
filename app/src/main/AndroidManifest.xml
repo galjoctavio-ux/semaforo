@@ -21,6 +21,8 @@
         <service android:name=".CaptureService" android:exported="false"
             android:foregroundServiceType="mediaProjection" />
         <activity android:name=".SettingsActivity" android:exported="false" />
+        <activity android:name=".OnboardingActivity" android:exported="false" android:enableOnBackInvokedCallback="true" />
         <activity android:name=".ReviewActivity" android:exported="false" />
+        <activity android:name=".MonthlyPlanActivity" android:exported="false" />
     </application>
 </manifest>

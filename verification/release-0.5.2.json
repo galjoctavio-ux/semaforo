@@ -1,0 +1,117 @@
+{
+  "status": "prepared_locally",
+  "created_utc": "2026-09-13T18:53:22.8022829Z",
+  "version": "0.5.2",
+  "version_code": 14,
+  "diagnostic_schema": 8,
+  "branch": "codex/onboarding-perfiles",
+  "baseline": "Existing local 0.5.1 including vehicle presets, shared costs and monthly plan; preserved without changing calculation rules",
+  "artifact": {
+    "path": "entrega/Detector-ofertas-0.5.2.apk",
+    "bytes": 50503556,
+    "sha256": "fa0fff97b0b83b6060909e525972581d07404584fb386dce9f21a578652ec06d",
+    "signer_certificate_sha256": "0876d6d2d8230ab279806e24c3072fae05740e7a3e7bc6c922efa7b90c798986"
+  },
+  "checks": {
+    "build": {
+      "successful": true,
+      "log": "verification/build-052-final.txt",
+      "tasks": [
+        "testDebugUnitTest",
+        "lintDebug",
+        "lintRelease",
+        "assembleRelease",
+        "assembleReleaseAndroidTest"
+      ]
+    },
+    "unit_tests": {
+      "suites": 17,
+      "passed": 168,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reports": "app/build/test-results/testDebugUnitTest"
+    },
+    "android_tests": {
+      "passed": 87,
+      "failed": 0,
+      "single_clean_full_run": true,
+      "log": "verification/instrumented-0.5.2-final.txt",
+      "device": "Owned Android 16 AVD Detector16 / emulator-5556, 896x1920",
+      "excluded": [
+        "ReleaseEvidenceTest: selected separately for upgrade validation",
+        "LiveCaptureEvidenceTest: selected separately for projection validation"
+      ]
+    },
+    "lint_debug": {
+      "errors": 0,
+      "warnings": 21
+    },
+    "lint_release": {
+      "errors": 0,
+      "warnings": 21
+    },
+    "screenshot_regression": {
+      "source": "Private screenshot supplied by user",
+      "old_version": "0.5.1",
+      "old_full_and_capture_region_failed": 2,
+      "new_full_and_capture_region_passed": 2,
+      "baseline_log": "verification/ocr-052-baseline.txt",
+      "result_log": "verification/ocr-052-final-summary.txt",
+      "expected": {
+        "fare_cents": 15305,
+        "displayed_rate": 6.05,
+        "pickup_minutes": 3,
+        "pickup_km": 0.7,
+        "trip_minutes": 33,
+        "trip_km": 24.6,
+        "service_type": "UBER_X",
+        "exclusive": true,
+        "reserved": false,
+        "rider_rating": 4.87,
+        "rider_visible_count": 15
+      }
+    },
+    "live_projection": {
+      "passed": true,
+      "type": "Android MediaProjection with native consent, external test app displaying supplied screenshot",
+      "seconds": 16,
+      "state_samples": 157,
+      "missing_confirmed_result": 0,
+      "frames": 20,
+      "complete_frames": 20,
+      "fare_cents": 15305,
+      "log": "verification/live-052-log.txt",
+      "test_log": "verification/live-052-instrument.txt",
+      "visual_qa": "verification/device/live052-offer.png",
+      "projection_stopped_verified": true,
+      "physical_phone_test": false
+    },
+    "upgrade": {
+      "from": "0.5.1",
+      "to": "0.5.2",
+      "seed_passed": true,
+      "preservation_passed": true,
+      "verified": "All pre-existing profile fields and exact zone rules preserved",
+      "logs": [
+        "verification/upgrade-052-seed.txt",
+        "verification/upgrade-052-preserved.txt"
+      ]
+    },
+    "signature_verified": true,
+    "apk_internet_permission": false,
+    "preexisting_work": "Prior calculation, configuration, onboarding and monthly plan changes retained; version labels updated",
+    "preexisting_hash_comparison": "verification/preexisting-052-preserved.json"
+  },
+  "changes": [
+    "Explicit MXN currency before or after the fare and per-km rate",
+    "Exclusiva or Exclusivo badge",
+    "Optional exact pickup suffix de distancia",
+    "Trip label Viaje de in addition to Viaje:",
+    "Ambiguous amounts, labeled bonuses and missing fields retain existing checks"
+  ],
+  "publication": "Prepared locally; no push, commit, public release or deployment in this task",
+  "pending_validation": [
+    "Install update on the driver phone and check this screenshot and a live offer"
+  ]
+}

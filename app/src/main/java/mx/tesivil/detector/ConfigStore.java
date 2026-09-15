@@ -12,6 +12,17 @@ final class ConfigStore {
     private static final String CATALOG_INSTALLED="zmg_historical_catalog_installed";
     private static final String SUPPLEMENT_INSTALLED="zmg_supplement_030_installed";
     private static android.content.SharedPreferences prefs(Context c) { return c.getSharedPreferences("driver_config_v2", Context.MODE_PRIVATE); }
+    static boolean needsOnboarding(Context c) {
+        return !prefs(c).contains("profile") && !prefs(c).getBoolean("onboarding_entry_seen",false);
+    }
+    static void markOnboardingEntry(Context c) {
+        if(!prefs(c).edit().putBoolean("onboarding_entry_seen",true).commit())throw new IllegalStateException("No se guardó el inicio del asistente");
+    }
+    static synchronized void saveOnboarding(Context c,DriverConfig config,long expectedRevision) {
+        if(load(c).revision!=expectedRevision)throw new IllegalStateException("Tu configuración cambió mientras completabas el asistente. Ciérralo y ábrelo de nuevo para conservar esos cambios.");
+        if(!config.onboardingCompleted || !config.presetAccepted)throw new IllegalArgumentException("Confirma el perfil antes de empezar");
+        save(c,config);
+    }
     static DriverConfig load(Context c) {
         DriverConfig config = new DriverConfig();
         try {

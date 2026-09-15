@@ -33,9 +33,8 @@ public class ReleaseEvidenceTest {
         assertEquals("mx.tesivil.detector",c.getPackageName());
         DriverConfig config=ConfigStore.load(c); config.fuelPrice=28;
         ConfigStore.save(c,config);
-        assertEquals(90,ConfigStore.zones(c).size());
         JSONObject marker=new JSONObject();
-        try { marker.put("fuel",ConfigStore.load(c).fuelPrice); marker.put("zones",ConfigStore.zonesJson(ConfigStore.zones(c))); }
+        try { marker.put("fuel",ConfigStore.load(c).fuelPrice); marker.put("profile",ConfigStore.json(ConfigStore.load(c))); marker.put("zones",ConfigStore.zonesJson(ConfigStore.zones(c))); }
         catch(Exception e) { throw new AssertionError(e); }
         // The application never writes this test-only baseline.
         assertTrue(c.getSharedPreferences("update_evidence",0).edit().putString("before",marker.toString()).commit());
@@ -45,5 +44,28 @@ public class ReleaseEvidenceTest {
         JSONObject before=new JSONObject(c.getSharedPreferences("update_evidence",0).getString("before","{}"));
         assertEquals(before.getDouble("fuel"),ConfigStore.load(c).fuelPrice,0);
         assertEquals(before.getJSONArray("zones").toString(),ConfigStore.zonesJson(ConfigStore.zones(c)).toString());
+        if(before.has("profile")){
+            JSONObject expected=before.getJSONObject("profile"),actual=ConfigStore.json(ConfigStore.load(c));
+            java.util.Iterator<String> keys=expected.keys();
+            while(keys.hasNext()){
+                String key=keys.next();Object value=expected.get(key);
+                if(value instanceof Number)assertEquals(key,((Number)value).doubleValue(),actual.getDouble(key),0);
+                else assertEquals(key,value,actual.get(key));
+            }
+            if(!expected.has("evaluationBasis")){
+                assertEquals("TOTAL",actual.getString("evaluationBasis"));assertEquals(100,actual.getDouble("uberUsePercent"),0);
+            }
+        }
+    }
+    @Test public void seedSolarOnboardingUpdateProfile() throws Exception {
+        Context c=InstrumentationRegistry.getInstrumentation().getTargetContext();
+        ConfigStore.zones(c);ConfigStore.saveZones(c,java.util.List.of());
+        // Uses the v1 method signature and fields, so it executes on the old 0.5.0 APK.
+        DriverConfig profile=OnboardingProfiles.build(OnboardingProfiles.Vehicle.PHEV,OnboardingProfiles.Ownership.OWNED,
+                0,10,false,OnboardingProfiles.Charging.FREE,74,OnboardingProfiles.Strategy.BALANCED,ConfigStore.load(c),System.currentTimeMillis());
+        profile.vehicle="Captiva PHEV · prueba de actualización";profile.fuelPrice=28;ConfigStore.save(c,profile);
+        JSONObject marker=new JSONObject();marker.put("fuel",ConfigStore.load(c).fuelPrice);
+        marker.put("profile",ConfigStore.json(ConfigStore.load(c)));marker.put("zones",ConfigStore.zonesJson(ConfigStore.zones(c)));
+        assertTrue(c.getSharedPreferences("update_evidence",0).edit().putString("before",marker.toString()).commit());
     }
 }

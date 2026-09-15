@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 
 public final class MainActivity extends Activity {
     private static final int CAPTURE = 10, IMAGE = 11, EXPORT = 12, NOTIFY = 13;
-    private TextView status, result, stats, permission;
+    private TextView status, result, stats, permission, monthly;
     private Button start, imageButton;
     private android.widget.Spinner captureMode;
     private final java.util.List<Button> setupButtons = new java.util.ArrayList<>();
@@ -44,6 +44,7 @@ public final class MainActivity extends Activity {
 
     @Override public void onCreate(Bundle state) {
         super.onCreate(state);
+        boolean firstSetup=state==null && ConfigStore.needsOnboarding(this);
         Diagnostics.init(this);
         recognizer = Ocr.create();
         ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.setBackgroundColor(Ui.BG);
@@ -55,9 +56,10 @@ public final class MainActivity extends Activity {
             page.setPadding(pad + bars.left, pad + bars.top, pad + bars.right, pad + bars.bottom);
             return insets;
         });
-        page.addView(Ui.text(this, "TESIVIL  /  SEMÁFORO 0.4.1", 12, true));
+        page.addView(Ui.text(this, "TESIVIL  /  SEMÁFORO 0.5.4", 12, true));
         addText(page, "Evalúa tus viajes", 29, true, 14);
-        addText(page, "Rentabilidad estimada, reglas personales y datos pendientes, separados. Ajusta vehículo, costos y metas; los valores iniciales son ejemplos. Registra resultados voluntarios para comparar la estimación con lo ocurrido.", 16, false, 8);
+        addText(page, "Elige un perfil de carro y responde unas pocas preguntas para empezar. Compara lo disponible después de costos y revisa los motivos de cada oferta.", 16, false, 8);
+        addSetup(page,"Configurar con un perfil",OnboardingActivity.class,"onboarding");
 
         LinearLayout card = new LinearLayout(this); card.setOrientation(LinearLayout.VERTICAL);
         card.setPadding(pad, pad, pad, pad); card.setBackground(Ui.shape(android.graphics.Color.WHITE, 18, this));
@@ -70,8 +72,16 @@ public final class MainActivity extends Activity {
             ScrollView detailScroll=new ScrollView(this);
             TextView text=Ui.text(this,Ui.details(Diagnostics.evaluation,Diagnostics.config),15,false);
             int detailPad=Ui.dp(this,20);text.setPadding(detailPad,detailPad,detailPad,detailPad);detailScroll.addView(text);
-            new AlertDialog.Builder(this).setTitle("Detalle de la evaluación").setView(detailScroll).setPositiveButton("Entendido",null).show();
+            new AlertDialog.Builder(this).setTitle("Detalle de la evaluación").setView(detailScroll).setPositiveButton("Entendido",null)
+                    .setNeutralButton("Datos del cálculo",(d,w)->{
+                        ScrollView technical=new ScrollView(this);
+                        TextView all=Ui.text(this,Ui.technicalDetails(Diagnostics.evaluation,Diagnostics.config),15,false);
+                        all.setPadding(detailPad,detailPad,detailPad,detailPad);technical.addView(all);
+                        new AlertDialog.Builder(this).setTitle("Datos del cálculo").setView(technical).setPositiveButton("Entendido",null).show();
+                    }).show();
         });
+        monthly=addText(page,"",14,true,16);
+        addSetup(page,"Plan del mes",MonthlyPlanActivity.class,"monthly");
         permission = addText(page, "", 13, false, 20);
 
         Button overlay = button(page, "1. Permitir ventana flotante", false);
@@ -89,7 +99,7 @@ public final class MainActivity extends Activity {
             Intent pick = new Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/*").addCategory(Intent.CATEGORY_OPENABLE);
             startActivityForResult(pick, IMAGE);
         });
-        addText(page,"Configuración y revisión",18,true,18);
+        addText(page,"Ajustes avanzados",18,true,18);
         addSetup(page,"Vehículo y costos",SettingsActivity.class,"vehicle");
         addSetup(page,"Objetivos y score",SettingsActivity.class,"goals");
         addSetup(page,"Pasajero y filtros",SettingsActivity.class,"rider");
@@ -106,10 +116,11 @@ public final class MainActivity extends Activity {
             } catch (Exception e) { alert("No se pudo guardar", "Inténtalo de nuevo."); }
         });
         addText(page, "Cómo probar", 18, true, 22);
-        addText(page, "Estando estacionado, permite la ventana flotante e inicia la prueba. Pantalla completa lee también la oferta flotante de Uber sobre el inicio u otra app. Solo Uber requiere que Uber esté visible. Android pedirá tu autorización.\n\nPuedes minimizar este lector durante la sesión. Arrastra el título lejos de la tarjeta y usa Detener al terminar. Al bloquear el teléfono tendrás que iniciar otra sesión.", 15, false, 8);
+        addText(page, "Estando estacionado, permite la ventana flotante e inicia la prueba. Pantalla completa lee también la oferta flotante de Uber sobre el inicio u otra app. Solo Uber requiere que Uber esté visible. Android pedirá tu autorización.\n\nPuedes minimizar este lector durante la sesión. Arrastra la franja lejos de la tarjeta y usa × para detener al terminar. Al bloquear el teléfono tendrás que iniciar otra sesión.", 15, false, 8);
         addText(page, "Solo lectura local", 18, true, 18);
         addText(page, "Sin Internet ni pulsaciones en Uber. En pantalla completa se procesan también las otras apps visibles mientras la lectura esté activa. Imágenes y direcciones se procesan en memoria. Se guardan hasta 200 versiones numéricas de ofertas, calificación y contador anónimos, perfil, reglas y resultados que tú registres. Puedes exportar y borrar el historial. Los costos reales vacíos permanecen desconocidos; una oferta observada nunca acredita un viaje completado.\n\nLista editable de colonias ZMG con antecedentes de Fiscalía / IIEG y fuentes municipales. Conserva periodos de referencia y separa tu fecha de revisión. Los niveles iniciales son de la app. Verde cumple tus parámetros sin garantizar ingresos o seguridad. Lee tarjetas compatibles en español de UberX, UberXL, Priority y Comfort, Exclusivo, Reservar UberX, fondos claros u oscuros e importes $ o MXN. Convierte horas a minutos. Las paradas adicionales, el horario de reserva y la ruta intermedia requieren revisión. El regreso configurado es un escenario, no una predicción de demanda.", 14, false, 8);
         setContentView(scroll); refresh();
+        if(firstSetup){ConfigStore.markOnboardingEntry(this);startActivity(new Intent(this,OnboardingActivity.class));}
     }
 
     private void begin() {
@@ -192,8 +203,10 @@ public final class MainActivity extends Activity {
         result.setText(Diagnostics.offer == null ? "Espera una oferta, abre una captura o usa el simulador." :
                 (Diagnostics.evaluation == null ? Ui.summary(Diagnostics.offer) : Ui.evaluationSummary(Diagnostics.evaluation)+(Diagnostics.offerChange.isEmpty()?"":"\n"+Diagnostics.offerChange)+"\n\n"+Ui.summary(Diagnostics.offer)));
         stats.setText(Diagnostics.source + "\nImágenes leídas: " + Diagnostics.frames + " · completas: " + Diagnostics.validFrames
-                + "\nOCR: " + Diagnostics.lastOcrMs + " ms · cálculo: "+Diagnostics.lastDecisionMs+" ms\nNo es latencia completa · "+(Diagnostics.config.pendingProfile().isEmpty()?"Costos revisados por ti":"Perfil pendiente: "+String.join(", ",Diagnostics.config.pendingProfile()))
+                + "\nOCR: " + Diagnostics.lastOcrMs + " ms · cálculo: "+Diagnostics.lastDecisionMs+" ms\nNo es latencia completa · "+Diagnostics.config.profileStatus()
                 + (HistoryStore.storageError.isEmpty()?"":"\n"+HistoryStore.storageError));
+        monthly.setText(Ui.monthlySummary(Diagnostics.config));
+        monthly.setTextColor(Ui.color(MonthlyPlan.evaluate(Diagnostics.config).color));
         permission.setText("Ventana flotante: " + (Settings.canDrawOverlays(this) ? "permitida" : "pendiente")
                 + "  ·  " + Build.MANUFACTURER + " " + Build.MODEL + " / Android " + Build.VERSION.RELEASE);
         start.setEnabled(!Diagnostics.running && !importing); imageButton.setEnabled(!Diagnostics.running && !importing);
