@@ -72,9 +72,9 @@ public class AppFlowTest {
     @Test public void riderChangesCreateTheirOwnHistoryAndUnknownRemainsNull()throws Exception{
         main(()->{Diagnostics.reading(OfferParser.parse(SAMPLE),140,"Captura seleccionada");Diagnostics.reading(OfferParser.parse(SAMPLE.replace("4.92 (149)","Nuevo")),140,"Captura seleccionada");});
         JSONArray rows=HistoryStore.snapshot();assertEquals(2,rows.length());assertEquals(149,rows.getJSONObject(0).getJSONObject("rider").getInt("visible_count"));assertTrue(rows.getJSONObject(1).getJSONObject("rider").isNull("visible_count"));assertEquals("ROJO",rows.getJSONObject(1).getJSONObject("evaluation").getString("color"));
-        assertEquals("0.5.4",new org.json.JSONObject(Diagnostics.export(context)).getString("app_version"));
+        assertEquals("0.5.5",new org.json.JSONObject(Diagnostics.export(context)).getString("app_version"));
         assertEquals("UBER_X",rows.getJSONObject(0).getString("service_type"));assertFalse(rows.getJSONObject(0).getBoolean("exclusive"));
-        assertEquals("0.5.4",rows.getJSONObject(0).getString("reader_version"));
+        assertEquals("0.5.5",rows.getJSONObject(0).getString("reader_version"));
     }
     @Test public void changedXlFareIsConfirmedAndJournaledSeparately()throws Exception{
         String original=SAMPLE.replace("UberX","UberXL Exclusivo").replace("98.31","284.93");

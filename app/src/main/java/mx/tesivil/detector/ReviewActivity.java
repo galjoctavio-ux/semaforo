@@ -20,7 +20,7 @@ public final class ReviewActivity extends Activity {
     private void simulator(){
         LinearLayout p=FormUi.page(this,"Simulador de viajes","Datos de ejemplo editables. Usa tu perfil actual; no es una solicitud real ni se guarda como un viaje realizado.");
         EditText fare=FormUi.input(p,"Importe de la oferta, MXN","98.31",true);
-        Spinner service=FormUi.spinner(p,"Tipo de oferta (sin puntos adicionales)",new String[]{"UberX","UberXL","Priority","Comfort"},0);
+        Spinner service=FormUi.spinner(p,"Tipo de oferta (sin puntos adicionales)",new String[]{"UberX","UberXL","Priority","Comfort","Black"},0);
         CheckBox reserve=FormUi.check(p,"Oferta reservada (horario y espera pendientes)",false);
         EditText pm=FormUi.input(p,"Recogida, minutos enteros","14",true),pk=FormUi.input(p,"Recogida, km","6.3",true);
         EditText tm=FormUi.input(p,"Trayecto, minutos enteros","18",true),tk=FormUi.input(p,"Trayecto, km","4",true);
@@ -38,7 +38,7 @@ public final class ReviewActivity extends Activity {
                 Integer n=count.getText().toString().isBlank()?null:Integer.valueOf(count.getText().toString().trim());
                 RiderProfile rider=new RiderProfile(r,n,newRider.isChecked(),newRider.isChecked() && n!=null && n>0,"SIMULATION");
                 if(rider.ambiguous)throw new IllegalArgumentException("Datos de pasajero inválidos");
-                OfferParser.ServiceType type=new OfferParser.ServiceType[]{OfferParser.ServiceType.UBER_X,OfferParser.ServiceType.UBER_XL,OfferParser.ServiceType.PRIORITY,OfferParser.ServiceType.COMFORT}[service.getSelectedItemPosition()];
+                OfferParser.ServiceType type=new OfferParser.ServiceType[]{OfferParser.ServiceType.UBER_X,OfferParser.ServiceType.UBER_XL,OfferParser.ServiceType.PRIORITY,OfferParser.ServiceType.COMFORT,OfferParser.ServiceType.BLACK}[service.getSelectedItemPosition()];
                 OfferParser.Offer o=new OfferParser.Offer(cents(fare),pMin,pKm,tMin,tKm,null,pa.getText().toString(),da.getText().toString(),rider,type,false,0,reserve.isChecked());
                 java.util.List<ZoneRule> rules=ConfigStore.zones(this);DriverConfig c=ConfigStore.load(this);ScoreEngine.Evaluation e=ScoreEngine.evaluate(o,c,rules,LocalDate.now(),LocalTime.now().getHour());
                 output.setText("Tipo: "+o.typeLabel()+"\n\n"+Ui.details(e,c));output.setTextColor(Ui.signalColor(e));

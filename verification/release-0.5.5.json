@@ -1,0 +1,51 @@
+{
+  "status": "prepared_locally",
+  "created_utc": "2026-09-16T00:48:20.2202082Z",
+  "version": "0.5.5",
+  "version_code": 17,
+  "diagnostic_schema": 8,
+  "branch": "codex/onboarding-perfiles",
+  "artifact": {
+    "path": "entrega/Detector-ofertas-0.5.5.apk",
+    "bytes": 50503556,
+    "sha256": "e97db05f2dd0b93450d18c212cbc301441ac907deff3cb07d0ea6f9204cb6543",
+    "signer_certificate_sha256": "0876d6d2d8230ab279806e24c3072fae05740e7a3e7bc6c922efa7b90c798986"
+  },
+  "change": {
+    "trigger": "A complete Black Exclusivo card stayed in Esperando because Black was unsupported",
+    "behavior": "Black, Black Exclusivo and Uber Black are parsed as a distinct service type without category bonuses",
+    "unsupported_similar_labels": ["Black SUV", "Comfort Black", "Black VIP"]
+  },
+  "screenshot_regression": {
+    "private_images": 1,
+    "forms": ["full screenshot", "live capture region"],
+    "baseline": {
+      "passed": 0,
+      "failed": 2,
+      "reason": "Esperando oferta UberX, UberXL, Priority o Comfort"
+    },
+    "final": {
+      "passed": 2,
+      "failed": 0,
+      "fare_cents": 14813,
+      "displayed_rate_per_km": 13.59,
+      "pickup": {"minutes": 11, "km": 3.3},
+      "trip": {"minutes": 20, "km": 7.6},
+      "rider": {"rating": 4.71, "visible_count": 191},
+      "service_type": "BLACK",
+      "exclusive": true
+    }
+  },
+  "checks": {
+    "unit_tests": {"passed": 172, "failed": 0, "errors": 0, "skipped": 0},
+    "android_tests": {"passed": 99, "failed": 0, "single_clean_full_run": true, "device": "Owned Android 16 AVD Detector16"},
+    "upgrade": {"from": "0.5.4", "to": "0.5.5", "profile_and_zone_rules_preserved": true},
+    "lint_debug": {"errors": 0, "warnings": 21},
+    "lint_release": {"errors": 0, "warnings": 21},
+    "signature_verified": true,
+    "apk_internet_permission": false
+  },
+  "privacy": "The supplied screenshot and raw OCR output remain ignored and outside Git; committed tests contain numeric expectations only",
+  "publication": "Prepared locally; no public release or landing update is asserted by this receipt",
+  "pending_validation": ["Install 0.5.5 on the driver phone and observe a live Black offer"]
+}

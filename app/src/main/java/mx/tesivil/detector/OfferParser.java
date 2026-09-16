@@ -7,8 +7,8 @@ import java.util.regex.Pattern;
 
 /** Explicit Spanish offer formats. Category labels do not imply extra earnings or safety. */
 public final class OfferParser {
-    private static final Pattern CATEGORY = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(reservar\\s+uber\\s*x|uber\\s*x\\s*l|uber\\s*x(?:\\s+priority)?|uber\\s+priority|priority|comfort)\\s*(?:exclusiv[oa])?\\s*$");
-    private static final Pattern CATEGORY_PREFIX = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(?:reservar\\s+uber\\s*x|uber\\s*x\\s*l|uber\\s*x|uber\\s+priority|priority|comfort)(?=\\s|$)");
+    private static final Pattern CATEGORY = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(reservar\\s+uber\\s*x|uber\\s*x\\s*l|uber\\s*x(?:\\s+priority)?|uber\\s+priority|priority|comfort|uber\\s+black|black)\\s*(?:exclusiv[oa])?\\s*$");
+    private static final Pattern CATEGORY_PREFIX = Pattern.compile("(?m)^\\s*[^a-z\\n]{0,4}(?:reservar\\s+uber\\s*x|uber\\s*x\\s*l|uber\\s*x|uber\\s+priority|priority|comfort|uber\\s+black|black)(?=\\s|$)");
     private static final Pattern CTA = Pattern.compile("(?m)^\\s*(viaje\\s+disponible|aceptar(?:\\s+viaje)?|me\\s+interesa)\\s*$");
     private static final String MONEY_PREFIX="(?:mx\\s*\\$|\\$|mxn)";
     private static final String MONEY_DIGITS="[0-9][0-9., ]{0,12}";
@@ -34,7 +34,7 @@ public final class OfferParser {
     private static final Pattern RIDER_COUNT = Pattern.compile("(?m)^\\s*([0-9]{1,7})\\s+viajes\\s*$");
     private static final Pattern RIDER_PAIR = Pattern.compile("(?<![0-9$])([0-9][.,][0-9]{1,2})\\s*\\(\\s*([0-9]{1,7})\\s*\\)");
     private static final Pattern EXCLUSIVE = Pattern.compile("\\bexclusiv[oa]\\b");
-    public enum ServiceType { UBER_X, UBER_XL, PRIORITY, COMFORT }
+    public enum ServiceType { UBER_X, UBER_XL, PRIORITY, COMFORT, BLACK }
 
     public static final class Offer {
         public final long cents;
@@ -84,7 +84,7 @@ public final class OfferParser {
         }
         public double totalKm() { return pickupKm + tripKm; }
         public int totalMinutes() { return pickupMinutes + tripMinutes; }
-        public String typeLabel(){return (serviceType==ServiceType.PRIORITY?"Priority":serviceType==ServiceType.UBER_XL?"UberXL":serviceType==ServiceType.COMFORT?"Comfort":"UberX")+(reserved?" · Reserva":"")+(exclusive?" · Exclusivo":"");}
+        public String typeLabel(){return (serviceType==ServiceType.PRIORITY?"Priority":serviceType==ServiceType.UBER_XL?"UberXL":serviceType==ServiceType.COMFORT?"Comfort":serviceType==ServiceType.BLACK?"Black":"UberX")+(reserved?" · Reserva":"")+(exclusive?" · Exclusivo":"");}
         // Exclusive can change when the same offer moves from radar to a direct card.
         public String key() { return cents + ":" + pickupMinutes + ":" + pickupKm + ":" + tripMinutes + ":" + tripKm + ":" + rider.key()+":"+serviceType.name()+":"+destinationNoticeCount+":"+reserved; }
     }
@@ -117,11 +117,11 @@ public final class OfferParser {
         if (original == null || original.isBlank()) return missing(false, "Sin texto legible");
         String text = normalized(original);
         Matcher category=CATEGORY.matcher(text);
-        if (!category.find()) return new Result(null,false,"Esperando oferta UberX, UberXL, Priority o Comfort",false,false,
+        if (!category.find()) return new Result(null,false,"Esperando oferta UberX, UberXL, Priority, Comfort o Black",false,false,
                 CATEGORY_PREFIX.matcher(text).find() && FARE.matcher(text).find() && PICKUP.matcher(text).find() && TRIP.matcher(text).find());
         int categoryStart=category.start();String label=category.group(1).replaceAll("\\s+","");
         boolean reserved=label.startsWith("reservar");
-        ServiceType type=label.contains("priority")?ServiceType.PRIORITY:label.equals("uberxl")?ServiceType.UBER_XL:label.equals("comfort")?ServiceType.COMFORT:ServiceType.UBER_X;
+        ServiceType type=label.contains("priority")?ServiceType.PRIORITY:label.equals("uberxl")?ServiceType.UBER_XL:label.equals("comfort")?ServiceType.COMFORT:label.endsWith("black")?ServiceType.BLACK:ServiceType.UBER_X;
         // Horizontally adjacent badges can be sorted with Exclusive just before UberX.
         boolean precedingExclusive=Pattern.compile("(?:^|\\n)\\s*exclusiv[oa]\\s*$").matcher(text.substring(0,categoryStart)).find();
         if(category.find())return missing(true,"Hay varias tarjetas: lectura ambigua");
