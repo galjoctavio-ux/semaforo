@@ -6,9 +6,9 @@ Dominio solicitado: https://semaforo.uber.tesivil.com/
 
 Repositorio: https://github.com/galjoctavio-ux/semaforo
 
-APK publicada: `Detector-ofertas-0.5.4.apk` en GitHub Releases, exactamente la APK firmada y verificada de `entrega/`, SHA-256 `cf5012511874cdb792b7e3624bdf4be0273cc48f3c281b76f012fa6a3420cc00`. Los botones apuntan directamente al artefacto de la versión para impedir que la landing quede ofreciendo una APK anterior. La landing no recompila Android. En cada actualización, publica el archivo final y su huella, y actualiza versión, enlaces y texto de descarga juntos.
+APK publicada: `Detector-ofertas-0.5.5.apk` en GitHub Releases, exactamente la APK firmada y verificada de `entrega/`, SHA-256 `e97db05f2dd0b93450d18c212cbc301441ac907deff3cb07d0ea6f9204cb6543`. Los botones usan `/descargas/Detector-ofertas-latest.apk`, que Vercel redirige al artefacto vigente. La landing no recompila Android. En cada actualización, publica el archivo final y su huella, y actualiza la redirección, versión y texto de descarga juntos.
 
-La ruta que utilizaba la página anterior, `/descargas/Detector-ofertas-0.4.1.apk`, redirige temporalmente al APK 0.5.4. Esto cubre pestañas o HTML guardados en caché sin sustituir silenciosamente el contenido del archivo histórico en GitHub Releases.
+La ruta que utilizaba la página 0.4.1 también redirige temporalmente al APK actual. Esto cubre pestañas antiguas sin sustituir silenciosamente el contenido del archivo histórico en GitHub Releases.
 
 ## Vista local
 
